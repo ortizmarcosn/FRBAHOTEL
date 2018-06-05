@@ -15,3 +15,4 @@ C:\Users\Marcos\Documents\Visual Studio 2012\Projects\WindowsFormsApplication2\W
 C:\Users\Marcos\Documents\Visual Studio 2012\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.CrearEstadia.resources
 C:\Users\Marcos\Documents\Visual Studio 2012\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.GenerarReserva.resources
 C:\Users\Marcos\Documents\Visual Studio 2012\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.CancelarReserva.resources
+C:\Users\Marcos\Documents\Visual Studio 2012\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.EditarCliente.resources

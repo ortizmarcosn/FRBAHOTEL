@@ -82,5 +82,30 @@ namespace WindowsFormsApplication2
         }
 
 
+
+     /*   private Boolean ValidarMail(String Mail)
+        {
+            SqlServer sql = new SqlServer();
+            var listaParametros = new Dictionary<string, string>();
+            listaParametros.Add("mail", Mail);
+            listaParametros.Add("id_cliente", "1");
+            DataTable tabla = sql.EjecutarSp("SP_Validar_Mail_Cliente", listaParametros);
+
+            if (tabla.Rows.Count > 0 && tabla.Rows[0].ItemArray[0].ToString() == "ERROR")
+            {
+                MessageBox.Show(tabla.Rows[0].ItemArray[1].ToString());
+                return false;
+            }
+            else if (tabla.Rows.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }*/
+
+
     }
 }
