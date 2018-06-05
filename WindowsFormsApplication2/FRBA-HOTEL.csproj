@@ -110,10 +110,10 @@
     <Compile Include="AbmCliente\EditarCliente.Designer.cs">
       <DependentUpon>EditarCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditarHotel.cs">
+    <Compile Include="AbmHotel\EditarHotel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditarHotel.Designer.cs">
+    <Compile Include="AbmHotel\EditarHotel.Designer.cs">
       <DependentUpon>EditarHotel.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginySeguridad\Login.cs">
@@ -157,7 +157,7 @@
     <EmbeddedResource Include="AbmCliente\EditarCliente.resx">
       <DependentUpon>EditarCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditarHotel.resx">
+    <EmbeddedResource Include="AbmHotel\EditarHotel.resx">
       <DependentUpon>EditarHotel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginySeguridad\Login.resx">

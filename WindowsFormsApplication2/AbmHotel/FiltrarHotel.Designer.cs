@@ -66,7 +66,7 @@
             this.panel1.Controls.Add(this.txtNombre);
             this.panel1.Location = new System.Drawing.Point(27, 22);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(826, 268);
+            this.panel1.Size = new System.Drawing.Size(884, 268);
             this.panel1.TabIndex = 27;
             // 
             // label3
@@ -84,7 +84,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(537, 24);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(255, 184);
+            this.dataGridView1.Size = new System.Drawing.Size(334, 184);
             this.dataGridView1.TabIndex = 30;
             // 
             // btnSalir
@@ -107,7 +107,7 @@
             this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEliminar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminar.Location = new System.Drawing.Point(664, 223);
+            this.btnEliminar.Location = new System.Drawing.Point(738, 223);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(108, 32);
             this.btnEliminar.TabIndex = 28;
@@ -120,7 +120,7 @@
             this.btnModificar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnModificar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificar.Location = new System.Drawing.Point(558, 223);
+            this.btnModificar.Location = new System.Drawing.Point(599, 223);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(100, 32);
             this.btnModificar.TabIndex = 27;
@@ -221,7 +221,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.ClientSize = new System.Drawing.Size(875, 301);
+            this.ClientSize = new System.Drawing.Size(923, 351);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
