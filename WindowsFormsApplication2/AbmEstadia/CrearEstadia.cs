@@ -10,27 +10,11 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
 {
-    public partial class AltaHotel : Form
+    public partial class CrearEstadia : Form
     {
-        public AltaHotel()
+        public CrearEstadia()
         {
             InitializeComponent();
-        }
-
-        private void AltaHotel_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            txtNombre.Text = "";
-            txtMail.Text = "";
-            txtTelefono.Text = "";
-            txtDireccion.Text = "";
-            txtCiudad.Text = "";
-            txtPais.Text = "";
-            comboBox1.Refresh();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -43,6 +27,13 @@ namespace WindowsFormsApplication2
             {
                 Close();
             }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtCodigo.Text = "";
+            txtDescripcion.Text = "";
+            txtPrecio.Text = "";
         }
     }
 }

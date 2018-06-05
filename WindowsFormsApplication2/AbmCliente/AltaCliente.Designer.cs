@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbTipoDocumento = new System.Windows.Forms.ComboBox();
             this.txtDocumento = new System.Windows.Forms.TextBox();
             this.txtLocalidad = new System.Windows.Forms.TextBox();
             this.txtPais = new System.Windows.Forms.TextBox();
@@ -50,28 +50,28 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label12 = new System.Windows.Forms.Label();
-            this.btnAlta = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnAlta = new System.Windows.Forms.Button();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // cbTipoDocumento
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cbTipoDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoDocumento.FormattingEnabled = true;
+            this.cbTipoDocumento.Items.AddRange(new object[] {
             "DNI",
             "RUC",
             "PASAPORTE",
             "P. NAC.",
             "CARNET EXTRANJERO"});
-            this.comboBox1.Location = new System.Drawing.Point(202, 132);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(156, 21);
-            this.comboBox1.TabIndex = 49;
+            this.cbTipoDocumento.Location = new System.Drawing.Point(202, 132);
+            this.cbTipoDocumento.Name = "cbTipoDocumento";
+            this.cbTipoDocumento.Size = new System.Drawing.Size(156, 21);
+            this.cbTipoDocumento.TabIndex = 49;
             // 
             // txtDocumento
             // 
@@ -252,9 +252,9 @@
             this.panel1.Controls.Add(this.btnSalir);
             this.panel1.Controls.Add(this.btnClear);
             this.panel1.Controls.Add(this.btnAlta);
-            this.panel1.Controls.Add(this.dateTimePicker1);
+            this.panel1.Controls.Add(this.dtpFechaNacimiento);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.cbTipoDocumento);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txtDocumento);
             this.panel1.Controls.Add(this.label3);
@@ -279,39 +279,19 @@
             this.panel1.Size = new System.Drawing.Size(693, 392);
             this.panel1.TabIndex = 51;
             // 
-            // dateTimePicker1
+            // btnSalir
             // 
-            this.dateTimePicker1.CustomFormat = "dd / MM / yyyy";
-            this.dateTimePicker1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(202, 74);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(137, 26);
-            this.dateTimePicker1.TabIndex = 50;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label12.Location = new System.Drawing.Point(293, 12);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(235, 46);
-            this.label12.TabIndex = 52;
-            this.label12.Text = "Alta Cliente";
-            // 
-            // btnAlta
-            // 
-            this.btnAlta.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnAlta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAlta.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAlta.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAlta.Location = new System.Drawing.Point(198, 294);
-            this.btnAlta.Name = "btnAlta";
-            this.btnAlta.Size = new System.Drawing.Size(160, 32);
-            this.btnAlta.TabIndex = 51;
-            this.btnAlta.Text = "Alta";
-            this.btnAlta.UseVisualStyleBackColor = false;
+            this.btnSalir.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSalir.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.Location = new System.Drawing.Point(329, 344);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(160, 32);
+            this.btnSalir.TabIndex = 53;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnClear
             // 
@@ -327,19 +307,40 @@
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // btnSalir
+            // btnAlta
             // 
-            this.btnSalir.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSalir.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.Location = new System.Drawing.Point(329, 344);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(160, 32);
-            this.btnSalir.TabIndex = 53;
-            this.btnSalir.Text = "Salir";
-            this.btnSalir.UseVisualStyleBackColor = false;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.btnAlta.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.btnAlta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAlta.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAlta.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAlta.Location = new System.Drawing.Point(198, 294);
+            this.btnAlta.Name = "btnAlta";
+            this.btnAlta.Size = new System.Drawing.Size(160, 32);
+            this.btnAlta.TabIndex = 51;
+            this.btnAlta.Text = "Alta";
+            this.btnAlta.UseVisualStyleBackColor = false;
+            this.btnAlta.Click += new System.EventHandler(this.btnAlta_Click);
+            // 
+            // dtpFechaNacimiento
+            // 
+            this.dtpFechaNacimiento.CustomFormat = "dd / MM / yyyy";
+            this.dtpFechaNacimiento.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(202, 74);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(137, 26);
+            this.dtpFechaNacimiento.TabIndex = 50;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label12.Location = new System.Drawing.Point(293, 12);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(235, 46);
+            this.label12.TabIndex = 52;
+            this.label12.Text = "Alta Cliente";
             // 
             // AltaCliente
             // 
@@ -350,6 +351,7 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "AltaCliente";
             this.Text = "AltaCliente";
             this.panel1.ResumeLayout(false);
@@ -361,7 +363,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbTipoDocumento;
         private System.Windows.Forms.TextBox txtDocumento;
         private System.Windows.Forms.TextBox txtLocalidad;
         private System.Windows.Forms.TextBox txtPais;
@@ -383,7 +385,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnClear;

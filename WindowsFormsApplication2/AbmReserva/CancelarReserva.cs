@@ -10,37 +10,20 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication2
 {
-    public partial class AltaHotel : Form
+    public partial class CancelarReserva : Form
     {
-        public AltaHotel()
+        public CancelarReserva()
         {
             InitializeComponent();
-        }
-
-        private void AltaHotel_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            txtNombre.Text = "";
-            txtMail.Text = "";
-            txtTelefono.Text = "";
-            txtDireccion.Text = "";
-            txtCiudad.Text = "";
-            txtPais.Text = "";
-            comboBox1.Refresh();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
             DialogResult respuesta;
-
+            
             respuesta = MessageBox.Show("¿Desea usted salir?", "Salir del programa", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
-
-            if (respuesta == DialogResult.Yes)
-            {
+                
+            if(respuesta == DialogResult.Yes){
                 Close();
             }
         }

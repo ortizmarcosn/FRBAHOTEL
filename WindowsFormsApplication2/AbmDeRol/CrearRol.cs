@@ -19,7 +19,14 @@ namespace WindowsFormsApplication2
 
         private void salir_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult respuesta;
+
+            respuesta = MessageBox.Show("¿Desea usted salir?", "Salir del programa", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                Close();
+            }
         }
     }
 }

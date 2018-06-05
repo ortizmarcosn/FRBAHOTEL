@@ -12,15 +12,36 @@ namespace WindowsFormsApplication2
 {
     public partial class Login : Form
     {
+        
         public Login()
         {
+          
             InitializeComponent();
         }
 
+
+        /* Botón Salir */
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult respuesta;
+
+            respuesta = MessageBox.Show("¿Desea usted salir?", "Salir del programa", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                Close();
+            }
         }
+
+
+        /* Botón LOGIN */
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+
+
 
   
     }

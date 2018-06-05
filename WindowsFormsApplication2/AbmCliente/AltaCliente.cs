@@ -19,20 +19,68 @@ namespace WindowsFormsApplication2
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult respuesta;
+
+            respuesta = MessageBox.Show("¿Desea usted salir?", "Salir del programa", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                Close();
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtNombre.Text = "";
             txtApellido.Text = "";
+            dtpFechaNacimiento.Text = ""; 
             txtNacionalidad.Text = "";
             txtDocumento.Text = "";
+            cbTipoDocumento.Text = "";
             txtMail.Text = "";
             txtTelefono.Text = "";
             txtDireccion.Text = "";
             txtLocalidad.Text = "";
             txtPais.Text = "";
         }
+
+        private void btnAlta_Click(object sender, EventArgs e)
+        {
+            if (ValidarClienteForm())
+            {
+               // CrearNuevoCliente();
+            }
+        }
+
+        private Boolean ValidarClienteForm()
+        {
+            String Nombre = this.txtNombre.Text;
+            String Apellido = this.txtApellido.Text;
+            String FechaNacimiento = this.dtpFechaNacimiento.Text;
+            String Nacionalidad = this.txtNacionalidad.Text;
+            String TipoDocumento = this.cbTipoDocumento.Text;
+            String Documento = this.txtDocumento.Text;
+            String Mail = this.txtMail.Text;
+            String Telefono = this.txtTelefono.Text;
+            String Direccion = this.txtDireccion.Text;
+
+
+            if (Nombre == "" || Apellido == "" || FechaNacimiento == "" || Nacionalidad == "" || TipoDocumento == "" || Documento == "" || Mail == "" || Telefono == "" || Direccion == "")
+            {
+                MessageBox.Show("Complete todos los campos", "Campos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            /*else if (!ValidarMail(Mail))
+           {
+               MessageBox.Show("El mail ingresado ya esta en uso por otro cliente.");
+               return false;
+           }*/
+            else
+            {
+                return true;
+            }
+        }
+
+
     }
 }
