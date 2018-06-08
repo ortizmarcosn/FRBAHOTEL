@@ -16,3 +16,6 @@ C:\Users\Marcos\Documents\Visual Studio 2012\Projects\WindowsFormsApplication2\W
 C:\Users\Marcos\Documents\Visual Studio 2012\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.GenerarReserva.resources
 C:\Users\Marcos\Documents\Visual Studio 2012\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.CancelarReserva.resources
 C:\Users\Marcos\Documents\Visual Studio 2012\Projects\WindowsFormsApplication2\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.EditarCliente.resources
+C:\Users\Nicolás\Documents\UTN\Gestión de datos\Repo TP 2018\FRBAHOTEL\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
+C:\Users\Nicolás\Documents\UTN\Gestión de datos\Repo TP 2018\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.exe
+C:\Users\Nicolás\Documents\UTN\Gestión de datos\Repo TP 2018\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.pdb
