@@ -33,5 +33,17 @@ namespace WindowsFormsApplication2.Properties {
                 return ((string)(this["Conexion"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("PUNTO_ZIP")]
+        public string SQL_Schema {
+            get {
+                return ((string)(this["SQL_Schema"]));
+            }
+            set {
+                this["SQL_Schema"] = value;
+            }
+        }
     }
 }

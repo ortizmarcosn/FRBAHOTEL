@@ -10,5 +10,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=NICO\SQLSERVER2012;Initial Catalog=GD1C2018;Persist Security Info=True;User ID=gdHotel2018;Password=gd2018</Value>
     </Setting>
+    <Setting Name="SQL_Schema" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PUNTO_ZIP</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

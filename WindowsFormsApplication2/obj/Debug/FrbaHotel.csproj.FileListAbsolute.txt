@@ -1,0 +1,3 @@
+C:\Users\Nicolás\Documents\UTN\Gestión de datos\Repo TP 2018\FRBAHOTEL\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
+C:\Users\Nicolás\Documents\UTN\Gestión de datos\Repo TP 2018\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.exe
+C:\Users\Nicolás\Documents\UTN\Gestión de datos\Repo TP 2018\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.pdb

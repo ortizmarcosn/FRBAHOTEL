@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using WindowsFormsApplication2.Properties;
 
 namespace WindowsFormsApplication2.Conexion
 {
