@@ -17,6 +17,11 @@ namespace WindowsFormsApplication2
             InitializeComponent();
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
             DialogResult respuesta;
@@ -31,30 +36,7 @@ namespace WindowsFormsApplication2
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (ValidarDatosCompletos())
-            {
-                //Que haga la búsqueda
-            }
-            
+
         }
-
-        private Boolean ValidarDatosCompletos()
-        {
-            String TipoEstadistica = this.cbTipoEstadistica.Text;
-            String Anio = this.dtpAnio.Text;
-            String Trimestre = this.cbTrimestre.Text;
-            String TipoListado = this.cbTipoListado.Text;
-
-            if (TipoEstadistica == "" || Anio == "" || Trimestre == "" || TipoListado == "")
-            {
-                MessageBox.Show("Complete todos los campos", "Campos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
     }
 }
