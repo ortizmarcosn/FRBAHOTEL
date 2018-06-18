@@ -227,7 +227,7 @@ CREATE TABLE [PUNTOZIP].[REGIMENES](
 	[regi_precio] [numeric](18,2) NOT NULL,
 	[regi_estado] [tinyint] NOT NULL
 	CONSTRAINT [PK_REGIMENES] PRIMARY KEY CLUSTERED 
-	( [regh_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	( [regi_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 -------------------------------- REGIMENES_HOTELES ---------------------------------------
@@ -353,5 +353,45 @@ CREATE TABLE [PUNTOZIP].[RESERVAS_CLIENTES](
 	[rc_cliente_id] [int] NOT NULL,
 	[rc_cantidad_noches] [numeric](18,0) NOT NULL
 	CONSTRAINT [PK_RESERVAS_CLIENTES] PRIMARY KEY CLUSTERED 
-	( [rh_reserva_id] ASC, [rc_cliente_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+	( [rc_reserva_id] ASC, [rc_cliente_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+
+-------------------------------- ESTADO_RESERVA -------------------------------------------
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [PUNTOZIP].[ESTADO_RESERVA](
+	[er_id] [int] NOT NULL,
+	[er_descripcion] [nvarchar](255) NOT NULL,
+	CONSTRAINT [PK_ESTADO_RESERVA] PRIMARY KEY CLUSTERED 
+	( [er_id] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+-------------------------------- ESTADIA -------------------------------------------
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [PUNTOZIP].[ESTADIA](
+	[esta_id] [int] NOT NULL,
+	[esta_checkIn] [nvarchar](255) NOT NULL,
+	[esta_checkOut] [nvarchar](255) NOT NULL
+	CONSTRAINT [PK_ESTADIA] PRIMARY KEY CLUSTERED 
+	( [esta_id] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+-------------------------------- CONSUMIBLES -------------------------------------------
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [PUNTOZIP].[CONSUMIBLES](
+	[cons_id] [int] NOT NULL,
+	[cons_descripcion] [nvarchar](255) NOT NULL,
+	[cons_precio] [numeric](18,0) NOT NULL,
+	CONSTRAINT [PK_CONSUMIBLES] PRIMARY KEY CLUSTERED 
+	( [cons_id] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+-------------------------------- FACTURA -------------------------------------------
