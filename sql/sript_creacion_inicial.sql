@@ -1,4 +1,7 @@
--------------------------------DROP TABLAS ----------------------------
+------------------------------- DROP CONSTRAINTS -----------------------
+
+
+------------------------------- DROP TABLAS ----------------------------
 IF OBJECT_ID('PUNTOZIP.USUARIOS') IS NOT NULL
 DROP TABLE [PUNTOZIP].USUARIOS
 GO
@@ -181,21 +184,22 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[HOTELES](
 	[hote_id] [int] IDENTITY(1,1) NOT NULL,
-	[hote_nombre] [nvarchar](255) NOT NULL,
-	[hote_mail] [nvarchar](255) NOT NULL,
-	[hote_telefono] [nvarchar](255) NOT NULL,
-	[hote_pais] [nvarchar](255) NOT NULL,
+	[hote_nombre] [nvarchar](255),
+	[hote_mail] [nvarchar](255),
+	[hote_telefono] [nvarchar](255),
+	[hote_pais] [nvarchar](255),
 	[hote_ciudad] [nvarchar](255) NOT NULL,
 	[hote_calle] [nvarchar](255) NOT NULL,
 	[hote_numero_calle] [numeric](18,0) NOT NULL,
 	[hote_cantidad_estrellas] [numeric](18,0) NOT NULL,
 	[hote_recarga_estrellas] [numeric](18,0) NOT NULL,
 	--[hote_regimen_tipo] [nvarchar](255) NOT NULL,
-	[hote_fecha_creacion] [datetime] NOT NULL,
+	[hote_fecha_creacion] [datetime],
 	--[hote_ubicacion_id] [int] NOT NULL
 	CONSTRAINT [PK_HOTELES] PRIMARY KEY CLUSTERED 
 	( [hote_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+
 
 -------------------------------- PERIODO_HOTELES ---------------------------------------
 GO
@@ -327,16 +331,17 @@ CREATE TABLE [PUNTOZIP].[CLIENTES](
 	[clie_id] [int] IDENTITY(1,1) NOT NULL,
 	[clie_nombre] [nvarchar](255) NOT NULL,
 	[clie_apellido] [nvarchar](255) NOT NULL,
-	[clie_tipo_identificacion] [nvarchar](255) NOT NULL,
-	[clie_numero_identificacion] [nvarchar](255) NOT NULL,
+	--[clie_tipo_identificacion] [nvarchar](255) NOT NULL,
+	--[clie_numero_identificacion] [nvarchar](255) NOT NULL,
 	[clie_numero_pasaporte] [numeric](18,0) NOT NULL,
 	[clie_mail] [nvarchar](255) NOT NULL,
 	[clie_domicilio_calle] [nvarchar](255) NOT NULL,
 	[clie_numero_calle] [numeric](18,0) NOT NULL,
 	[clie_piso] [numeric](18,0) NOT NULL,
+	[clie_depto] [nvarchar](50) NOT NULL,
 	[clie_nacionalidad] [nvarchar](255) NOT NULL,
 	[clie_fecha_nacimiento] [datetime] NOT NULL,
-	[clie_estado] [tinyint] NOT NULL
+	[clie_estado] [tinyint]
 	CONSTRAINT [PK_CLIENTES] PRIMARY KEY CLUSTERED 
 	( [clie_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -532,3 +537,53 @@ REFERENCES [PUNTOZIP].[FACTURA] ([fact_id])
 GO
 ALTER TABLE [PUNTOZIP].[ITEMS_CONSUMIBLES]  WITH CHECK ADD CONSTRAINT [FK_ITEMS_CONSUMIBLES_CONSUMIBLES] FOREIGN KEY ([ic_consumible_id])
 REFERENCES [PUNTOZIP].[CONSUMIBLES] ([cons_id])
+
+
+-------------------------------- MIGRACION CLIENTES ----------------------------------------------------
+IF OBJECT_ID('[PUNTOZIP].SP_Migrar_Clientes') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Clientes
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Clientes]
+AS
+BEGIN
+	PRINT N'Migrando Clientes..';
+	INSERT INTO PUNTOZIP.Clientes (clie_nombre, clie_apellido, clie_numero_pasaporte, clie_mail, clie_domicilio_calle, clie_numero_calle, clie_piso, clie_depto, clie_nacionalidad, clie_fecha_nacimiento, clie_estado)
+	(SELECT DISTINCT [Cliente_Nombre], [Cliente_Apellido],[Cliente_Pasaporte_Nro],
+					[Cliente_Mail], [Cliente_Dom_Calle], [Cliente_Nro_Calle], [Cliente_Piso], [Cliente_Depto], [Cliente_Nacionalidad], [Cliente_Fecha_Nac], 1 AS estado
+	FROM gd_esquema.Maestra
+	GROUP BY [Cliente_Nombre], [Cliente_Apellido],[Cliente_Pasaporte_Nro],
+					[Cliente_Mail], [Cliente_Dom_Calle], [Cliente_Nro_Calle], [Cliente_Piso], [Cliente_Depto], [Cliente_Nacionalidad], [Cliente_Fecha_Nac])	
+END
+
+SET ANSI_NULLS ON
+
+GO
+
+--------------------------------- MIGRACION HOTELES ----------------------------------------------------
+--[Hotel_Ciudad],[Hotel_Calle],[Hotel_Nro_Calle],[Hotel_CantEstrella],[Hotel_Recarga_Estrella]
+IF OBJECT_ID('[PUNTOZIP].SP_Migrar_Hoteles') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Hoteles
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Hoteles]
+AS
+BEGIN
+	PRINT N'Migrando Hoteles..';
+	INSERT INTO PUNTOZIP.Hoteles (hote_ciudad,hote_calle,hote_numero_calle,hote_cantidad_estrellas,hote_recarga_estrellas)
+	(SELECT DISTINCT [Hotel_Ciudad],[Hotel_Calle],[Hotel_Nro_Calle],[Hotel_CantEstrella],[Hotel_Recarga_Estrella]
+	FROM gd_esquema.Maestra
+	GROUP BY [Hotel_Ciudad],[Hotel_Calle],[Hotel_Nro_Calle],[Hotel_CantEstrella],[Hotel_Recarga_Estrella])	
+END
+
+SET ANSI_NULLS ON
+
+GO
