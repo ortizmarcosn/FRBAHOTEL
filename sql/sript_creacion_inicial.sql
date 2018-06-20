@@ -11,8 +11,32 @@ IF OBJECT_ID('PUNTOZIP.SP_Migrar_Regimenes') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Regimenes
 GO
 
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_Reservas') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Reservas
+GO
+
 IF OBJECT_ID('PUNTOZIP.SP_Migrar_Consumibles') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Consumibles
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_Tipo_Habitaciones') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Tipo_Habitaciones
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_Vista_Hotel') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Vista_Hotel
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_Habitaciones') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Habitaciones
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_Estadias') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Estadias
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_Facturas') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Facturas
 GO
 
 ------------------------------- DROP CONSTRAINTS -----------------------
@@ -322,7 +346,7 @@ CREATE TABLE [PUNTOZIP].[REGIMENES](
 	[regi_descripcion] [nvarchar](255) NOT NULL,
 	--[regi_codigo] [numeric](18,2) NOT NULL,
 	[regi_precio] [numeric](18,2) NOT NULL,
-	[regi_estado] [tinyint] DEFAULT(0)
+	[regi_estado] [tinyint] NOT NULL
 	CONSTRAINT [PK_REGIMENES] PRIMARY KEY CLUSTERED 
 	( [regi_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -348,13 +372,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[HABITACIONES](
 	[habi_id] [int] IDENTITY(1,1) NOT NULL,
-	[habi_descripcion] [nvarchar](255) NOT NULL,
+	[habi_descripcion] [nvarchar](255), --NOT NULL,
 	[habi_piso] [numeric](18,2) NOT NULL,
 	[habi_numero] [numeric](18,2) NOT NULL,
-	[habi_tipo_id] [int] NOT NULL,
+	[habi_tipo_id] [int], --NOT NULL,
 	[habi_vista_tipo_id] [int] NOT NULL,
 	[habi_estado] [tinyint] NOT NULL,
-	[habi_hotel_id] [int] NOT NULL
+	[habi_hotel_id] [int], --NOT NULL
 	CONSTRAINT [PK_HABITACIONES] PRIMARY KEY CLUSTERED 
 	( [habi_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -367,6 +391,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[TIPO_HABITACION](
 	[th_id] [int] IDENTITY(1,1) NOT NULL,
+	[th_codigo] [numeric](18,0) NOT NULL,
 	[th_descripcion] [nvarchar](255) NOT NULL,
 	[th_porcentual] [numeric](18,2) NOT NULL
 	CONSTRAINT [PK_TIPO_HABITACION] PRIMARY KEY CLUSTERED 
@@ -397,6 +422,7 @@ CREATE TABLE [PUNTOZIP].[RESERVAS](
 	[rese_fecha_desde] [datetime] NOT NULL,
 	[rese_fecha_hasta] [datetime] NOT NULL,
 	[rese_codigo] [numeric](18,0) NOT NULL,
+	[rese_cantidad_noches] [numeric](18,0) NOT NULL,
 	[rese_estado] [tinyint] NOT NULL
 	CONSTRAINT [PK_RESERVAS] PRIMARY KEY CLUSTERED 
 	( [rese_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -449,7 +475,7 @@ GO
 CREATE TABLE [PUNTOZIP].[RESERVAS_CLIENTES](
 	[rc_reserva_id] [int] NOT NULL,
 	[rc_cliente_id] [int] NOT NULL,
-	[rc_cantidad_noches] [numeric](18,0) NOT NULL
+	--[rc_cantidad_noches] [numeric](18,0) NOT NULL
 	CONSTRAINT [PK_RESERVAS_CLIENTES] PRIMARY KEY CLUSTERED 
 	( [rc_reserva_id] ASC, [rc_cliente_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -461,7 +487,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[ESTADO_RESERVA](
-	[er_id] [int] NOT NULL,
+	[er_id] [int] IDENTITY(1,1) NOT NULL,
 	[er_descripcion] [nvarchar](255) NOT NULL
 	CONSTRAINT [PK_ESTADO_RESERVA] PRIMARY KEY CLUSTERED 
 	( [er_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -474,10 +500,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[ESTADIA](
-	[esta_id] [int] NOT NULL,
-	[esta_checkIn] [nvarchar](255) NOT NULL,
-	[esta_checkOut] [nvarchar](255) NOT NULL,
-	[esta_cliente_id] [int] NOT NULL
+	[esta_id] [int] IDENTITY(1,1) NOT NULL,
+	[esta_check_in] [datetime] NOT NULL,
+	[esta_check_out] [datetime] NOT NULL,
+	[esta_cantidad_noches] [numeric] (18,0) NOT NULL,
+	[esta_cliente_id] [int] --NOT NULL
 	CONSTRAINT [PK_ESTADIA] PRIMARY KEY CLUSTERED 
 	( [esta_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -489,7 +516,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[CONSUMIBLES](
-	[cons_id] [int] NOT NULL,
+	[cons_id] [int] IDENTITY(1,1) NOT NULL,
 	[cons_codigo] [numeric](18,0) NOT NULL,
 	[cons_descripcion] [nvarchar](255) NOT NULL,
 	[cons_precio] [numeric](18,0) NOT NULL
@@ -504,14 +531,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[FACTURA](
-	[fact_id] [int] NOT NULL,
-	[fact_tipo] [nvarchar](255) NOT NULL,
+	[fact_id] [int] IDENTITY(1,1) NOT NULL,
+	[fact_tipo] [nvarchar](255), --NOT NULL,
 	[fact_fecha] [datetime] NOT NULL,
 	[fact_numero] [numeric](18,0) NOT NULL,
-	[fact_dias] [numeric](18,0) NOT NULL,
-	[fact_tarjeta] [nvarchar](255) NOT NULL,
+	[fact_dias] [numeric](18,0), --NOT NULL,
+	[fact_tarjeta] [nvarchar](255), --NOT NULL,
 	[fact_total] [numeric](18,2) NOT NULL,
-	[fact_estadia_id] [int] NOT NULL
+	[fact_estadia_id] [int], --NOT NULL
 	CONSTRAINT [PK_FACTURA] PRIMARY KEY CLUSTERED 
 	( [fact_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -523,7 +550,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[ITEMS_FACTURA_ESTADIA](
-	[ife_id] [int] NOT NULL,
+	[ife_id] [int] IDENTITY(1,1) NOT NULL,
 	[ife_factura_id] [int] NOT NULL,
 	[ife_numero_factura] [numeric](18,0) NOT NULL,
 	[ife_descripcion] [nvarchar](255) NOT NULL,
@@ -540,7 +567,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[ITEMS_CONSUMIBLES](
-	[ic_id] [int] NOT NULL,
+	[ic_id] [int] IDENTITY(1,1) NOT NULL,
 	[ic_factura_id] [int] NOT NULL,
 	[ic_numero_factura] [numeric](18,0) NOT NULL,
 	[ic_consumible_id] [int] NOT NULL,
@@ -682,8 +709,8 @@ CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Regimenes]
 AS
 BEGIN
 	PRINT N'Migrando Regimenes...';
-	INSERT INTO PUNTOZIP.REGIMENES (regi_descripcion, regi_precio)
-	(SELECT DISTINCT [Regimen_Descripcion],[Regimen_Precio]
+	INSERT INTO PUNTOZIP.REGIMENES (regi_descripcion, regi_precio, regi_estado)
+	(SELECT DISTINCT [Regimen_Descripcion],[Regimen_Precio], 1 AS estado
 	FROM gd_esquema.Maestra
 	GROUP BY [Regimen_Descripcion],[Regimen_Precio])	
 END
@@ -691,6 +718,25 @@ SET ANSI_NULLS ON
 GO
 
 -- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Regimenes;
+
+--------------------------------- MIGRACION RESERVAS ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Reservas]
+AS
+BEGIN
+	PRINT N'Migrando Reservas...';
+	INSERT INTO PUNTOZIP.RESERVAS (rese_fecha_desde, rese_fecha_hasta, rese_codigo, rese_cantidad_noches, rese_estado)
+	(SELECT DISTINCT [Reserva_Fecha_Inicio],[Reserva_Fecha_Inicio] + [Reserva_Cant_Noches],[Reserva_Codigo],[Reserva_Cant_Noches], 1 AS estado
+	FROM gd_esquema.Maestra
+	GROUP BY [Reserva_Fecha_Inicio],[Reserva_Codigo],[Reserva_Cant_Noches])	
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Reservas;
 
 --------------------------------- MIGRACION CONSUMIBLES ----------------------------------------------------
 SET ANSI_NULLS ON
@@ -704,9 +750,108 @@ BEGIN
 	INSERT INTO PUNTOZIP.CONSUMIBLES (cons_codigo, cons_descripcion, cons_precio)
 	(SELECT DISTINCT [Consumible_Codigo],[Consumible_Descripcion],[Consumible_Precio]
 	FROM gd_esquema.Maestra
+	WHERE [Consumible_Codigo] IS NOT NULL AND [Consumible_Descripcion] IS NOT NULL AND [Consumible_Precio] IS NOT NULL
 	GROUP BY [Consumible_Codigo],[Consumible_Descripcion],[Consumible_Precio])	
 END
 SET ANSI_NULLS ON
 GO
 
 -- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Consumibles;
+
+--------------------------------- MIGRACION TIPO_HABITACION ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Tipo_Habitaciones]
+AS
+BEGIN
+	PRINT N'Migrando Tipo de Habitaciones...';
+	INSERT INTO PUNTOZIP.TIPO_HABITACION (th_codigo, th_descripcion, th_porcentual)
+	(SELECT DISTINCT [Habitacion_Tipo_Codigo],[Habitacion_Tipo_Descripcion],[Habitacion_Tipo_Porcentual]
+	FROM gd_esquema.Maestra
+	GROUP BY [Habitacion_Tipo_Codigo],[Habitacion_Tipo_Descripcion],[Habitacion_Tipo_Porcentual])	
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Tipo_Habitaciones;
+
+--------------------------------- MIGRACION VISTA_HOTEL ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Vista_Hotel]
+AS
+BEGIN
+	PRINT N'Migrando Vista de hotel...';
+	INSERT INTO PUNTOZIP.VISTA_HOTEL (vh_descripcion)
+	(SELECT DISTINCT [Habitacion_Frente]
+	FROM gd_esquema.Maestra
+	GROUP BY [Habitacion_Frente])	
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Vista_Hotel;
+
+--------------------------------- MIGRACION HABITACIONES ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Habitaciones]
+AS
+BEGIN
+	PRINT N'Migrando Habitaciones...';
+	INSERT INTO PUNTOZIP.HABITACIONES (habi_piso, habi_numero, habi_vista_tipo_id, habi_estado)
+	(SELECT DISTINCT [Habitacion_Piso],[Habitacion_Numero], vh_id, 1 AS estado
+	FROM gd_esquema.Maestra m
+	JOIN PUNTOZIP.VISTA_HOTEL ON vh_descripcion = [Habitacion_Frente]
+	GROUP BY [Habitacion_Piso],[Habitacion_Numero],vh_id)
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Habitaciones;
+
+--------------------------------- MIGRACION ESTADIA ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Estadias]
+AS
+BEGIN
+	PRINT N'Migrando Estadias...';
+	INSERT INTO PUNTOZIP.ESTADIA (esta_check_in, esta_check_out, esta_cantidad_noches)
+	(SELECT DISTINCT [Estadia_Fecha_Inicio],[Estadia_Fecha_Inicio] + [Estadia_Cant_Noches],[Estadia_Cant_Noches]
+	FROM gd_esquema.Maestra
+	WHERE [Estadia_Fecha_Inicio] IS NOT NULL AND [Estadia_Cant_Noches] IS NOT NULL
+	GROUP BY [Estadia_Fecha_Inicio],[Estadia_Cant_Noches])	
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Estadias;
+
+--------------------------------- MIGRACION FACTURA ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Facturas]
+AS
+BEGIN
+	PRINT N'Migrando Facturas...';
+	INSERT INTO PUNTOZIP.FACTURA (fact_numero, fact_fecha, fact_total)
+	(SELECT DISTINCT [Factura_Nro],[Factura_Fecha],[Factura_Total]
+	FROM gd_esquema.Maestra
+	WHERE [Factura_Nro] IS NOT NULL AND [Factura_Fecha] IS NOT NULL AND [Factura_Total] IS NOT NULL
+	GROUP BY [Factura_Nro],[Factura_Fecha],[Factura_Total])	
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Facturas;
