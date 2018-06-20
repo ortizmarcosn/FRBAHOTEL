@@ -11,6 +11,10 @@ IF OBJECT_ID('PUNTOZIP.SP_Migrar_Regimenes') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Regimenes
 GO
 
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_Regimenes_Hoteles') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Regimenes_Hoteles
+GO
+
 IF OBJECT_ID('PUNTOZIP.SP_Migrar_Reservas') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Reservas
 GO
@@ -375,10 +379,10 @@ CREATE TABLE [PUNTOZIP].[HABITACIONES](
 	[habi_descripcion] [nvarchar](255), --NOT NULL,
 	[habi_piso] [numeric](18,2) NOT NULL,
 	[habi_numero] [numeric](18,2) NOT NULL,
-	[habi_tipo_id] [int], --NOT NULL,
+	[habi_tipo_id] [int] NOT NULL,
 	[habi_vista_tipo_id] [int] NOT NULL,
-	[habi_estado] [tinyint] NOT NULL,
-	[habi_hotel_id] [int], --NOT NULL
+	[habi_hotel_id] [int] NOT NULL,
+	[habi_estado] [tinyint] NOT NULL
 	CONSTRAINT [PK_HABITACIONES] PRIMARY KEY CLUSTERED 
 	( [habi_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -719,6 +723,27 @@ GO
 
 -- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Regimenes;
 
+--------------------------------- MIGRACION REGIMENES_HOTELES ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Regimenes_Hoteles]
+AS
+BEGIN
+	PRINT N'Migrando Regimenes_Hoteles...';
+	INSERT INTO PUNTOZIP.REGIMENES_HOTELES (regh_regimen_id, regh_hotel_id)
+	(SELECT DISTINCT regi_id, hote_id
+	FROM gd_esquema.Maestra
+	JOIN PUNTOZIP.HOTELES ON (hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
+	JOIN PUNTOZIP.REGIMENES ON regi_descripcion = [Regimen_Descripcion]
+	GROUP BY regi_id, hote_id)	
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Regimenes_Hoteles;
+
 --------------------------------- MIGRACION RESERVAS ----------------------------------------------------
 SET ANSI_NULLS ON
 GO
@@ -805,11 +830,15 @@ CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Habitaciones]
 AS
 BEGIN
 	PRINT N'Migrando Habitaciones...';
-	INSERT INTO PUNTOZIP.HABITACIONES (habi_piso, habi_numero, habi_vista_tipo_id, habi_estado)
-	(SELECT DISTINCT [Habitacion_Piso],[Habitacion_Numero], vh_id, 1 AS estado
-	FROM gd_esquema.Maestra m
+	INSERT INTO PUNTOZIP.HABITACIONES (habi_piso, habi_numero, habi_vista_tipo_id, habi_estado, habi_hotel_id, habi_tipo_id)
+	(SELECT DISTINCT [Habitacion_Piso],[Habitacion_Numero], vh_id, 1 AS estado, hote_id, th_id
+	FROM gd_esquema.Maestra
 	JOIN PUNTOZIP.VISTA_HOTEL ON vh_descripcion = [Habitacion_Frente]
-	GROUP BY [Habitacion_Piso],[Habitacion_Numero],vh_id)
+	JOIN PUNTOZIP.TIPO_HABITACION ON th_codigo = [Habitacion_Tipo_Codigo]
+	JOIN PUNTOZIP.HOTELES ON (hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
+	JOIN PUNTOZIP.REGIMENES_HOTELES ON regh_hotel_id = hote_id -- Verificar
+	JOIN PUNTOZIP.REGIMENES ON (regi_id = regh_regimen_id AND regi_descripcion = [Regimen_Descripcion]) -- Verificar
+	GROUP BY [Habitacion_Piso],[Habitacion_Numero],vh_id,hote_id,th_id)
 END
 SET ANSI_NULLS ON
 GO
@@ -855,3 +884,12 @@ SET ANSI_NULLS ON
 GO
 
 -- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Facturas;
+
+/*
+EXEC PUNTOZIP.SP_Migrar_Hoteles
+EXEC PUNTOZIP.SP_Migrar_Regimenes
+EXEC PUNTOZIP.SP_Migrar_Regimenes_Hoteles
+EXEC PUNTOZIP.SP_Migrar_Vista_Hotel
+EXEC PUNTOZIP.SP_Migrar_Tipo_Habitaciones
+EXEC PUNTOZIP.SP_Migrar_Habitaciones
+*/
