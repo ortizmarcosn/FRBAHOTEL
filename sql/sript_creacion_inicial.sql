@@ -836,8 +836,8 @@ BEGIN
 	JOIN PUNTOZIP.VISTA_HOTEL ON vh_descripcion = [Habitacion_Frente]
 	JOIN PUNTOZIP.TIPO_HABITACION ON th_codigo = [Habitacion_Tipo_Codigo]
 	JOIN PUNTOZIP.HOTELES ON (hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
-	JOIN PUNTOZIP.REGIMENES_HOTELES ON regh_hotel_id = hote_id -- Verificar
-	JOIN PUNTOZIP.REGIMENES ON (regi_id = regh_regimen_id AND regi_descripcion = [Regimen_Descripcion]) -- Verificar
+	-- JOIN PUNTOZIP.REGIMENES_HOTELES ON regh_hotel_id = hote_id  Verificar
+	-- JOIN PUNTOZIP.REGIMENES ON (regi_id = regh_regimen_id AND regi_descripcion = [Regimen_Descripcion])  Verificar
 	GROUP BY [Habitacion_Piso],[Habitacion_Numero],vh_id,hote_id,th_id)
 END
 SET ANSI_NULLS ON
