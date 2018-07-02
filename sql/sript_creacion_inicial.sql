@@ -43,6 +43,10 @@ IF OBJECT_ID('PUNTOZIP.SP_Migrar_Facturas') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Facturas
 GO
 
+IF OBJECT_ID('PUNTOZIP.SP_Create_CLIENTES') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Create_CLIENTES
+GO
+
 ------------------------------- DROP CONSTRAINTS -----------------------
 IF OBJECT_ID('PUNTOZIP.FK_USUARIOS_HOTELES') IS NOT NULL
 ALTER TABLE [PUNTOZIP].[USUARIOS] DROP CONSTRAINT [FK_USUARIOS_HOTELES]
@@ -893,3 +897,34 @@ EXEC PUNTOZIP.SP_Migrar_Vista_Hotel
 EXEC PUNTOZIP.SP_Migrar_Tipo_Habitaciones
 EXEC PUNTOZIP.SP_Migrar_Habitaciones
 */
+
+--------------------------------- INSERT CLIENTES ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Create_CLIENTES]
+  @nombre NVARCHAR(255),
+  @apellido NVARCHAR(255),
+  @pasaporte NUMERIC(18,0),
+  @mail NVARCHAR(255),
+  @calle NVARCHAR(255),
+  @numero NUMERIC(18,0),
+  @piso NUMERIC(18,0),
+  @depto NVARCHAR(255),
+  @nacionalidad NVARCHAR(255),
+  @fecha_nacimiento datetime
+AS
+  BEGIN TRY
+	INSERT INTO PUNTOZIP.CLIENTES (clie_nombre, clie_apellido, clie_numero_pasaporte, clie_mail, clie_domicilio_calle, clie_numero_calle, clie_piso, clie_depto, clie_nacionalidad, clie_fecha_nacimiento, clie_estado)
+	VALUES(@nombre,@apellido,@pasaporte,@mail,@calle,@numero,@piso,@depto,@nacionalidad,@fecha_nacimiento,1);
+
+	SELECT SCOPE_IDENTITY();
+  END TRY
+  BEGIN CATCH
+    SELECT 'ERROR', ERROR_MESSAGE()
+  END CATCH
+
+GO
+
+-- EXEC PUNTOZIP.SP_Create_CLIENTES 'jose', 'lopez', 7854125585, 'joselopez@hotmail.com', 'medrano', 545, 1, '7a', 'argentino', '15/11/1889'
