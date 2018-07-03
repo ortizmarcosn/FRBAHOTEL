@@ -47,6 +47,10 @@ IF OBJECT_ID('PUNTOZIP.SP_Create_CLIENTES') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Create_CLIENTES
 GO
 
+IF OBJECT_ID('PUNTOZIP.SP_Create_USUARIO') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Create_USUARIO
+GO
+
 ------------------------------- DROP CONSTRAINTS -----------------------
 IF OBJECT_ID('PUNTOZIP.FK_USUARIOS_HOTELES') IS NOT NULL
 ALTER TABLE [PUNTOZIP].[USUARIOS] DROP CONSTRAINT [FK_USUARIOS_HOTELES]
@@ -245,7 +249,7 @@ CREATE TABLE [PUNTOZIP].[USUARIOS](
 	[usu_direccion] [nvarchar](255) NOT NULL,
 	[usu_fecha_nacimiento] [datetime] NOT NULL,
 	[usu_hotel_id] [int] NOT NULL
-	CONSTRAINT [PK_USUARIOS] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_USUARIOS] PRIMARY KEY CLUSTERED
 	( [usu_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -259,7 +263,7 @@ CREATE TABLE [PUNTOZIP].[ROLES](
 	[rol_id] [int] IDENTITY(1,1) NOT NULL,
 	[rol_descripcion] [nvarchar](255) NOT NULL,
 	[rol_estado] [tinyint] NOT NULL
-	CONSTRAINT [PK_ROLES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_ROLES] PRIMARY KEY CLUSTERED
 	( [rol_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -272,7 +276,7 @@ GO
 CREATE TABLE [PUNTOZIP].[ROLES_USUARIOS](
 	[ru_usuario_id] [int] NOT NULL,
 	[ru_rol_id] [int] NOT NULL
-	CONSTRAINT [PK_ROLES_USUARIOS] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_ROLES_USUARIOS] PRIMARY KEY CLUSTERED
 	( [ru_usuario_id] ASC, [ru_rol_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -285,7 +289,7 @@ GO
 CREATE TABLE [PUNTOZIP].[FUNCIONES](
 	[func_id] [int] IDENTITY(1,1) NOT NULL,
 	[func_descripcion] [text] NOT NULL
-	CONSTRAINT [PK_FUNCIONES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_FUNCIONES] PRIMARY KEY CLUSTERED
 	( [func_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -298,7 +302,7 @@ GO
 CREATE TABLE [PUNTOZIP].[ROLES_FUNCIONES](
 	[rf_rol_id] [int] NOT NULL,
 	[rf_funcion_id] [int] NOT NULL
-	CONSTRAINT [PK_ROLES_FUNCIONES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_ROLES_FUNCIONES] PRIMARY KEY CLUSTERED
 	( [rf_rol_id] ASC, [rf_funcion_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -322,7 +326,7 @@ CREATE TABLE [PUNTOZIP].[HOTELES](
 	--[hote_regimen_tipo] [nvarchar](255) NOT NULL,
 	[hote_fecha_creacion] [datetime],
 	--[hote_ubicacion_id] [int] NOT NULL
-	CONSTRAINT [PK_HOTELES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_HOTELES] PRIMARY KEY CLUSTERED
 	( [hote_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -339,7 +343,7 @@ CREATE TABLE [PUNTOZIP].[PERIODO_HOTELES](
 	[ph_fecha_fin] [datetime] NOT NULL,
 	[ph_motivos] [text] NOT NULL,
 	[ph_hotel_id] [int] NOT NULL
-	CONSTRAINT [PK_PERIODO_HOTELES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_PERIODO_HOTELES] PRIMARY KEY CLUSTERED
 	( [ph_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -355,7 +359,7 @@ CREATE TABLE [PUNTOZIP].[REGIMENES](
 	--[regi_codigo] [numeric](18,2) NOT NULL,
 	[regi_precio] [numeric](18,2) NOT NULL,
 	[regi_estado] [tinyint] NOT NULL
-	CONSTRAINT [PK_REGIMENES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_REGIMENES] PRIMARY KEY CLUSTERED
 	( [regi_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -368,7 +372,7 @@ GO
 CREATE TABLE [PUNTOZIP].[REGIMENES_HOTELES](
 	[regh_regimen_id] [int] NOT NULL,
 	[regh_hotel_id] [int] NOT NULL
-	CONSTRAINT [PK_REGIMENES_HOTELES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_REGIMENES_HOTELES] PRIMARY KEY CLUSTERED
 	( [regh_regimen_id] ASC, [regh_hotel_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -387,7 +391,7 @@ CREATE TABLE [PUNTOZIP].[HABITACIONES](
 	[habi_vista_tipo_id] [int] NOT NULL,
 	[habi_hotel_id] [int] NOT NULL,
 	[habi_estado] [tinyint] NOT NULL
-	CONSTRAINT [PK_HABITACIONES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_HABITACIONES] PRIMARY KEY CLUSTERED
 	( [habi_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -402,7 +406,7 @@ CREATE TABLE [PUNTOZIP].[TIPO_HABITACION](
 	[th_codigo] [numeric](18,0) NOT NULL,
 	[th_descripcion] [nvarchar](255) NOT NULL,
 	[th_porcentual] [numeric](18,2) NOT NULL
-	CONSTRAINT [PK_TIPO_HABITACION] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_TIPO_HABITACION] PRIMARY KEY CLUSTERED
 	( [th_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -415,7 +419,7 @@ GO
 CREATE TABLE [PUNTOZIP].[VISTA_HOTEL](
 	[vh_id] [int] IDENTITY(1,1) NOT NULL,
 	[vh_descripcion] [nvarchar](255) NOT NULL
-	CONSTRAINT [PK_VISTA_HOTEL] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_VISTA_HOTEL] PRIMARY KEY CLUSTERED
 	( [vh_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -432,7 +436,7 @@ CREATE TABLE [PUNTOZIP].[RESERVAS](
 	[rese_codigo] [numeric](18,0) NOT NULL,
 	[rese_cantidad_noches] [numeric](18,0) NOT NULL,
 	[rese_estado] [tinyint] NOT NULL
-	CONSTRAINT [PK_RESERVAS] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_RESERVAS] PRIMARY KEY CLUSTERED
 	( [rese_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -445,7 +449,7 @@ GO
 CREATE TABLE [PUNTOZIP].[RESERVAS_HABITACIONES](
 	[rh_reserva_id] [int] NOT NULL,
 	[rh_habitacion_id] [int] NOT NULL
-	CONSTRAINT [PK_RESERVAS_HABITACIONES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_RESERVAS_HABITACIONES] PRIMARY KEY CLUSTERED
 	( [rh_reserva_id] ASC, [rh_habitacion_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -470,7 +474,7 @@ CREATE TABLE [PUNTOZIP].[CLIENTES](
 	[clie_nacionalidad] [nvarchar](255) NOT NULL,
 	[clie_fecha_nacimiento] [datetime] NOT NULL,
 	[clie_estado] [tinyint]
-	CONSTRAINT [PK_CLIENTES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_CLIENTES] PRIMARY KEY CLUSTERED
 	( [clie_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -484,7 +488,7 @@ CREATE TABLE [PUNTOZIP].[RESERVAS_CLIENTES](
 	[rc_reserva_id] [int] NOT NULL,
 	[rc_cliente_id] [int] NOT NULL,
 	--[rc_cantidad_noches] [numeric](18,0) NOT NULL
-	CONSTRAINT [PK_RESERVAS_CLIENTES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_RESERVAS_CLIENTES] PRIMARY KEY CLUSTERED
 	( [rc_reserva_id] ASC, [rc_cliente_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -497,7 +501,7 @@ GO
 CREATE TABLE [PUNTOZIP].[ESTADO_RESERVA](
 	[er_id] [int] IDENTITY(1,1) NOT NULL,
 	[er_descripcion] [nvarchar](255) NOT NULL
-	CONSTRAINT [PK_ESTADO_RESERVA] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_ESTADO_RESERVA] PRIMARY KEY CLUSTERED
 	( [er_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -513,7 +517,7 @@ CREATE TABLE [PUNTOZIP].[ESTADIA](
 	[esta_check_out] [datetime] NOT NULL,
 	[esta_cantidad_noches] [numeric] (18,0) NOT NULL,
 	[esta_cliente_id] [int] --NOT NULL
-	CONSTRAINT [PK_ESTADIA] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_ESTADIA] PRIMARY KEY CLUSTERED
 	( [esta_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -528,7 +532,7 @@ CREATE TABLE [PUNTOZIP].[CONSUMIBLES](
 	[cons_codigo] [numeric](18,0) NOT NULL,
 	[cons_descripcion] [nvarchar](255) NOT NULL,
 	[cons_precio] [numeric](18,0) NOT NULL
-	CONSTRAINT [PK_CONSUMIBLES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_CONSUMIBLES] PRIMARY KEY CLUSTERED
 	( [cons_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -547,7 +551,7 @@ CREATE TABLE [PUNTOZIP].[FACTURA](
 	[fact_tarjeta] [nvarchar](255), --NOT NULL,
 	[fact_total] [numeric](18,2) NOT NULL,
 	[fact_estadia_id] [int], --NOT NULL
-	CONSTRAINT [PK_FACTURA] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_FACTURA] PRIMARY KEY CLUSTERED
 	( [fact_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -564,7 +568,7 @@ CREATE TABLE [PUNTOZIP].[ITEMS_FACTURA_ESTADIA](
 	[ife_descripcion] [nvarchar](255) NOT NULL,
 	[ife_cantidad] [numeric](18,0) NOT NULL,
 	[ife_precio] [numeric](18,2) NOT NULL
-	CONSTRAINT [PK_ITEMS_FACTURA_ESTADIA] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_ITEMS_FACTURA_ESTADIA] PRIMARY KEY CLUSTERED
 	( [ife_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -580,7 +584,7 @@ CREATE TABLE [PUNTOZIP].[ITEMS_CONSUMIBLES](
 	[ic_numero_factura] [numeric](18,0) NOT NULL,
 	[ic_consumible_id] [int] NOT NULL,
 	[ic_cantidad] [numeric](18,0) NOT NULL
-	CONSTRAINT [PK_ITEMS_CONSUMIBLES] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_ITEMS_CONSUMIBLES] PRIMARY KEY CLUSTERED
 	( [ic_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -682,7 +686,7 @@ BEGIN
 					[Cliente_Mail], [Cliente_Dom_Calle], [Cliente_Nro_Calle], [Cliente_Piso], [Cliente_Depto], [Cliente_Nacionalidad], [Cliente_Fecha_Nac], 1 AS estado
 	FROM gd_esquema.Maestra
 	GROUP BY [Cliente_Nombre], [Cliente_Apellido],[Cliente_Pasaporte_Nro],
-					[Cliente_Mail], [Cliente_Dom_Calle], [Cliente_Nro_Calle], [Cliente_Piso], [Cliente_Depto], [Cliente_Nacionalidad], [Cliente_Fecha_Nac])	
+					[Cliente_Mail], [Cliente_Dom_Calle], [Cliente_Nro_Calle], [Cliente_Piso], [Cliente_Depto], [Cliente_Nacionalidad], [Cliente_Fecha_Nac])
 END
 SET ANSI_NULLS ON
 GO
@@ -701,7 +705,7 @@ BEGIN
 	INSERT INTO PUNTOZIP.HOTELES (hote_ciudad, hote_calle, hote_numero_calle, hote_cantidad_estrellas, hote_recarga_estrellas)
 	(SELECT DISTINCT [Hotel_Ciudad],[Hotel_Calle],[Hotel_Nro_Calle],[Hotel_CantEstrella],[Hotel_Recarga_Estrella]
 	FROM gd_esquema.Maestra
-	GROUP BY [Hotel_Ciudad],[Hotel_Calle],[Hotel_Nro_Calle],[Hotel_CantEstrella],[Hotel_Recarga_Estrella])	
+	GROUP BY [Hotel_Ciudad],[Hotel_Calle],[Hotel_Nro_Calle],[Hotel_CantEstrella],[Hotel_Recarga_Estrella])
 END
 SET ANSI_NULLS ON
 GO
@@ -720,7 +724,7 @@ BEGIN
 	INSERT INTO PUNTOZIP.REGIMENES (regi_descripcion, regi_precio, regi_estado)
 	(SELECT DISTINCT [Regimen_Descripcion],[Regimen_Precio], 1 AS estado
 	FROM gd_esquema.Maestra
-	GROUP BY [Regimen_Descripcion],[Regimen_Precio])	
+	GROUP BY [Regimen_Descripcion],[Regimen_Precio])
 END
 SET ANSI_NULLS ON
 GO
@@ -741,7 +745,7 @@ BEGIN
 	FROM gd_esquema.Maestra
 	JOIN PUNTOZIP.HOTELES ON (hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
 	JOIN PUNTOZIP.REGIMENES ON regi_descripcion = [Regimen_Descripcion]
-	GROUP BY regi_id, hote_id)	
+	GROUP BY regi_id, hote_id)
 END
 SET ANSI_NULLS ON
 GO
@@ -760,7 +764,7 @@ BEGIN
 	INSERT INTO PUNTOZIP.RESERVAS (rese_fecha_desde, rese_fecha_hasta, rese_codigo, rese_cantidad_noches, rese_estado)
 	(SELECT DISTINCT [Reserva_Fecha_Inicio],[Reserva_Fecha_Inicio] + [Reserva_Cant_Noches],[Reserva_Codigo],[Reserva_Cant_Noches], 1 AS estado
 	FROM gd_esquema.Maestra
-	GROUP BY [Reserva_Fecha_Inicio],[Reserva_Codigo],[Reserva_Cant_Noches])	
+	GROUP BY [Reserva_Fecha_Inicio],[Reserva_Codigo],[Reserva_Cant_Noches])
 END
 SET ANSI_NULLS ON
 GO
@@ -780,7 +784,7 @@ BEGIN
 	(SELECT DISTINCT [Consumible_Codigo],[Consumible_Descripcion],[Consumible_Precio]
 	FROM gd_esquema.Maestra
 	WHERE [Consumible_Codigo] IS NOT NULL AND [Consumible_Descripcion] IS NOT NULL AND [Consumible_Precio] IS NOT NULL
-	GROUP BY [Consumible_Codigo],[Consumible_Descripcion],[Consumible_Precio])	
+	GROUP BY [Consumible_Codigo],[Consumible_Descripcion],[Consumible_Precio])
 END
 SET ANSI_NULLS ON
 GO
@@ -799,7 +803,7 @@ BEGIN
 	INSERT INTO PUNTOZIP.TIPO_HABITACION (th_codigo, th_descripcion, th_porcentual)
 	(SELECT DISTINCT [Habitacion_Tipo_Codigo],[Habitacion_Tipo_Descripcion],[Habitacion_Tipo_Porcentual]
 	FROM gd_esquema.Maestra
-	GROUP BY [Habitacion_Tipo_Codigo],[Habitacion_Tipo_Descripcion],[Habitacion_Tipo_Porcentual])	
+	GROUP BY [Habitacion_Tipo_Codigo],[Habitacion_Tipo_Descripcion],[Habitacion_Tipo_Porcentual])
 END
 SET ANSI_NULLS ON
 GO
@@ -818,7 +822,7 @@ BEGIN
 	INSERT INTO PUNTOZIP.VISTA_HOTEL (vh_descripcion)
 	(SELECT DISTINCT [Habitacion_Frente]
 	FROM gd_esquema.Maestra
-	GROUP BY [Habitacion_Frente])	
+	GROUP BY [Habitacion_Frente])
 END
 SET ANSI_NULLS ON
 GO
@@ -862,7 +866,7 @@ BEGIN
 	(SELECT DISTINCT [Estadia_Fecha_Inicio],[Estadia_Fecha_Inicio] + [Estadia_Cant_Noches],[Estadia_Cant_Noches]
 	FROM gd_esquema.Maestra
 	WHERE [Estadia_Fecha_Inicio] IS NOT NULL AND [Estadia_Cant_Noches] IS NOT NULL
-	GROUP BY [Estadia_Fecha_Inicio],[Estadia_Cant_Noches])	
+	GROUP BY [Estadia_Fecha_Inicio],[Estadia_Cant_Noches])
 END
 SET ANSI_NULLS ON
 GO
@@ -882,7 +886,7 @@ BEGIN
 	(SELECT DISTINCT [Factura_Nro],[Factura_Fecha],[Factura_Total]
 	FROM gd_esquema.Maestra
 	WHERE [Factura_Nro] IS NOT NULL AND [Factura_Fecha] IS NOT NULL AND [Factura_Total] IS NOT NULL
-	GROUP BY [Factura_Nro],[Factura_Fecha],[Factura_Total])	
+	GROUP BY [Factura_Nro],[Factura_Fecha],[Factura_Total])
 END
 SET ANSI_NULLS ON
 GO
@@ -928,3 +932,35 @@ AS
 GO
 
 -- EXEC PUNTOZIP.SP_Create_CLIENTES 'jose', 'lopez', 7854125585, 'joselopez@hotmail.com', 'medrano', 545, 1, '7a', 'argentino', '15/11/1889'
+
+--------------------------------- INSERT USUARIOS ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Create_USUARIO]
+  @username NVARCHAR(255),
+  @password NVARCHAR(255),
+  @nombre NVARCHAR(255),
+  @apellido NVARCHAR(255),
+  @mail NVARCHAR(255),
+  @tipo_doc NVARCHAR(255),
+  @docu NVARCHAR(255),
+  @telefono NVARCHAR(255),
+  @direccion NVARCHAR(255),
+	@fecha_nac datetime,
+	@hotel_id int
+AS
+  BEGIN TRY
+	INSERT INTO PUNTOZIP.USUARIOS (usu_username,usu_password,usu_nombre,usu_apellido,usu_mail,usu_tipo_documento,usu_documento,usu_telefono,usu_direccion,usu_fecha_nacimiento,usu_hotel_id)
+	VALUES(@username, HashBytes('SHA2_256',@password), @nombre, @apellido, @mail, @tipo_doc, @docu, @telefono, @direccion,@fecha_nac, @hotel_id);
+
+	SELECT SCOPE_IDENTITY();
+  END TRY
+  BEGIN CATCH
+    SELECT 'ERROR', ERROR_MESSAGE()
+  END CATCH
+
+GO
+
+-- EXEC PUNTOZIP.SP_Create_USUARIO 'joselopez','1234', 'jose' ,'lopez','joselopez@hotmail.com', 'dni', '16234567', '49685774', 'corrientes 1227', '15/11/1889', 1
