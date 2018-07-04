@@ -51,6 +51,9 @@ IF OBJECT_ID('PUNTOZIP.SP_Create_USUARIO') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Create_USUARIO
 GO
 
+IF OBJECT_ID('PUNTOZIP.SP_Create_HABITACIONES') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Create_HABITACIONES
+GO
 ------------------------------- DROP CONSTRAINTS -----------------------
 IF OBJECT_ID('PUNTOZIP.FK_USUARIOS_HOTELES') IS NOT NULL
 ALTER TABLE [PUNTOZIP].[USUARIOS] DROP CONSTRAINT [FK_USUARIOS_HOTELES]
@@ -954,7 +957,7 @@ AS
   BEGIN TRY
 	INSERT INTO PUNTOZIP.USUARIOS (usu_username,usu_password,usu_nombre,usu_apellido,usu_mail,usu_tipo_documento,usu_documento,usu_telefono,usu_direccion,usu_fecha_nacimiento,usu_hotel_id)
 	VALUES(@username, HashBytes('SHA2_256',@password), @nombre, @apellido, @mail, @tipo_doc, @docu, @telefono, @direccion,@fecha_nac, @hotel_id);
-
+	-- VERIFICAR EL HASH !!!
 	SELECT SCOPE_IDENTITY();
   END TRY
   BEGIN CATCH
@@ -964,3 +967,29 @@ AS
 GO
 
 -- EXEC PUNTOZIP.SP_Create_USUARIO 'joselopez','1234', 'jose' ,'lopez','joselopez@hotmail.com', 'dni', '16234567', '49685774', 'corrientes 1227', '15/11/1889', 1
+
+--------------------------------- INSERT HABITACIONES ----------------------------------------------------
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Create_HABITACIONES]
+  @descripcion NVARCHAR(255),
+  @piso numeric(18,2),
+  @numero numeric(18,2),
+  @tipo int,
+  @vista_tipo int,
+  @hotel int,
+  @estado tinyint,
+AS
+  BEGIN TRY
+	INSERT INTO PUNTOZIP.HABITACIONES (habi_descripcion,habi_piso,habi_numero,habi_tipo_id,habi_vista_tipo_id,habi_hotel_id, habi_estado)
+	VALUES(@descripcion, @piso, @numero, @tipo, @vista_tipo, @hotel, @estado);
+	SELECT SCOPE_IDENTITY();
+  END TRY
+  BEGIN CATCH
+    SELECT 'ERROR', ERROR_MESSAGE()
+  END CATCH
+
+GO
