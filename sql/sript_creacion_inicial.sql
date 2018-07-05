@@ -19,8 +19,8 @@ IF OBJECT_ID('PUNTOZIP.SP_Migrar_Reservas') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Reservas
 GO
 
-IF OBJECT_ID('PUNTOZIP.SP_Migrar_Consumibles') IS NOT NULL
-DROP PROCEDURE [PUNTOZIP].SP_Migrar_Consumibles
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_RESERVAS_CLIENTES') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_RESERVAS_CLIENTES
 GO
 
 IF OBJECT_ID('PUNTOZIP.SP_Migrar_Tipo_Habitaciones') IS NOT NULL
@@ -35,12 +35,28 @@ IF OBJECT_ID('PUNTOZIP.SP_Migrar_Habitaciones') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Habitaciones
 GO
 
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_RESERVAS_HABITACIONES') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_RESERVAS_HABITACIONES
+GO
+
 IF OBJECT_ID('PUNTOZIP.SP_Migrar_Estadias') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Estadias
 GO
 
 IF OBJECT_ID('PUNTOZIP.SP_Migrar_Facturas') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Facturas
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_ITEMS_FACTURA_ESTADIA') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_ITEMS_FACTURA_ESTADIA
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_Consumibles') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_Consumibles
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_ITEMS_CONSUMIBLES') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_ITEMS_CONSUMIBLES
 GO
 
 IF OBJECT_ID('PUNTOZIP.SP_Create_CLIENTES') IS NOT NULL
@@ -54,6 +70,7 @@ GO
 IF OBJECT_ID('PUNTOZIP.SP_Create_HABITACIONES') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Create_HABITACIONES
 GO
+
 ------------------------------- DROP CONSTRAINTS -----------------------
 IF OBJECT_ID('PUNTOZIP.FK_USUARIOS_HOTELES') IS NOT NULL
 ALTER TABLE [PUNTOZIP].[USUARIOS] DROP CONSTRAINT [FK_USUARIOS_HOTELES]
@@ -242,7 +259,7 @@ GO
 CREATE TABLE [PUNTOZIP].[USUARIOS](
 	[usu_id] [int] IDENTITY(1,1) NOT NULL,
 	[usu_username] [nvarchar](255) NOT NULL,
-	[usu_password] [nvarchar](255) NOT NULL,
+	[usu_password] [varbinary](100) NOT NULL,
 	[usu_nombre] [nvarchar](255) NOT NULL,
 	[usu_apellido] [nvarchar](255) NOT NULL,
 	[usu_mail] [nvarchar](255) NOT NULL,
@@ -568,7 +585,7 @@ CREATE TABLE [PUNTOZIP].[ITEMS_FACTURA_ESTADIA](
 	[ife_id] [int] IDENTITY(1,1) NOT NULL,
 	[ife_factura_id] [int] NOT NULL,
 	[ife_numero_factura] [numeric](18,0) NOT NULL,
-	[ife_descripcion] [nvarchar](255) NOT NULL,
+	[ife_descripcion] [nvarchar](255), --NOT NULL,
 	[ife_cantidad] [numeric](18,0) NOT NULL,
 	[ife_precio] [numeric](18,2) NOT NULL
 	CONSTRAINT [PK_ITEMS_FACTURA_ESTADIA] PRIMARY KEY CLUSTERED
@@ -746,7 +763,7 @@ BEGIN
 	INSERT INTO PUNTOZIP.REGIMENES_HOTELES (regh_regimen_id, regh_hotel_id)
 	(SELECT DISTINCT regi_id, hote_id
 	FROM gd_esquema.Maestra
-	JOIN PUNTOZIP.HOTELES ON (hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
+	JOIN PUNTOZIP.HOTELES ON (hote_ciudad = [Hotel_Ciudad] AND hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
 	JOIN PUNTOZIP.REGIMENES ON regi_descripcion = [Regimen_Descripcion]
 	GROUP BY regi_id, hote_id)
 END
@@ -774,25 +791,26 @@ GO
 
 -- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Reservas;
 
---------------------------------- MIGRACION CONSUMIBLES ----------------------------------------------------
+--------------------------------- MIGRACION RESERVAS_CLIENTES ----------------------------------------------------
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Consumibles]
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_RESERVAS_CLIENTES]
 AS
 BEGIN
-	PRINT N'Migrando Consumibles...';
-	INSERT INTO PUNTOZIP.CONSUMIBLES (cons_codigo, cons_descripcion, cons_precio)
-	(SELECT DISTINCT [Consumible_Codigo],[Consumible_Descripcion],[Consumible_Precio]
+	PRINT N'Migrando RESERVAS_CLIENTES...';
+	INSERT INTO PUNTOZIP.RESERVAS_CLIENTES (rc_reserva_id, rc_cliente_id)
+	(SELECT DISTINCT rese_id, clie_id
 	FROM gd_esquema.Maestra
-	WHERE [Consumible_Codigo] IS NOT NULL AND [Consumible_Descripcion] IS NOT NULL AND [Consumible_Precio] IS NOT NULL
-	GROUP BY [Consumible_Codigo],[Consumible_Descripcion],[Consumible_Precio])
+	JOIN PUNTOZIP.CLIENTES ON (clie_numero_pasaporte = [Cliente_Pasaporte_Nro] AND clie_mail = [Cliente_Mail])
+	JOIN PUNTOZIP.RESERVAS ON rese_codigo = [Reserva_Codigo]
+	GROUP BY rese_id, clie_id)
 END
 SET ANSI_NULLS ON
 GO
 
--- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Consumibles;
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_RESERVAS_CLIENTES;
 
 --------------------------------- MIGRACION TIPO_HABITACION ----------------------------------------------------
 SET ANSI_NULLS ON
@@ -846,15 +864,36 @@ BEGIN
 	FROM gd_esquema.Maestra
 	JOIN PUNTOZIP.VISTA_HOTEL ON vh_descripcion = [Habitacion_Frente]
 	JOIN PUNTOZIP.TIPO_HABITACION ON th_codigo = [Habitacion_Tipo_Codigo]
-	JOIN PUNTOZIP.HOTELES ON (hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
-	-- JOIN PUNTOZIP.REGIMENES_HOTELES ON regh_hotel_id = hote_id  Verificar
-	-- JOIN PUNTOZIP.REGIMENES ON (regi_id = regh_regimen_id AND regi_descripcion = [Regimen_Descripcion])  Verificar
+	JOIN PUNTOZIP.HOTELES ON (hote_ciudad = [Hotel_Ciudad] AND hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
 	GROUP BY [Habitacion_Piso],[Habitacion_Numero],vh_id,hote_id,th_id)
 END
 SET ANSI_NULLS ON
 GO
 
 -- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Habitaciones;
+
+--------------------------------- MIGRACION RESERVAS_HABITACIONES ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_RESERVAS_HABITACIONES]
+AS
+BEGIN
+	PRINT N'Migrando RESERVAS_HABITACIONES...';
+	INSERT INTO PUNTOZIP.RESERVAS_HABITACIONES (rh_reserva_id, rh_habitacion_id)
+	(SELECT DISTINCT rese_id, habi_id
+	FROM gd_esquema.Maestra
+	JOIN PUNTOZIP.HABITACIONES ON (habi_piso = [Habitacion_Piso] AND habi_numero = [Habitacion_Numero])
+	JOIN PUNTOZIP.RESERVAS ON rese_codigo = [Reserva_Codigo]
+	JOIN PUNTOZIP.HOTELES ON (hote_ciudad = [Hotel_Ciudad] AND hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
+	WHERE habi_hotel_id = hote_id
+	GROUP BY rese_id, habi_id)
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_RESERVAS_HABITACIONES;
 
 --------------------------------- MIGRACION ESTADIA ----------------------------------------------------
 SET ANSI_NULLS ON
@@ -865,11 +904,12 @@ CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Estadias]
 AS
 BEGIN
 	PRINT N'Migrando Estadias...';
-	INSERT INTO PUNTOZIP.ESTADIA (esta_check_in, esta_check_out, esta_cantidad_noches)
-	(SELECT DISTINCT [Estadia_Fecha_Inicio],[Estadia_Fecha_Inicio] + [Estadia_Cant_Noches],[Estadia_Cant_Noches]
+	INSERT INTO PUNTOZIP.ESTADIA (esta_check_in, esta_check_out, esta_cantidad_noches, esta_cliente_id)
+	(SELECT DISTINCT [Estadia_Fecha_Inicio],[Estadia_Fecha_Inicio] + [Estadia_Cant_Noches],[Estadia_Cant_Noches],clie_id
 	FROM gd_esquema.Maestra
+	JOIN PUNTOZIP.CLIENTES ON (clie_numero_pasaporte = [Cliente_Pasaporte_Nro] AND clie_mail = [Cliente_Mail])
 	WHERE [Estadia_Fecha_Inicio] IS NOT NULL AND [Estadia_Cant_Noches] IS NOT NULL
-	GROUP BY [Estadia_Fecha_Inicio],[Estadia_Cant_Noches])
+	GROUP BY [Estadia_Fecha_Inicio],[Estadia_Cant_Noches],clie_id)
 END
 SET ANSI_NULLS ON
 GO
@@ -896,13 +936,85 @@ GO
 
 -- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Facturas;
 
+--------------------------------- MIGRACION ITEMS_FACTURA_ESTADIA ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_ITEMS_FACTURA_ESTADIA]
+AS
+BEGIN
+	PRINT N'Migrando ITEMS_FACTURA_ESTADIA...';
+	INSERT INTO PUNTOZIP.ITEMS_FACTURA_ESTADIA (ife_factura_id, ife_numero_factura, ife_cantidad, ife_precio)
+	(SELECT DISTINCT fact_id, fact_numero, [Item_Factura_Cantidad], [Item_Factura_Monto]
+	FROM gd_esquema.Maestra
+	JOIN PUNTOZIP.FACTURA ON (fact_numero = [Factura_Nro] AND fact_fecha = [Factura_Fecha])
+	WHERE [Factura_Nro] IS NOT NULL AND [Factura_Fecha] IS NOT NULL AND [Factura_Total] IS NOT NULL
+	GROUP BY fact_id, fact_numero, [Item_Factura_Cantidad], [Item_Factura_Monto])
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_ITEMS_FACTURA_ESTADIA;
+
+--------------------------------- MIGRACION CONSUMIBLES ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Consumibles]
+AS
+BEGIN
+	PRINT N'Migrando Consumibles...';
+	INSERT INTO PUNTOZIP.CONSUMIBLES (cons_codigo, cons_descripcion, cons_precio)
+	(SELECT DISTINCT [Consumible_Codigo],[Consumible_Descripcion],[Consumible_Precio]
+	FROM gd_esquema.Maestra
+	WHERE [Consumible_Codigo] IS NOT NULL AND [Consumible_Descripcion] IS NOT NULL AND [Consumible_Precio] IS NOT NULL
+	GROUP BY [Consumible_Codigo],[Consumible_Descripcion],[Consumible_Precio])
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_Consumibles;
+
+--------------------------------- MIGRACION ITEMS_CONSUMIBLES ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_ITEMS_CONSUMIBLES]
+AS
+BEGIN
+	PRINT N'Migrando ITEMS_CONSUMIBLES...';
+	INSERT INTO PUNTOZIP.ITEMS_CONSUMIBLES (ic_factura_id, ic_numero_factura, ic_consumible_id, ic_cantidad)
+	(SELECT DISTINCT fact_id, fact_numero, cons_id, 1
+	FROM gd_esquema.Maestra
+	JOIN PUNTOZIP.FACTURA ON (fact_numero = [Factura_Nro] AND fact_fecha = [Factura_Fecha])
+	JOIN PUNTOZIP.CONSUMIBLES ON cons_codigo = [Consumible_Codigo]
+	WHERE [Factura_Nro] IS NOT NULL AND [Factura_Fecha] IS NOT NULL AND [Factura_Total] IS NOT NULL AND [Consumible_Codigo] IS NOT NULL
+	GROUP BY fact_id, fact_numero, cons_id)
+END
+SET ANSI_NULLS ON
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_ITEMS_CONSUMIBLES;
+
 /*
+EXEC PUNTOZIP.SP_Migrar_Clientes
 EXEC PUNTOZIP.SP_Migrar_Hoteles
 EXEC PUNTOZIP.SP_Migrar_Regimenes
 EXEC PUNTOZIP.SP_Migrar_Regimenes_Hoteles
 EXEC PUNTOZIP.SP_Migrar_Vista_Hotel
 EXEC PUNTOZIP.SP_Migrar_Tipo_Habitaciones
 EXEC PUNTOZIP.SP_Migrar_Habitaciones
+EXEC PUNTOZIP.SP_Migrar_Reservas
+EXEC PUNTOZIP.SP_Migrar_RESERVAS_CLIENTES
+EXEC PUNTOZIP.SP_Migrar_RESERVAS_HABITACIONES
+EXEC PUNTOZIP.SP_Migrar_Estadias
+EXEC PUNTOZIP.SP_Migrar_Facturas
+EXEC PUNTOZIP.SP_Migrar_ITEMS_FACTURA_ESTADIA
+EXEC PUNTOZIP.SP_Migrar_Consumibles
+EXEC PUNTOZIP.SP_Migrar_ITEMS_CONSUMIBLES
 */
 
 --------------------------------- INSERT CLIENTES ----------------------------------------------------
@@ -951,8 +1063,8 @@ CREATE PROCEDURE [PUNTOZIP].[SP_Create_USUARIO]
   @docu NVARCHAR(255),
   @telefono NVARCHAR(255),
   @direccion NVARCHAR(255),
-	@fecha_nac datetime,
-	@hotel_id int
+  @fecha_nac datetime,
+  @hotel_id int
 AS
   BEGIN TRY
 	INSERT INTO PUNTOZIP.USUARIOS (usu_username,usu_password,usu_nombre,usu_apellido,usu_mail,usu_tipo_documento,usu_documento,usu_telefono,usu_direccion,usu_fecha_nacimiento,usu_hotel_id)
@@ -967,6 +1079,12 @@ AS
 GO
 
 -- EXEC PUNTOZIP.SP_Create_USUARIO 'joselopez','1234', 'jose' ,'lopez','joselopez@hotmail.com', 'dni', '16234567', '49685774', 'corrientes 1227', '15/11/1889', 1
+/* declare @password NVARCHAR(255)
+set @password  =  '1234'
+if (HashBytes('SHA2_256', @password) = convert(varbinary(max),'0x4F37C061F1854F9682F543FECB5EE9D652C803235970202DE97C6E40C8361766',1))
+	print 'Correcto'
+else 
+	print 'Incorrecto' */
 
 --------------------------------- INSERT HABITACIONES ----------------------------------------------------
 
@@ -981,7 +1099,7 @@ CREATE PROCEDURE [PUNTOZIP].[SP_Create_HABITACIONES]
   @tipo int,
   @vista_tipo int,
   @hotel int,
-  @estado tinyint,
+  @estado tinyint
 AS
   BEGIN TRY
 	INSERT INTO PUNTOZIP.HABITACIONES (habi_descripcion,habi_piso,habi_numero,habi_tipo_id,habi_vista_tipo_id,habi_hotel_id, habi_estado)
@@ -993,3 +1111,15 @@ AS
   END CATCH
 
 GO
+
+-------------------------------- INSERTAR ROLES ----------------------------------------------------
+INSERT INTO PUNTOZIP.ROLES (rol_descripcion, rol_estado) VALUES ('Administrador', 1), ('Recepcionista', 1), ('Guest', 1)
+
+-------------------------------- INSERTAR FUNCIONES ----------------------------------------------------
+INSERT INTO PUNTOZIP.FUNCIONES(func_descripcion) VALUES ('ROLES'), ('LOGIN'), ('USUARIOS'), ('CLIENTES'), ('HOTELES'), ('HABITACIONES'), ('REGIMENES'), ('RESERVAS'), ('ESTADIAS'),
+													('CONSUMIBLES'), ('ESTADISTICAS')
+													
+-------------------------------- INSERTAR ROLES_FUNCIONES ----------------------------------------------------
+INSERT INTO PUNTOZIP.ROLES_FUNCIONES(rf_rol_id, rf_funcion_id) VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11) -- Administrador
+INSERT INTO PUNTOZIP.ROLES_FUNCIONES(rf_rol_id, rf_funcion_id) VALUES (2, 4), (2, 8), (2, 9), (2, 10), (2, 11) -- Recepcionista
+INSERT INTO PUNTOZIP.ROLES_FUNCIONES(rf_rol_id, rf_funcion_id) VALUES (3, 8) -- Guest
