@@ -71,11 +71,11 @@ IF OBJECT_ID('PUNTOZIP.SP_Create_HABITACIONES') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Create_HABITACIONES
 GO
 
-------------------------------- DROP CONSTRAINTS -----------------------
-IF OBJECT_ID('PUNTOZIP.FK_USUARIOS_HOTELES') IS NOT NULL
-ALTER TABLE [PUNTOZIP].[USUARIOS] DROP CONSTRAINT [FK_USUARIOS_HOTELES]
+IF OBJECT_ID('PUNTOZIP.SP_Migrar_inicio_usuarios_roles_funciones') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].SP_Migrar_inicio_usuarios_roles_funciones
 GO
 
+------------------------------- DROP CONSTRAINTS -----------------------
 IF OBJECT_ID('PUNTOZIP.FK_ROLES_USUARIOS_USUARIOS') IS NOT NULL
 ALTER TABLE [PUNTOZIP].[ROLES_USUARIOS] DROP CONSTRAINT [FK_ROLES_USUARIOS_USUARIOS]
 GO
@@ -90,6 +90,14 @@ GO
 
 IF OBJECT_ID('PUNTOZIP.FK_ROLES_FUNCIONES_ROLES') IS NOT NULL
 ALTER TABLE [PUNTOZIP].[ROLES_FUNCIONES] DROP CONSTRAINT [FK_ROLES_FUNCIONES_ROLES]
+GO
+
+IF OBJECT_ID('PUNTOZIP.FK_USUARIOS_HOTELES_USUARIOS') IS NOT NULL
+ALTER TABLE [PUNTOZIP].[USUARIOS_HOTELES] DROP CONSTRAINT [FK_USUARIOS_HOTELES_USUARIOS]
+GO
+
+IF OBJECT_ID('PUNTOZIP.FK_USUARIOS_HOTELES_HOTELES') IS NOT NULL
+ALTER TABLE [PUNTOZIP].[USUARIOS_HOTELES] DROP CONSTRAINT [FK_USUARIOS_HOTELES_HOTELES]
 GO
 
 IF OBJECT_ID('PUNTOZIP.FK_PERIODO_HOTELES_HOTELES') IS NOT NULL
@@ -177,6 +185,10 @@ IF OBJECT_ID('PUNTOZIP.HOTELES') IS NOT NULL
 DROP TABLE [PUNTOZIP].HOTELES
 GO
 
+IF OBJECT_ID('PUNTOZIP.USUARIOS_HOTELES') IS NOT NULL
+DROP TABLE [PUNTOZIP].USUARIOS_HOTELES
+GO
+
 IF OBJECT_ID('PUNTOZIP.PERIODO_HOTELES') IS NOT NULL
 DROP TABLE [PUNTOZIP].PERIODO_HOTELES
 GO
@@ -215,10 +227,6 @@ GO
 
 IF OBJECT_ID('PUNTOZIP.RESERVAS_CLIENTES') IS NOT NULL
 DROP TABLE [PUNTOZIP].RESERVAS_CLIENTES
-GO
-
-IF OBJECT_ID('PUNTOZIP.ESTADO_RESERVA') IS NOT NULL
-DROP TABLE [PUNTOZIP].ESTADO_RESERVA
 GO
 
 IF OBJECT_ID('PUNTOZIP.ESTADIA') IS NOT NULL
@@ -267,8 +275,7 @@ CREATE TABLE [PUNTOZIP].[USUARIOS](
 	[usu_documento] [nvarchar](255) NOT NULL,
 	[usu_telefono] [nvarchar](255) NOT NULL,
 	[usu_direccion] [nvarchar](255) NOT NULL,
-	[usu_fecha_nacimiento] [datetime] NOT NULL,
-	[usu_hotel_id] [int] NOT NULL
+	[usu_fecha_nacimiento] [datetime] NOT NULL
 	CONSTRAINT [PK_USUARIOS] PRIMARY KEY CLUSTERED
 	( [usu_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -343,13 +350,23 @@ CREATE TABLE [PUNTOZIP].[HOTELES](
 	[hote_numero_calle] [numeric](18,0) NOT NULL,
 	[hote_cantidad_estrellas] [numeric](18,0) NOT NULL,
 	[hote_recarga_estrellas] [numeric](18,0) NOT NULL,
-	--[hote_regimen_tipo] [nvarchar](255) NOT NULL,
 	[hote_fecha_creacion] [datetime],
-	--[hote_ubicacion_id] [int] NOT NULL
 	CONSTRAINT [PK_HOTELES] PRIMARY KEY CLUSTERED
 	( [hote_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+-------------------------------- USUARIOS_HOTELES ---------------------------------------
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [PUNTOZIP].[USUARIOS_HOTELES](
+	[uh_usuario_id] [int] NOT NULL,
+	[uh_hotel_id] [int] NOT NULL
+	CONSTRAINT [PK_USUARIOS_HOTELES] PRIMARY KEY CLUSTERED
+	( [uh_usuario_id] ASC, [uh_hotel_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 
 -------------------------------- PERIODO_HOTELES ---------------------------------------
 GO
@@ -376,7 +393,6 @@ GO
 CREATE TABLE [PUNTOZIP].[REGIMENES](
 	[regi_id] [int] IDENTITY(1,1) NOT NULL,
 	[regi_descripcion] [nvarchar](255) NOT NULL,
-	--[regi_codigo] [numeric](18,2) NOT NULL,
 	[regi_precio] [numeric](18,2) NOT NULL,
 	[regi_estado] [tinyint] NOT NULL
 	CONSTRAINT [PK_REGIMENES] PRIMARY KEY CLUSTERED
@@ -404,7 +420,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[HABITACIONES](
 	[habi_id] [int] IDENTITY(1,1) NOT NULL,
-	[habi_descripcion] [nvarchar](255), --NOT NULL,
+	[habi_descripcion] [nvarchar](255) NOT NULL,
 	[habi_piso] [numeric](18,2) NOT NULL,
 	[habi_numero] [numeric](18,2) NOT NULL,
 	[habi_tipo_id] [int] NOT NULL,
@@ -483,8 +499,6 @@ CREATE TABLE [PUNTOZIP].[CLIENTES](
 	[clie_id] [int] IDENTITY(1,1) NOT NULL,
 	[clie_nombre] [nvarchar](255) NOT NULL,
 	[clie_apellido] [nvarchar](255) NOT NULL,
-	--[clie_tipo_identificacion] [nvarchar](255) NOT NULL,
-	--[clie_numero_identificacion] [nvarchar](255) NOT NULL,
 	[clie_numero_pasaporte] [numeric](18,0) NOT NULL,
 	[clie_mail] [nvarchar](255) NOT NULL,
 	[clie_domicilio_calle] [nvarchar](255) NOT NULL,
@@ -507,22 +521,8 @@ GO
 CREATE TABLE [PUNTOZIP].[RESERVAS_CLIENTES](
 	[rc_reserva_id] [int] NOT NULL,
 	[rc_cliente_id] [int] NOT NULL,
-	--[rc_cantidad_noches] [numeric](18,0) NOT NULL
 	CONSTRAINT [PK_RESERVAS_CLIENTES] PRIMARY KEY CLUSTERED
 	( [rc_reserva_id] ASC, [rc_cliente_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
--------------------------------- ESTADO_RESERVA -------------------------------------------
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [PUNTOZIP].[ESTADO_RESERVA](
-	[er_id] [int] IDENTITY(1,1) NOT NULL,
-	[er_descripcion] [nvarchar](255) NOT NULL
-	CONSTRAINT [PK_ESTADO_RESERVA] PRIMARY KEY CLUSTERED
-	( [er_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 -------------------------------- ESTADIA -------------------------------------------
@@ -564,13 +564,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PUNTOZIP].[FACTURA](
 	[fact_id] [int] IDENTITY(1,1) NOT NULL,
-	[fact_tipo] [nvarchar](255), --NOT NULL,
 	[fact_fecha] [datetime] NOT NULL,
 	[fact_numero] [numeric](18,0) NOT NULL,
-	[fact_dias] [numeric](18,0), --NOT NULL,
+	[fact_dias_alojados] [numeric](18,0), --NOT NULL,
+	[fact_dias_no_alojados] [numeric](18,0), --NOT NULL,
 	[fact_tarjeta] [nvarchar](255), --NOT NULL,
 	[fact_total] [numeric](18,2) NOT NULL,
-	[fact_estadia_id] [int], --NOT NULL
+	[fact_estadia_id] [int] NOT NULL
 	CONSTRAINT [PK_FACTURA] PRIMARY KEY CLUSTERED
 	( [fact_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -608,11 +608,6 @@ CREATE TABLE [PUNTOZIP].[ITEMS_CONSUMIBLES](
 	( [ic_id] ASC )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
--------------------------------- FK_USUARIOS -------------------------------------------
-GO
-ALTER TABLE [PUNTOZIP].[USUARIOS]  WITH CHECK ADD CONSTRAINT [FK_USUARIOS_HOTELES] FOREIGN KEY ([usu_hotel_id])
-REFERENCES [PUNTOZIP].[HOTELES] ([hote_id])
-
 -------------------------------- FK_ROLES_USUARIOS -------------------------------------------
 GO
 ALTER TABLE [PUNTOZIP].[ROLES_USUARIOS]  WITH CHECK ADD CONSTRAINT [FK_ROLES_USUARIOS_USUARIOS] FOREIGN KEY ([ru_usuario_id])
@@ -628,6 +623,14 @@ REFERENCES [PUNTOZIP].[FUNCIONES] ([func_id])
 GO
 ALTER TABLE [PUNTOZIP].[ROLES_FUNCIONES]  WITH CHECK ADD CONSTRAINT [FK_ROLES_FUNCIONES_ROLES] FOREIGN KEY ([rf_rol_id])
 REFERENCES [PUNTOZIP].[ROLES] ([rol_id])
+
+-------------------------------- FK_USUARIOS_HOTELES -------------------------------------------
+GO
+ALTER TABLE [PUNTOZIP].[USUARIOS_HOTELES]  WITH CHECK ADD CONSTRAINT [FK_USUARIOS_HOTELES_USUARIOS] FOREIGN KEY ([uh_usuario_id])
+REFERENCES [PUNTOZIP].[USUARIOS] ([usu_id])
+GO
+ALTER TABLE [PUNTOZIP].[USUARIOS_HOTELES]  WITH CHECK ADD CONSTRAINT [FK_USUARIOS_HOTELES_HOTELES] FOREIGN KEY ([uh_hotel_id])
+REFERENCES [PUNTOZIP].[HOTELES] ([hote_id])
 
 -------------------------------- FK_PERIODO_HOTELES -------------------------------------------
 GO
@@ -859,8 +862,8 @@ CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Habitaciones]
 AS
 BEGIN
 	PRINT N'Migrando Habitaciones...';
-	INSERT INTO PUNTOZIP.HABITACIONES (habi_piso, habi_numero, habi_vista_tipo_id, habi_estado, habi_hotel_id, habi_tipo_id)
-	(SELECT DISTINCT [Habitacion_Piso],[Habitacion_Numero], vh_id, 1 AS estado, hote_id, th_id
+	INSERT INTO PUNTOZIP.HABITACIONES (habi_descripcion, habi_piso, habi_numero, habi_vista_tipo_id, habi_estado, habi_hotel_id, habi_tipo_id)
+	(SELECT DISTINCT '-' as descrip,[Habitacion_Piso],[Habitacion_Numero], vh_id, 1 AS estado, hote_id, th_id
 	FROM gd_esquema.Maestra
 	JOIN PUNTOZIP.VISTA_HOTEL ON vh_descripcion = [Habitacion_Frente]
 	JOIN PUNTOZIP.TIPO_HABITACION ON th_codigo = [Habitacion_Tipo_Codigo]
@@ -884,10 +887,9 @@ BEGIN
 	INSERT INTO PUNTOZIP.RESERVAS_HABITACIONES (rh_reserva_id, rh_habitacion_id)
 	(SELECT DISTINCT rese_id, habi_id
 	FROM gd_esquema.Maestra
-	JOIN PUNTOZIP.HABITACIONES ON (habi_piso = [Habitacion_Piso] AND habi_numero = [Habitacion_Numero])
 	JOIN PUNTOZIP.RESERVAS ON rese_codigo = [Reserva_Codigo]
 	JOIN PUNTOZIP.HOTELES ON (hote_ciudad = [Hotel_Ciudad] AND hote_calle = [Hotel_Calle] AND hote_numero_calle = [Hotel_Nro_Calle])
-	WHERE habi_hotel_id = hote_id
+	JOIN PUNTOZIP.HABITACIONES ON (habi_numero = [Habitacion_Numero] AND habi_hotel_id = hote_id)
 	GROUP BY rese_id, habi_id)
 END
 SET ANSI_NULLS ON
@@ -925,11 +927,13 @@ CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_Facturas]
 AS
 BEGIN
 	PRINT N'Migrando Facturas...';
-	INSERT INTO PUNTOZIP.FACTURA (fact_numero, fact_fecha, fact_total)
-	(SELECT DISTINCT [Factura_Nro],[Factura_Fecha],[Factura_Total]
+	INSERT INTO PUNTOZIP.FACTURA (fact_numero, fact_fecha, fact_total, fact_estadia_id)
+	(SELECT DISTINCT [Factura_Nro],[Factura_Fecha],[Factura_Total], esta_id
 	FROM gd_esquema.Maestra
-	WHERE [Factura_Nro] IS NOT NULL AND [Factura_Fecha] IS NOT NULL AND [Factura_Total] IS NOT NULL
-	GROUP BY [Factura_Nro],[Factura_Fecha],[Factura_Total])
+	JOIN PUNTOZIP.CLIENTES ON (clie_numero_pasaporte = [Cliente_Pasaporte_Nro] AND clie_mail = [Cliente_Mail])
+	JOIN PUNTOZIP.ESTADIA ON (esta_cliente_id = clie_id AND esta_check_in = [Estadia_Fecha_Inicio] AND esta_cantidad_noches = [Estadia_Cant_Noches])
+	WHERE [Factura_Nro] IS NOT NULL AND [Factura_Fecha] IS NOT NULL AND [Factura_Total] IS NOT NULL AND [Estadia_Fecha_Inicio] IS NOT NULL AND [Estadia_Cant_Noches] IS NOT NULL
+	GROUP BY [Factura_Nro],[Factura_Fecha],[Factura_Total], esta_id)
 END
 SET ANSI_NULLS ON
 GO
@@ -999,24 +1003,6 @@ GO
 
 -- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_ITEMS_CONSUMIBLES;
 
-/*
-EXEC PUNTOZIP.SP_Migrar_Clientes
-EXEC PUNTOZIP.SP_Migrar_Hoteles
-EXEC PUNTOZIP.SP_Migrar_Regimenes
-EXEC PUNTOZIP.SP_Migrar_Regimenes_Hoteles
-EXEC PUNTOZIP.SP_Migrar_Vista_Hotel
-EXEC PUNTOZIP.SP_Migrar_Tipo_Habitaciones
-EXEC PUNTOZIP.SP_Migrar_Habitaciones
-EXEC PUNTOZIP.SP_Migrar_Reservas
-EXEC PUNTOZIP.SP_Migrar_RESERVAS_CLIENTES
-EXEC PUNTOZIP.SP_Migrar_RESERVAS_HABITACIONES
-EXEC PUNTOZIP.SP_Migrar_Estadias
-EXEC PUNTOZIP.SP_Migrar_Facturas
-EXEC PUNTOZIP.SP_Migrar_ITEMS_FACTURA_ESTADIA
-EXEC PUNTOZIP.SP_Migrar_Consumibles
-EXEC PUNTOZIP.SP_Migrar_ITEMS_CONSUMIBLES
-*/
-
 --------------------------------- INSERT CLIENTES ----------------------------------------------------
 SET ANSI_NULLS ON
 GO
@@ -1063,12 +1049,11 @@ CREATE PROCEDURE [PUNTOZIP].[SP_Create_USUARIO]
   @docu NVARCHAR(255),
   @telefono NVARCHAR(255),
   @direccion NVARCHAR(255),
-  @fecha_nac datetime,
-  @hotel_id int
+  @fecha_nac datetime
 AS
   BEGIN TRY
-	INSERT INTO PUNTOZIP.USUARIOS (usu_username,usu_password,usu_nombre,usu_apellido,usu_mail,usu_tipo_documento,usu_documento,usu_telefono,usu_direccion,usu_fecha_nacimiento,usu_hotel_id)
-	VALUES(@username, HashBytes('SHA2_256',@password), @nombre, @apellido, @mail, @tipo_doc, @docu, @telefono, @direccion,@fecha_nac, @hotel_id);
+	INSERT INTO PUNTOZIP.USUARIOS (usu_username,usu_password,usu_nombre,usu_apellido,usu_mail,usu_tipo_documento,usu_documento,usu_telefono,usu_direccion,usu_fecha_nacimiento)
+	VALUES(@username, HashBytes('SHA2_256',@password), @nombre, @apellido, @mail, @tipo_doc, @docu, @telefono, @direccion, @fecha_nac);
 	-- VERIFICAR EL HASH !!!
 	SELECT SCOPE_IDENTITY();
   END TRY
@@ -1078,7 +1063,7 @@ AS
 
 GO
 
--- EXEC PUNTOZIP.SP_Create_USUARIO 'joselopez','1234', 'jose' ,'lopez','joselopez@hotmail.com', 'dni', '16234567', '49685774', 'corrientes 1227', '15/11/1889', 1
+-- EXEC PUNTOZIP.SP_Create_USUARIO 'joselopez','1234', 'jose' ,'lopez','joselopez@hotmail.com', 'dni', '16234567', '49685774', 'corrientes 1227', '15/11/1889'
 /* declare @password NVARCHAR(255)
 set @password  =  '1234'
 if (HashBytes('SHA2_256', @password) = convert(varbinary(max),'0x4F37C061F1854F9682F543FECB5EE9D652C803235970202DE97C6E40C8361766',1))
@@ -1109,17 +1094,59 @@ AS
   BEGIN CATCH
     SELECT 'ERROR', ERROR_MESSAGE()
   END CATCH
-
 GO
 
--------------------------------- INSERTAR ROLES ----------------------------------------------------
-INSERT INTO PUNTOZIP.ROLES (rol_descripcion, rol_estado) VALUES ('Administrador', 1), ('Recepcionista', 1), ('Guest', 1)
+--------------------------------- MIGRACION INICIALIZAR USUARIOS ----------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Migrar_inicio_usuarios_roles_funciones]
+AS
+BEGIN
+	PRINT N'Iniciando usuarios, roles y funciones...';
+	-------------------------------- INSERTAR ROLES ----------------------------------------------------
+	INSERT INTO PUNTOZIP.ROLES (rol_descripcion, rol_estado) VALUES ('Administrador', 1), ('Recepcionista', 1), ('Guest', 1)
+	
+	-------------------------------- INSERTAR FUNCIONES ----------------------------------------------------
+	INSERT INTO PUNTOZIP.FUNCIONES(func_descripcion) VALUES ('ROLES'), ('LOGIN'), ('USUARIOS'), ('CLIENTES'), ('HOTELES'), ('HABITACIONES'), ('REGIMENES'), ('RESERVAS'), ('ESTADIAS'),
+														('CONSUMIBLES'), ('ESTADISTICAS')									
+	
+	-------------------------------- INSERTAR ROLES_FUNCIONES ----------------------------------------------------
+	INSERT INTO PUNTOZIP.ROLES_FUNCIONES(rf_rol_id, rf_funcion_id) VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11) -- Administrador
+	INSERT INTO PUNTOZIP.ROLES_FUNCIONES(rf_rol_id, rf_funcion_id) VALUES (2, 4), (2, 8), (2, 9), (2, 10), (2, 11) -- Recepcionista
+	INSERT INTO PUNTOZIP.ROLES_FUNCIONES(rf_rol_id, rf_funcion_id) VALUES (3, 8) -- Guest
+	
+	-------------------------------- INSERTAR USUARIOS ----------------------------------------------------
+	EXEC PUNTOZIP.SP_Create_USUARIO 'pepe', '123456', 'Jose' , 'Admin', 'jose@admin.com', 'dni', '37896548', '48579652', 'yatay 550', '20/05/1990'
+	EXEC PUNTOZIP.SP_Create_USUARIO 'mirta', '123456', 'Mirta' , 'Recepcionista', 'mirta@recepcionista.com', 'dni', '35214852', '49685774', 'corrientes 1227', '15/11/1989'
+	EXEC PUNTOZIP.SP_Create_USUARIO 'manuel', '123456', 'Manuel' , 'Guest', 'manuel@guest.com', 'dni', '3652145', '45216352', 'medrano 100', '15/11/1991'
+	
+	-------------------------------- INSERTAR ROLES_USUARIOS ----------------------------------------------------
+	INSERT INTO PUNTOZIP.ROLES_USUARIOS (ru_usuario_id, ru_rol_id) VALUES (1, 1)
+	INSERT INTO PUNTOZIP.ROLES_USUARIOS (ru_usuario_id, ru_rol_id) VALUES (2, 2)
+	INSERT INTO PUNTOZIP.ROLES_USUARIOS (ru_usuario_id, ru_rol_id) VALUES (3, 3)
+END
+SET ANSI_NULLS ON
+GO
 
--------------------------------- INSERTAR FUNCIONES ----------------------------------------------------
-INSERT INTO PUNTOZIP.FUNCIONES(func_descripcion) VALUES ('ROLES'), ('LOGIN'), ('USUARIOS'), ('CLIENTES'), ('HOTELES'), ('HABITACIONES'), ('REGIMENES'), ('RESERVAS'), ('ESTADIAS'),
-													('CONSUMIBLES'), ('ESTADISTICAS')
-													
--------------------------------- INSERTAR ROLES_FUNCIONES ----------------------------------------------------
-INSERT INTO PUNTOZIP.ROLES_FUNCIONES(rf_rol_id, rf_funcion_id) VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10), (1, 11) -- Administrador
-INSERT INTO PUNTOZIP.ROLES_FUNCIONES(rf_rol_id, rf_funcion_id) VALUES (2, 4), (2, 8), (2, 9), (2, 10), (2, 11) -- Recepcionista
-INSERT INTO PUNTOZIP.ROLES_FUNCIONES(rf_rol_id, rf_funcion_id) VALUES (3, 8) -- Guest
+-- Para ejecutar: EXEC PUNTOZIP.SP_Migrar_inicio_usuarios_roles_funciones;
+
+/*
+EXEC PUNTOZIP.SP_Migrar_Clientes
+EXEC PUNTOZIP.SP_Migrar_Hoteles
+EXEC PUNTOZIP.SP_Migrar_Regimenes
+EXEC PUNTOZIP.SP_Migrar_Regimenes_Hoteles
+EXEC PUNTOZIP.SP_Migrar_Vista_Hotel
+EXEC PUNTOZIP.SP_Migrar_Tipo_Habitaciones
+EXEC PUNTOZIP.SP_Migrar_Habitaciones
+EXEC PUNTOZIP.SP_Migrar_Reservas
+EXEC PUNTOZIP.SP_Migrar_RESERVAS_CLIENTES
+EXEC PUNTOZIP.SP_Migrar_RESERVAS_HABITACIONES
+EXEC PUNTOZIP.SP_Migrar_Estadias
+EXEC PUNTOZIP.SP_Migrar_Facturas
+EXEC PUNTOZIP.SP_Migrar_ITEMS_FACTURA_ESTADIA
+EXEC PUNTOZIP.SP_Migrar_Consumibles
+EXEC PUNTOZIP.SP_Migrar_ITEMS_CONSUMIBLES
+EXEC PUNTOZIP.SP_Migrar_inicio_usuarios_roles_funciones
+*/
