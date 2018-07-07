@@ -42,7 +42,7 @@ namespace WindowsFormsApplication2
                 txtDepto.Text = tabla.Rows[0].ItemArray[8].ToString();
                 txtNacionalidad.Text = tabla.Rows[0].ItemArray[9].ToString();
                 dtpFechaNacimiento.Text = tabla.Rows[0].ItemArray[10].ToString();
-                txtActivo.Text = tabla.Rows[0].ItemArray[8].ToString();
+                txtEstado.Text = tabla.Rows[0].ItemArray[11].ToString();
             }
         }
 
@@ -129,7 +129,7 @@ namespace WindowsFormsApplication2
                 listaParametros.Add("depto", this.txtDepto.Text);
                 listaParametros.Add("nacionalidad", this.txtNacionalidad.Text);
                 listaParametros.Add("fecha_nacimiento", fecha);
-                listaParametros.Add("activo", this.txtActivo.Text);
+                listaParametros.Add("activo", this.txtEstado.Text);
 
                 DataTable tabla = sql.EjecutarSp("SP_Update_CLIENTE", listaParametros);
                 if (tabla.Rows.Count > 0 && tabla.Rows[0].ItemArray[0].ToString() == "ERROR")

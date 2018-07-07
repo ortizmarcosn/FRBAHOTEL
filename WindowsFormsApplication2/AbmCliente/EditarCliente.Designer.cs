@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtEstado = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.txtDepto = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
@@ -55,9 +58,6 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtEstado = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,6 +96,33 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(693, 351);
             this.panel1.TabIndex = 52;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(326, 237);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(158, 18);
+            this.label14.TabIndex = 58;
+            this.label14.Text = "(1:  Activo, 0: Inactivo)";
+            // 
+            // txtEstado
+            // 
+            this.txtEstado.Location = new System.Drawing.Point(202, 235);
+            this.txtEstado.Name = "txtEstado";
+            this.txtEstado.Size = new System.Drawing.Size(114, 20);
+            this.txtEstado.TabIndex = 57;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(26, 237);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(58, 18);
+            this.label13.TabIndex = 56;
+            this.label13.Text = "Estado";
             // 
             // txtDepto
             // 
@@ -187,7 +214,7 @@
             // 
             this.txtPasaporte.Location = new System.Drawing.Point(202, 101);
             this.txtPasaporte.Name = "txtPasaporte";
-            this.txtPasaporte.Size = new System.Drawing.Size(165, 20);
+            this.txtPasaporte.Size = new System.Drawing.Size(421, 20);
             this.txtPasaporte.TabIndex = 48;
             // 
             // label3
@@ -336,33 +363,6 @@
             this.label12.Size = new System.Drawing.Size(342, 46);
             this.label12.TabIndex = 53;
             this.label12.Text = "Actualizar cliente";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(26, 237);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(58, 18);
-            this.label13.TabIndex = 56;
-            this.label13.Text = "Estado";
-            // 
-            // txtEstado
-            // 
-            this.txtEstado.Location = new System.Drawing.Point(202, 235);
-            this.txtEstado.Name = "txtEstado";
-            this.txtEstado.Size = new System.Drawing.Size(114, 20);
-            this.txtEstado.TabIndex = 57;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(326, 237);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(158, 18);
-            this.label14.TabIndex = 58;
-            this.label14.Text = "(1:  Activo, 0: Inactivo)";
             // 
             // EditarCliente
             // 

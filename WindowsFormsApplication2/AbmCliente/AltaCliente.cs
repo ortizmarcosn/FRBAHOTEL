@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApplication2.Conexion;
 
 namespace WindowsFormsApplication2
 {
@@ -19,14 +20,7 @@ namespace WindowsFormsApplication2
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            DialogResult respuesta;
-
-            respuesta = MessageBox.Show("¿Desea usted salir?", "Salir del programa", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
-
-            if (respuesta == DialogResult.Yes)
-            {
-                Close();
-            }
+            this.Close();            
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -35,20 +29,20 @@ namespace WindowsFormsApplication2
             txtApellido.Text = "";
             dtpFechaNacimiento.Text = ""; 
             txtNacionalidad.Text = "";
-            txtDocumento.Text = "";
-            cbTipoDocumento.Text = "";
+            txtPasaporte.Text = "";
             txtMail.Text = "";
             txtTelefono.Text = "";
-            txtDireccion.Text = "";
-            txtLocalidad.Text = "";
-            txtPais.Text = "";
+            txtCalle.Text = "";
+            txtNroCalle.Text = "";
+            txtPiso.Text = "";
+            txtDepto.Text = "";
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
             if (ValidarClienteForm())
             {
-               // CrearNuevoCliente();
+                CrearNuevoCliente();
             }
         }
 
@@ -58,23 +52,25 @@ namespace WindowsFormsApplication2
             String Apellido = this.txtApellido.Text;
             String FechaNacimiento = this.dtpFechaNacimiento.Text;
             String Nacionalidad = this.txtNacionalidad.Text;
-            String TipoDocumento = this.cbTipoDocumento.Text;
-            String Documento = this.txtDocumento.Text;
+            String Pasaporte = this.txtPasaporte.Text;
             String Mail = this.txtMail.Text;
             String Telefono = this.txtTelefono.Text;
-            String Direccion = this.txtDireccion.Text;
+            String Calle = this.txtCalle.Text;
+            String NroCalle = this.txtCalle.Text;
+            String Piso = this.txtPiso.Text;
+            String Depto = this.txtDepto.Text;
 
 
-            if (Nombre == "" || Apellido == "" || FechaNacimiento == "" || Nacionalidad == "" || TipoDocumento == "" || Documento == "" || Mail == "" || Telefono == "" || Direccion == "")
+            if (Nombre == "" || Apellido == "" || FechaNacimiento == "" || Nacionalidad == "" || Pasaporte == "" || Mail == "" || Telefono == "" || Calle == "" || NroCalle == "" || Piso == "" || Depto == "")
             {
                 MessageBox.Show("Complete todos los campos", "Campos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            /*else if (!ValidarMail(Mail))
+            else if (!ValidarMail(Mail))
            {
                MessageBox.Show("El mail ingresado ya esta en uso por otro cliente.");
                return false;
-           }*/
+           }
             else
             {
                 return true;
@@ -88,13 +84,13 @@ namespace WindowsFormsApplication2
 
 
 
-     /*   private Boolean ValidarMail(String Mail)
+        private Boolean ValidarMail(String Mail)
         {
             SqlServer sql = new SqlServer();
             var listaParametros = new Dictionary<string, string>();
             listaParametros.Add("mail", Mail);
             listaParametros.Add("id_cliente", "1");
-            DataTable tabla = sql.EjecutarSp("SP_Validar_Mail_Cliente", listaParametros);
+            DataTable tabla = sql.EjecutarSp("SP_Validar_Mail_CLIENTE", listaParametros);
 
             if (tabla.Rows.Count > 0 && tabla.Rows[0].ItemArray[0].ToString() == "ERROR")
             {
@@ -109,8 +105,39 @@ namespace WindowsFormsApplication2
             {
                 return false;
             }
-        }*/
+        }
+
+        private void CrearNuevoCliente()
+        {
+            DateTime fechaNacimiento = this.dtpFechaNacimiento.Value;
+            String fecha = String.Format("{0:yyyy-M-d}", fechaNacimiento);
+
+            SqlServer sql = new SqlServer();
+            var listaParametros = new Dictionary<string, string>();
+
+            listaParametros.Add("nombre", this.txtNombre.Text);
+            listaParametros.Add("apellido", this.txtApellido.Text);
+            listaParametros.Add("numero_pasaporte", this.txtPasaporte.Text);
+            listaParametros.Add("mail", this.txtMail.Text);
+            listaParametros.Add("domicilio_calle", this.txtCalle.Text);
+            listaParametros.Add("numero_calle", this.txtNroCalle.Text);
+            listaParametros.Add("piso", this.txtPiso.Text);
+            listaParametros.Add("depto", this.txtDepto.Text);
+            listaParametros.Add("nacionalidad", this.txtNacionalidad.Text);
+            listaParametros.Add("fecha_nacimiento", fecha);
 
 
+            DataTable tabla = sql.EjecutarSp("SP_Create_CLIENTE", listaParametros);
+
+            if (tabla.Rows.Count > 0 && tabla.Rows[0].ItemArray[0].ToString() == "ERROR")
+            {
+                MessageBox.Show(tabla.Rows[0].ItemArray[1].ToString());
+            }
+            else
+            {
+                MessageBox.Show("Cliente creado exitosamente");
+                this.Close();
+            }
+        }
     }
 }
