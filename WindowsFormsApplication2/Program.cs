@@ -21,7 +21,7 @@ namespace WindowsFormsApplication2
             //Application.Run(new AltaHotel());
             //Application.Run(new AbmHabitacion());
             //Application.Run(new CancelarReserva());
-            Application.Run(new EditarCliente());
+            Application.Run(new FlitrarCliente());
         }
     }
 }

@@ -1,3 +1,6 @@
+USE [GD1C2018]
+GO
+
 ------------------------------- DROP PROCEDURES -----------------------
 IF OBJECT_ID('PUNTOZIP.SP_Migrar_Clientes') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_Clientes
@@ -77,6 +80,30 @@ GO
 
 IF OBJECT_ID('PUNTOZIP.SP_Migrar_inicio_usuarios_roles_funciones') IS NOT NULL
 DROP PROCEDURE [PUNTOZIP].SP_Migrar_inicio_usuarios_roles_funciones
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Update_CLIENTE') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].[SP_Update_CLIENTE]
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Get_CLIENTES') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].[SP_Get_CLIENTES]
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Get_CLIENTE_By_Id') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].[SP_Get_CLIENTE_By_Id]
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Get_CLIENTES_x_Campos') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].[SP_Get_CLIENTES_x_Campos]
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Baja_CLIENTE_By_Id') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].[SP_Baja_CLIENTE_By_Id]
+GO
+
+IF OBJECT_ID('PUNTOZIP.SP_Validar_Mail_CLIENTE') IS NOT NULL
+DROP PROCEDURE [PUNTOZIP].[SP_Validar_Mail_CLIENTE]
 GO
 
 ------------------------------- DROP CONSTRAINTS -----------------------
@@ -1081,6 +1108,149 @@ AS
 GO
 
 -- EXEC PUNTOZIP.SP_Create_CLIENTES 'jose', 'lopez', 7854125585, 'joselopez@hotmail.com', 'medrano', 545, 1, '7a', 'argentino', '15/11/1889'
+
+--------------------------------- UPDATE CLIENTES --------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Update_CLIENTE]
+  @id INT,
+  @nombre NVARCHAR(255),
+  @apellido NVARCHAR(255),
+  @pasaporte NUMERIC(18,0),
+  @mail NVARCHAR(255),
+  @calle NVARCHAR(255),
+  @numero NUMERIC(18,0),
+  @piso NUMERIC(18,0),
+  @depto NVARCHAR(255),
+  @nacionalidad NVARCHAR(255),
+  @fecha_nacimiento datetime,
+  @estado TINYINT
+AS
+  BEGIN TRY
+	UPDATE PUNTOZIP.CLIENTES 
+	SET clie_nombre=@nombre, clie_apellido=@apellido, clie_numero_pasaporte=@pasaporte, clie_mail=@mail, clie_domicilio_calle=@calle, clie_numero_calle=@numero, clie_piso=@piso, clie_depto=@depto, clie_nacionalidad=@nacionalidad, clie_fecha_nacimiento=@fecha_nacimiento, clie_estado=@estado
+	WHERE clie_id = CAST(@id AS INT)
+  END TRY
+  BEGIN CATCH
+    SELECT 'ERROR', ERROR_MESSAGE()
+  END CATCH
+
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Update_CLIENTE
+
+--------------------------------- GET CLIENTES -------------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Get_CLIENTES]
+AS
+  BEGIN TRY
+	SELECT clie_id, clie_nombre, clie_apellido, clie_numero_pasaporte, clie_mail, clie_domicilio_calle, clie_numero_calle, clie_piso, clie_depto, clie_nacionalidad, clie_fecha_nacimiento,
+	CASE WHEN clie_estado = 1 THEN 'Si' ELSE 'No' END Activo
+	FROM [PUNTOZIP].CLIENTES C
+  END TRY
+  BEGIN CATCH
+    SELECT 'ERROR', ERROR_MESSAGE()
+  END CATCH
+
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Get_CLIENTES
+
+--------------------------------- GET CLIENTE BY ID --------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Get_CLIENTE_By_Id]
+ @idCliente INT
+AS
+  BEGIN TRY
+    SELECT * FROM PUNTOZIP.CLIENTES WHERE clie_id = @idCliente;
+
+	SELECT SCOPE_IDENTITY();
+  END TRY
+  BEGIN CATCH
+    SELECT 'ERROR', ERROR_MESSAGE()
+  END CATCH
+
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Get_CLIENTE_By_Id 213
+
+--------------------------------- GET CLIENTES X CAMPOS ----------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Get_CLIENTES_x_Campos]
+ @nombre NVARCHAR(255),
+ @apellido NVARCHAR(255),
+ @pasaporte numeric(18,0),
+ @mail NVARCHAR(255)
+AS
+  BEGIN TRY
+	SELECT clie_id, clie_nombre, clie_apellido, clie_numero_pasaporte, clie_mail, clie_domicilio_calle, clie_numero_calle, clie_piso, clie_depto, clie_nacionalidad, clie_fecha_nacimiento,
+	CASE WHEN clie_estado = 1 THEN 'Si' ELSE 'No' END Activo
+	FROM [PUNTOZIP].CLIENTES C
+	WHERE clie_nombre LIKE '%' + @nombre + '%' AND clie_apellido LIKE '%' + @apellido + '%' AND 
+		  clie_numero_pasaporte LIKE '%' + @pasaporte + '%' AND clie_mail LIKE '%' + @mail + '%'
+  END TRY
+  BEGIN CATCH
+    SELECT 'ERROR', ERROR_MESSAGE()
+  END CATCH
+
+GO
+
+-- Para  ejecutar: EXEC PUNTOZIP.SP_Get_CLIENTES_x_Campos 'hugo', 'arraya', 5118445442, 'harraya@gmail.com'
+ 
+--------------------------------- BAJA CLIENTE BY ID -------------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Baja_CLIENTE_By_Id]
+   @id NVARCHAR(50)
+ AS
+   BEGIN TRY
+ 	 UPDATE [PUNTOZIP].CLIENTES 
+ 	 SET clie_estado=0
+ 	 WHERE clie_id = CAST(@id AS INT)
+   END TRY
+   BEGIN CATCH
+     SELECT 'ERROR', ERROR_MESSAGE()
+   END CATCH
+
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Baja_CLIENTE_By_Id '45'
+
+--------------------------------- VALIDAR MAIL CLIENTE -----------------------------------------------
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [PUNTOZIP].[SP_Validar_Mail_CLIENTE]
+   @mail NVARCHAR(255),
+   @id_cliente int
+ AS
+   BEGIN TRY
+ 	 IF EXISTS(SELECT * FROM PUNTOZIP.CLIENTES WHERE clie_mail = @mail AND clie_id != @id_cliente)
+ 	BEGIN
+ 	 SELECT 'true'
+ 	END
+   END TRY
+   BEGIN CATCH
+     SELECT 'ERROR', ERROR_MESSAGE()
+   END CATCH
+
+GO
+
+-- Para ejecutar: EXEC PUNTOZIP.SP_Validar_Mail_CLIENTE 'juanmelgar@hotmail.com' 621
 
 --------------------------------- INSERT USUARIOS ----------------------------------------------------
 SET ANSI_NULLS ON

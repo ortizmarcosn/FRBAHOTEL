@@ -36,7 +36,7 @@ namespace WindowsFormsApplication2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("PUNTO_ZIP")]
+        [global::System.Configuration.DefaultSettingValueAttribute("PUNTOZIP")]
         public string SQL_Schema {
             get {
                 return ((string)(this["SQL_Schema"]));

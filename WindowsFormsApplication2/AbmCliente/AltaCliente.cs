@@ -81,6 +81,11 @@ namespace WindowsFormsApplication2
             }
         }
 
+        private void AltaCliente_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
 
      /*   private Boolean ValidarMail(String Mail)
