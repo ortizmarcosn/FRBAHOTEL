@@ -433,7 +433,7 @@ INSERT INTO PUNTOZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(8,'ABM d
 INSERT INTO PUNTOZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(9,'Cancelar Reserva')
 INSERT INTO PUNTOZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(10,'Registrar Estadía')
 INSERT INTO PUNTOZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(11,'Registrar Consumibles')
-INSERT INTO PUNTOZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(12,'Facturar Publicaciones')
+INSERT INTO PUNTOZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(12,'Facturar Estadía')
 INSERT INTO PUNTOZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(13,'Listado Estadistico')
 
 --TABLA ROL_FUNCIONALIDAD

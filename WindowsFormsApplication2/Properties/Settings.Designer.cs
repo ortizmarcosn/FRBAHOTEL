@@ -45,5 +45,29 @@ namespace WindowsFormsApplication2.Properties {
                 this["SQL_Schema"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("01-01-2018 12:00:00")]
+        public string fechaSistema {
+            get {
+                return ((string)(this["fechaSistema"]));
+            }
+            set {
+                this["fechaSistema"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dd-MM-yyyy HH:mm:ss")]
+        public string formatoFecha {
+            get {
+                return ((string)(this["formatoFecha"]));
+            }
+            set {
+                this["formatoFecha"] = value;
+            }
+        }
     }
 }
