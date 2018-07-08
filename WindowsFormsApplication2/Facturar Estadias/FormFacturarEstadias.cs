@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication2.Facturar_Publicaciones
+namespace WindowsFormsApplication2.Facturar_Estadias
 {
-    public partial class FormFacturarPublicaciones : Form
+    public partial class FormFacturarEstadias : Form
     {
-        public FormFacturarPublicaciones()
+        public FormFacturarEstadias()
         {
             InitializeComponent();
         }
 
-        private void FormFacturarPublicaciones_Load(object sender, EventArgs e)
+        private void FormFacturarEstadias_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
             this.FormBorderStyle = FormBorderStyle.None;
@@ -76,10 +76,10 @@ namespace WindowsFormsApplication2.Facturar_Publicaciones
                 Int32 clientId = Convert.ToInt32(dgvStay.CurrentRow.Cells[5].Value);
                 String name = dgvStay.CurrentRow.Cells[6].Value.ToString();
                 String lastName = dgvStay.CurrentRow.Cells[7].Value.ToString();
-                FormFacturarPublicacionesDetail formFacturarPublicacionesDetail = new FormFacturarPublicacionesDetail(stayId, clientId, name, lastName);
-                formFacturarPublicacionesDetail.MdiParent = this.MdiParent;
-                MdiParent.Size = formFacturarPublicacionesDetail.Size;
-                formFacturarPublicacionesDetail.Show();
+                FormFacturarEstadiasDetail formFacturarEstadiasDetail = new FormFacturarEstadiasDetail(stayId, clientId, name, lastName);
+                formFacturarEstadiasDetail.MdiParent = this.MdiParent;
+                MdiParent.Size = formFacturarEstadiasDetail.Size;
+                formFacturarEstadiasDetail.Show();
                 this.Close();
             }
             else

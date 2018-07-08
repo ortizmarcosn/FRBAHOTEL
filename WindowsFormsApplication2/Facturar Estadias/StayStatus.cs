@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WindowsFormsApplication2.Facturar_Publicaciones
+namespace WindowsFormsApplication2.Facturar_Estadias
 {
     public class StayStatus
     {

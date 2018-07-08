@@ -180,15 +180,15 @@
       <DependentUpon>FormCancelarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\Period.cs" />
-    <Compile Include="Facturar Publicaciones\ChargeStayHelper.cs" />
-    <Compile Include="Facturar Publicaciones\FormFacturarPublicacionesDetail.cs">
+    <Compile Include="Facturar Estadias\ChargeStayHelper.cs" />
+    <Compile Include="Facturar Estadias\FormFacturarEstadiasDetail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturar Publicaciones\FormFacturarPublicacionesDetail.Designer.cs">
-      <DependentUpon>FormFacturarPublicacionesDetail.cs</DependentUpon>
+    <Compile Include="Facturar Estadias\FormFacturarEstadiasDetail.Designer.cs">
+      <DependentUpon>FormFacturarEstadiasDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Facturar Publicaciones\StayStatus.cs" />
-    <Compile Include="Facturar Publicaciones\TypePay.cs" />
+    <Compile Include="Facturar Estadias\StayStatus.cs" />
+    <Compile Include="Facturar Estadias\TypePay.cs" />
     <Compile Include="Listado Estadistico\EstadisticHelper.cs" />
     <Compile Include="Registrar Consumible\Consumible.cs" />
     <Compile Include="Registrar Consumible\ConsumiblesFuncionalityHelper.cs" />
@@ -205,11 +205,11 @@
     <Compile Include="Registrar Consumible\FormRegistrarConsumibles.Designer.cs">
       <DependentUpon>FormRegistrarConsumibles.cs</DependentUpon>
     </Compile>
-    <Compile Include="Facturar Publicaciones\FormFacturarPublicaciones.cs">
+    <Compile Include="Facturar Estadias\FormFacturarEstadias.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturar Publicaciones\FormFacturarPublicaciones.Designer.cs">
-      <DependentUpon>FormFacturarPublicaciones.cs</DependentUpon>
+    <Compile Include="Facturar Estadias\FormFacturarEstadias.Designer.cs">
+      <DependentUpon>FormFacturarEstadias.cs</DependentUpon>
     </Compile>
     <Compile Include="Registrar Estadia\BookingStatus.cs" />
     <Compile Include="Registrar Estadia\CheckClientHelper.cs" />
@@ -325,11 +325,11 @@
     <EmbeddedResource Include="Cancelar Reserva\FormCancelarReserva.resx">
       <DependentUpon>FormCancelarReserva.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Facturar Publicaciones\FormFacturarPublicaciones.resx">
-      <DependentUpon>FormFacturarPublicaciones.cs</DependentUpon>
+    <EmbeddedResource Include="Facturar Estadias\FormFacturarEstadias.resx">
+      <DependentUpon>FormFacturarEstadias.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Facturar Publicaciones\FormFacturarPublicacionesDetail.resx">
-      <DependentUpon>FormFacturarPublicacionesDetail.cs</DependentUpon>
+    <EmbeddedResource Include="Facturar Estadias\FormFacturarEstadiasDetail.resx">
+      <DependentUpon>FormFacturarEstadiasDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>

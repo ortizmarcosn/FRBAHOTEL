@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication2.Facturar_Publicaciones
+namespace WindowsFormsApplication2.Facturar_Estadias
 {
-    public partial class FormFacturarPublicacionesDetail : Form
+    public partial class FormFacturarEstadiasDetail : Form
     {
         private Int32 stayId;
         private Int32 clientId;
@@ -17,7 +17,7 @@ namespace WindowsFormsApplication2.Facturar_Publicaciones
         private String lastName;
         private Boolean hasCard;
 
-        public FormFacturarPublicacionesDetail(Int32 stayId, Int32 clientId, String name, String lastName)
+        public FormFacturarEstadiasDetail(Int32 stayId, Int32 clientId, String name, String lastName)
         {
             InitializeComponent();
             this.ControlBox = false;
@@ -32,7 +32,7 @@ namespace WindowsFormsApplication2.Facturar_Publicaciones
             this.loadCharge();
         }
 
-        private void FormFacturarPublicacionesDetail_Load(object sender, EventArgs e)
+        private void FormFacturarEstadiasDetail_Load(object sender, EventArgs e)
         {
             this.textBoxClientId.Text = this.clientId.ToString();
             this.textBoxClientId.Enabled = false;
@@ -115,11 +115,11 @@ namespace WindowsFormsApplication2.Facturar_Publicaciones
 
         private void closeWindow()
         {
-            FormFacturarPublicaciones formFacturarPublicaciones = new FormFacturarPublicaciones();
-            formFacturarPublicaciones.MdiParent = this.MdiParent;
-            MdiParent.Size = formFacturarPublicaciones.Size;
+            FormFacturarEstadias formFacturarEstadias = new FormFacturarEstadias();
+            formFacturarEstadias.MdiParent = this.MdiParent;
+            MdiParent.Size = formFacturarEstadias.Size;
             this.Close();
-            formFacturarPublicaciones.Show();
+            formFacturarEstadias.Show();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

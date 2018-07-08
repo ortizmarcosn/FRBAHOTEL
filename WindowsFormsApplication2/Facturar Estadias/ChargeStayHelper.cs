@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using WindowsFormsApplication2.Registrar_Estadia;
 using System.Data;
 
-namespace WindowsFormsApplication2.Facturar_Publicaciones
+namespace WindowsFormsApplication2.Facturar_Estadias
 {
     public class ChargeStayHelper
     {

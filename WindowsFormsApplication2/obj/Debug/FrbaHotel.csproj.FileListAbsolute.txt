@@ -28,7 +28,6 @@ C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Rol.FormABMRolModify.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Usuario.FormABMUsuario.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Usuario.FormABMUsuarioModify.resources
-C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Facturar_Publicaciones.FormFacturarPublicaciones.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.FormMenu.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Reserva.FormABMReserva.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Login.FormLogin.resources
@@ -36,8 +35,9 @@ C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Rol.FormABMRol.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Login.FormSeleccionRol.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Cancelar_Reserva.FormCancelarReserva.resources
-C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Facturar_Publicaciones.FormFacturarPublicacionesDetail.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Listado_Estadistico.FormListadoEstadistico.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Registrar_Consumible.FormABMConsumibles.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Registrar_Consumible.FormRegistrarConsumibles.resources
 C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Seguridad.FormCambiarPassword.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Facturar_Estadias.FormFacturarEstadias.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Facturar_Estadias.FormFacturarEstadiasDetail.resources

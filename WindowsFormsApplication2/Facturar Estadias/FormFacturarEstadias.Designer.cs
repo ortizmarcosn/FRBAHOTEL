@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApplication2.Facturar_Publicaciones
+﻿namespace WindowsFormsApplication2.Facturar_Estadias
 {
-    partial class FormFacturarPublicaciones
+    partial class FormFacturarEstadias
     {
         /// <summary>
         /// Required designer variable.
@@ -91,7 +91,7 @@
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
-            // FormFacturarPublicaciones
+            // FormFacturarEstadias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -102,9 +102,9 @@
             this.Controls.Add(this.textBoxBooking);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.label1);
-            this.Name = "FormFacturarPublicaciones";
-            this.Text = "Facturar Publicaciones";
-            this.Load += new System.EventHandler(this.FormFacturarPublicaciones_Load);
+            this.Name = "FormFacturarEstadias";
+            this.Text = "Facturar Estadias";
+            this.Load += new System.EventHandler(this.FormFacturarEstadias_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
