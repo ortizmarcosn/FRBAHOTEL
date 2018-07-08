@@ -126,12 +126,6 @@
     <Compile Include="AbmCliente\EditarCliente.Designer.cs">
       <DependentUpon>EditarCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmHotel\EditarHotel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmHotel\EditarHotel.Designer.cs">
-      <DependentUpon>EditarHotel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Conexion\SqlServer.cs" />
     <Compile Include="ListadoEstadistico\ListadoEstadistico.cs">
       <SubType>Form</SubType>
@@ -182,9 +176,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmCliente\EditarCliente.resx">
       <DependentUpon>EditarCliente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AbmHotel\EditarHotel.resx">
-      <DependentUpon>EditarHotel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>

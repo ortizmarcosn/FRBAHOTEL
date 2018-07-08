@@ -4,3 +4,24 @@ C:\Users\Nicolás\Documents\UTN\Gestión de datos\Repo TP 2018\FRBAHOTEL\Windows
 C:\Users\Marcos\Documents\Visual Studio 2012\Projects\FRBAHOTEL-master\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
 C:\Users\Marcos\Documents\Visual Studio 2012\Projects\FRBAHOTEL-master\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.exe
 C:\Users\Marcos\Documents\Visual Studio 2012\Projects\FRBAHOTEL-master\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.pdb
+C:\FRBAHOTEL\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.exe
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.pdb
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\FrbaHotel.csprojResolveAssemblyReference.cache
+C:\FRBAHOTEL\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe
+C:\FRBAHOTEL\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.pdb
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.AltaCliente.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.CrearRol.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.CrearEstadia.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.AbmHabitacion.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.AltaHotel.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.GenerarReserva.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Form1.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.CancelarReserva.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.FlitrarCliente.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.EditarHotel.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.EditarCliente.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ListadoEstadistico.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Login.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Properties.Resources.resources
+C:\FRBAHOTEL\WindowsFormsApplication2\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache

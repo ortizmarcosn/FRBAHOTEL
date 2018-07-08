@@ -35,7 +35,7 @@ namespace WindowsFormsApplication2.Utiles
         public static bool validarPermisos(String nombreFuncionalidad)
         {
             SqlServer Server = new SqlServer();
-            var paramsProcedure = new Dictionary<string, string>();
+            var paramsProcedure = new Dictionary<string, dynamic>();
             paramsProcedure.Add("id_rol", Global.IdRol.ToString());
             paramsProcedure.Add("nombre_funcionalidad", nombreFuncionalidad);
             DataTable resultado = Server.EjecutarSp("SP_Validar_Funcionalidad_Rol", paramsProcedure);

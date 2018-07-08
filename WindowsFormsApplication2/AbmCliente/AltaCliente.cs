@@ -13,14 +13,16 @@ namespace WindowsFormsApplication2
 {
     public partial class AltaCliente : Form
     {
-        public AltaCliente()
+        private FlitrarCliente vista;
+        public AltaCliente(FlitrarCliente vista)
         {
             InitializeComponent();
+            this.vista = vista;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Close();            
+            this.Close();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -60,36 +62,38 @@ namespace WindowsFormsApplication2
             String Piso = this.txtPiso.Text;
             String Depto = this.txtDepto.Text;
 
-
             if (Nombre == "" || Apellido == "" || FechaNacimiento == "" || Nacionalidad == "" || Pasaporte == "" || Mail == "" || Telefono == "" || Calle == "" || NroCalle == "" || Piso == "" || Depto == "")
             {
                 MessageBox.Show("Complete todos los campos", "Campos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            else if (!ValidarMail(Mail))
-           {
+
+            if (!ValidarMail(Mail))
+            {
                MessageBox.Show("El mail ingresado ya esta en uso por otro cliente.");
                return false;
-           }
-            else
-            {
-                return true;
             }
+                
+            return true;
         }
 
         private void AltaCliente_Load(object sender, EventArgs e)
         {
-
+           this.FormClosing += new FormClosingEventHandler(AltaCliente_Closing);
         }
 
-
+        private void AltaCliente_Closing(Object sender, FormClosingEventArgs e) 
+        {
+            vista.dgvClientes.DataSource = GetClientes();
+            vista.Show();
+        }
 
         private Boolean ValidarMail(String Mail)
         {
             SqlServer sql = new SqlServer();
-            var listaParametros = new Dictionary<string, string>();
+            var listaParametros = new Dictionary<string, dynamic>();
             listaParametros.Add("mail", Mail);
-            listaParametros.Add("id_cliente", "1");
+            listaParametros.Add("id_cliente", "0");
             DataTable tabla = sql.EjecutarSp("SP_Validar_Mail_CLIENTE", listaParametros);
 
             if (tabla.Rows.Count > 0 && tabla.Rows[0].ItemArray[0].ToString() == "ERROR")
@@ -113,21 +117,20 @@ namespace WindowsFormsApplication2
             String fecha = String.Format("{0:yyyy-M-d}", fechaNacimiento);
 
             SqlServer sql = new SqlServer();
-            var listaParametros = new Dictionary<string, string>();
+            var listaParametros = new Dictionary<string, dynamic>();
 
             listaParametros.Add("nombre", this.txtNombre.Text);
             listaParametros.Add("apellido", this.txtApellido.Text);
-            listaParametros.Add("numero_pasaporte", this.txtPasaporte.Text);
+            listaParametros.Add("pasaporte", this.txtPasaporte.Text);
             listaParametros.Add("mail", this.txtMail.Text);
-            listaParametros.Add("domicilio_calle", this.txtCalle.Text);
-            listaParametros.Add("numero_calle", this.txtNroCalle.Text);
+            listaParametros.Add("calle", this.txtCalle.Text);
+            listaParametros.Add("numero", this.txtNroCalle.Text);
             listaParametros.Add("piso", this.txtPiso.Text);
             listaParametros.Add("depto", this.txtDepto.Text);
             listaParametros.Add("nacionalidad", this.txtNacionalidad.Text);
             listaParametros.Add("fecha_nacimiento", fecha);
 
-
-            DataTable tabla = sql.EjecutarSp("SP_Create_CLIENTE", listaParametros);
+            DataTable tabla = sql.EjecutarSp("SP_Create_CLIENTES", listaParametros);
 
             if (tabla.Rows.Count > 0 && tabla.Rows[0].ItemArray[0].ToString() == "ERROR")
             {
@@ -138,6 +141,18 @@ namespace WindowsFormsApplication2
                 MessageBox.Show("Cliente creado exitosamente");
                 this.Close();
             }
+        }
+
+        public static DataTable GetClientes()
+        {
+            SqlServer sql = new SqlServer();
+            DataTable tabla = sql.EjecutarSp("SP_Get_Clientes");
+            if (tabla.Rows.Count > 0 && tabla.Rows[0].ItemArray[0].ToString() == "ERROR")
+            {
+                MessageBox.Show(tabla.Rows[0].ItemArray[1].ToString());
+                return null;
+            }
+            return tabla;
         }
     }
 }

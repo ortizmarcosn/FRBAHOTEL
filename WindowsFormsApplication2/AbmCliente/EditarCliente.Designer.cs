@@ -153,6 +153,7 @@
             this.btnSalir.TabIndex = 53;
             this.btnSalir.Text = "Salir";
             this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnClear
             // 
@@ -179,6 +180,7 @@
             this.btnActualizar.TabIndex = 51;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = false;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // dtpFechaNacimiento
             // 
@@ -374,6 +376,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "EditarCliente";
             this.Text = "EditarCliente";
+            this.Load += new System.EventHandler(this.EditarCliente_Load_1);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

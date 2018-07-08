@@ -14,7 +14,8 @@ namespace WindowsFormsApplication2.Conexion
     {
         public SqlConnection AbrirConnection()
         {
-            string cadenaDeConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+            //string cadenaDeConexion = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+            string cadenaDeConexion = "Data Source=WINDOWS-5QNSRE9\\SQLSERVER2012;Initial Catalog=GD1C2018;Persist Security Info=True;User ID=gdHotel2018;Password=gd2018";
             SqlConnection sqlConexion = new SqlConnection(cadenaDeConexion);
             try
             {
@@ -58,7 +59,7 @@ namespace WindowsFormsApplication2.Conexion
             }
         }
 
-        public DataTable EjecutarSp(string procedure, Dictionary<string, string> parametros)
+        public DataTable EjecutarSp(string procedure, Dictionary<string, dynamic> parametros)
         {
             SqlCommand cmdCommand = new SqlCommand();
             SqlDataAdapter dataAdapter;
@@ -114,7 +115,5 @@ namespace WindowsFormsApplication2.Conexion
             }
             return dataTable;
         }        
-    }
-}
     }
 }

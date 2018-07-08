@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication2.Utiles
 {
-     public static class Global
-        {
+    public static class Global
+    {
             public static String IdUsuario { get; set; }
             public static int IdSucursal { get; set; }
             public static int IdRol { get; set; }

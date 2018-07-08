@@ -1190,15 +1190,15 @@ GO
 CREATE PROCEDURE [PUNTOZIP].[SP_Get_CLIENTES_x_Campos]
  @nombre NVARCHAR(255),
  @apellido NVARCHAR(255),
- @pasaporte numeric(18,0),
+ @pasaporte NUMERIC(18,0),
  @mail NVARCHAR(255)
 AS
   BEGIN TRY
 	SELECT clie_id, clie_nombre, clie_apellido, clie_numero_pasaporte, clie_mail, clie_domicilio_calle, clie_numero_calle, clie_piso, clie_depto, clie_nacionalidad, clie_fecha_nacimiento,
 	CASE WHEN clie_estado = 1 THEN 'Si' ELSE 'No' END Activo
-	FROM [PUNTOZIP].CLIENTES C
-	WHERE clie_nombre LIKE '%' + @nombre + '%' AND clie_apellido LIKE '%' + @apellido + '%' AND 
-		  clie_numero_pasaporte LIKE '%' + @pasaporte + '%' AND clie_mail LIKE '%' + @mail + '%'
+	FROM [PUNTOZIP].CLIENTES
+	WHERE clie_nombre LIKE '%' + @nombre + '%' OR clie_apellido LIKE '%' + @apellido + '%' OR 
+		  clie_numero_pasaporte = @pasaporte OR clie_mail LIKE '%' + @mail + '%'
   END TRY
   BEGIN CATCH
     SELECT 'ERROR', ERROR_MESSAGE()

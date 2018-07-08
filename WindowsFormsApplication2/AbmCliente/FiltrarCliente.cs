@@ -21,7 +21,7 @@ namespace WindowsFormsApplication2
             Utiles.Utiles.AgregarBotonDGV(dgvClientes, "Borrar");
         }
 
-        private static DataTable GetClientes()
+        public static DataTable GetClientes()
         {
             SqlServer sql = new SqlServer();
             DataTable tabla = sql.EjecutarSp("SP_Get_Clientes");
@@ -53,26 +53,7 @@ namespace WindowsFormsApplication2
 
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dgvClientes.Columns["Editar"].Index && e.RowIndex >= 0)
-            {
-                int idAEditar = Convert.ToInt32(dgvClientes.Rows[e.RowIndex].Cells["id"].Value);
-                EditarCliente editarCliente = new EditarCliente(idAEditar);
-                editarCliente.Show();
-                return;
-            }
-            if (e.ColumnIndex == dgvClientes.Columns["Borrar"].Index && e.RowIndex >= 0)
-            {
-                SqlServer sql = new SqlServer();
-                var listaParametros = new Dictionary<string, string>();
-                listaParametros.Add("id", dgvClientes.Rows[e.RowIndex].Cells["id"].Value.ToString());
-                DataTable tabla = sql.EjecutarSp("SP_Baja_CLIENTE_By_Id", listaParametros);
-                if (tabla.Rows.Count > 0 && tabla.Rows[0].ItemArray[0].ToString() == "ERROR")
-                {
-                    MessageBox.Show(tabla.Rows[0].ItemArray[1].ToString());
-                }
-                this.dgvClientes.DataSource = GetClientes();
-                return;
-            }
+
         }
 
         private void FiltrarCliente_Load(object sender, EventArgs e)
@@ -107,10 +88,12 @@ namespace WindowsFormsApplication2
         private static DataTable GetClientesFiltradosNAPM(String filtroNombre, String filtroApellido, String filtroPasaporte, String filtroMail)
         {
             SqlServer sql = new SqlServer();
-            var listaParametros = new Dictionary<string, string>();
+            decimal pasaporte = 0;
+            decimal.TryParse(filtroPasaporte, out pasaporte);
+            var listaParametros = new Dictionary<string, dynamic>();
             listaParametros.Add("nombre", filtroNombre);
             listaParametros.Add("apellido", filtroApellido);
-            listaParametros.Add("pasaporte", filtroPasaporte);
+            listaParametros.Add("pasaporte", pasaporte);
             listaParametros.Add("mail", filtroMail);
 
             DataTable tabla = sql.EjecutarSp("SP_Get_CLIENTES_x_Campos", listaParametros);
@@ -124,8 +107,34 @@ namespace WindowsFormsApplication2
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            AltaCliente altaCliente = new AltaCliente();
+            AltaCliente altaCliente = new AltaCliente(this);
             altaCliente.Show();
+            this.Hide();
+        }
+
+        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvClientes.Columns["Editar"].Index && e.RowIndex >= 0)
+            {
+                int idAEditar = Convert.ToInt32(dgvClientes.Rows[e.RowIndex].Cells["clie_id"].Value);
+                EditarCliente editarCliente = new EditarCliente(idAEditar, this);
+                editarCliente.Show();
+                this.Hide();
+                //return;
+            }
+            if (e.ColumnIndex == dgvClientes.Columns["Borrar"].Index && e.RowIndex >= 0)
+            {
+                SqlServer sql = new SqlServer();
+                var listaParametros = new Dictionary<string, dynamic>();
+                listaParametros.Add("id", dgvClientes.Rows[e.RowIndex].Cells["clie_id"].Value.ToString());
+                DataTable tabla = sql.EjecutarSp("SP_Baja_CLIENTE_By_Id", listaParametros);
+                if (tabla.Rows.Count > 0 && tabla.Rows[0].ItemArray[0].ToString() == "ERROR")
+                {
+                    MessageBox.Show(tabla.Rows[0].ItemArray[1].ToString());
+                }
+                this.dgvClientes.DataSource = GetClientes();
+                //return;
+            }
         }
     }
 }

@@ -129,6 +129,7 @@
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.Size = new System.Drawing.Size(561, 192);
             this.dgvClientes.TabIndex = 54;
+            this.dgvClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellContentClick);
             // 
             // btnSalir
             // 
@@ -243,7 +244,7 @@
         private System.Windows.Forms.TextBox txtMailFiltro;
         private System.Windows.Forms.TextBox txtApellidoFiltro;
         private System.Windows.Forms.TextBox txtNombreFiltro;
-        private System.Windows.Forms.DataGridView dgvClientes;
+        public System.Windows.Forms.DataGridView dgvClientes;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnFiltrar;
         private System.Windows.Forms.Button btnClear;
