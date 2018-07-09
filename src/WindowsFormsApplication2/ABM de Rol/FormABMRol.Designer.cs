@@ -44,24 +44,26 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(30, 27);
+            this.lblName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.Location = new System.Drawing.Point(165, 8);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(63, 13);
+            this.lblName.Size = new System.Drawing.Size(91, 18);
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Nombre Rol";
             // 
             // textBoxNameRol
             // 
-            this.textBoxNameRol.Location = new System.Drawing.Point(99, 24);
+            this.textBoxNameRol.Location = new System.Drawing.Point(33, 33);
             this.textBoxNameRol.Name = "textBoxNameRol";
-            this.textBoxNameRol.Size = new System.Drawing.Size(148, 20);
+            this.textBoxNameRol.Size = new System.Drawing.Size(399, 20);
             this.textBoxNameRol.TabIndex = 1;
             // 
             // buttonClean
             // 
-            this.buttonClean.Location = new System.Drawing.Point(33, 55);
+            this.buttonClean.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClean.Location = new System.Drawing.Point(183, 73);
             this.buttonClean.Name = "buttonClean";
-            this.buttonClean.Size = new System.Drawing.Size(75, 23);
+            this.buttonClean.Size = new System.Drawing.Size(87, 38);
             this.buttonClean.TabIndex = 2;
             this.buttonClean.Text = "Limpiar";
             this.buttonClean.UseVisualStyleBackColor = true;
@@ -69,9 +71,10 @@
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(357, 55);
+            this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.Location = new System.Drawing.Point(33, 73);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(93, 38);
             this.buttonSearch.TabIndex = 3;
             this.buttonSearch.Text = "Buscar";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -79,17 +82,19 @@
             // 
             // dvgRol
             // 
+            this.dvgRol.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dvgRol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dvgRol.Location = new System.Drawing.Point(33, 97);
+            this.dvgRol.Location = new System.Drawing.Point(33, 139);
             this.dvgRol.Name = "dvgRol";
-            this.dvgRol.Size = new System.Drawing.Size(399, 150);
+            this.dvgRol.Size = new System.Drawing.Size(399, 112);
             this.dvgRol.TabIndex = 4;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(33, 267);
+            this.buttonCancel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancel.Location = new System.Drawing.Point(342, 73);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(90, 38);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancelar";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -97,9 +102,10 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(114, 267);
+            this.buttonAdd.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAdd.Location = new System.Drawing.Point(33, 267);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(93, 42);
             this.buttonAdd.TabIndex = 6;
             this.buttonAdd.Text = "Crear";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -107,9 +113,10 @@
             // 
             // buttonEnabled
             // 
-            this.buttonEnabled.Location = new System.Drawing.Point(195, 267);
+            this.buttonEnabled.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEnabled.Location = new System.Drawing.Point(132, 267);
             this.buttonEnabled.Name = "buttonEnabled";
-            this.buttonEnabled.Size = new System.Drawing.Size(75, 23);
+            this.buttonEnabled.Size = new System.Drawing.Size(88, 42);
             this.buttonEnabled.TabIndex = 7;
             this.buttonEnabled.Text = "Habilitar";
             this.buttonEnabled.UseVisualStyleBackColor = true;
@@ -117,9 +124,10 @@
             // 
             // buttonDisable
             // 
-            this.buttonDisable.Location = new System.Drawing.Point(276, 267);
+            this.buttonDisable.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDisable.Location = new System.Drawing.Point(226, 267);
             this.buttonDisable.Name = "buttonDisable";
-            this.buttonDisable.Size = new System.Drawing.Size(75, 23);
+            this.buttonDisable.Size = new System.Drawing.Size(113, 42);
             this.buttonDisable.TabIndex = 8;
             this.buttonDisable.Text = "Deshabilitar";
             this.buttonDisable.UseVisualStyleBackColor = true;
@@ -127,9 +135,10 @@
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Location = new System.Drawing.Point(357, 267);
+            this.buttonEdit.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEdit.Location = new System.Drawing.Point(345, 267);
             this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(75, 23);
+            this.buttonEdit.Size = new System.Drawing.Size(87, 42);
             this.buttonEdit.TabIndex = 9;
             this.buttonEdit.Text = "Modificar";
             this.buttonEdit.UseVisualStyleBackColor = true;
@@ -139,6 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(470, 321);
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonDisable);
@@ -150,6 +160,8 @@
             this.Controls.Add(this.buttonClean);
             this.Controls.Add(this.textBoxNameRol);
             this.Controls.Add(this.lblName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormABMRol";
             this.Text = "ABM Rol";
             this.Load += new System.EventHandler(this.FormABMRol_Load);

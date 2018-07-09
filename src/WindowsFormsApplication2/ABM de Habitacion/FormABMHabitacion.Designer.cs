@@ -53,107 +53,114 @@
             // lblHotel
             // 
             this.lblHotel.AutoSize = true;
-            this.lblHotel.Location = new System.Drawing.Point(43, 13);
+            this.lblHotel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHotel.Location = new System.Drawing.Point(45, 27);
             this.lblHotel.Name = "lblHotel";
-            this.lblHotel.Size = new System.Drawing.Size(32, 13);
+            this.lblHotel.Size = new System.Drawing.Size(44, 18);
             this.lblHotel.TabIndex = 0;
             this.lblHotel.Text = "Hotel";
             // 
             // lblRoom
             // 
             this.lblRoom.AutoSize = true;
-            this.lblRoom.Location = new System.Drawing.Point(429, 13);
+            this.lblRoom.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRoom.Location = new System.Drawing.Point(431, 27);
             this.lblRoom.Name = "lblRoom";
-            this.lblRoom.Size = new System.Drawing.Size(58, 13);
+            this.lblRoom.Size = new System.Drawing.Size(83, 18);
             this.lblRoom.TabIndex = 2;
             this.lblRoom.Text = "Habitacion";
             // 
             // lblFloor
             // 
             this.lblFloor.AutoSize = true;
-            this.lblFloor.Location = new System.Drawing.Point(43, 58);
+            this.lblFloor.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFloor.Location = new System.Drawing.Point(45, 72);
             this.lblFloor.Name = "lblFloor";
-            this.lblFloor.Size = new System.Drawing.Size(27, 13);
+            this.lblFloor.Size = new System.Drawing.Size(40, 18);
             this.lblFloor.TabIndex = 4;
             this.lblFloor.Text = "Piso";
             // 
             // textBoxFloor
             // 
-            this.textBoxFloor.Location = new System.Drawing.Point(123, 55);
+            this.textBoxFloor.Location = new System.Drawing.Point(125, 69);
             this.textBoxFloor.Name = "textBoxFloor";
-            this.textBoxFloor.Size = new System.Drawing.Size(121, 20);
+            this.textBoxFloor.Size = new System.Drawing.Size(276, 20);
             this.textBoxFloor.TabIndex = 3;
             // 
             // lblFront
             // 
             this.lblFront.AutoSize = true;
-            this.lblFront.Location = new System.Drawing.Point(429, 55);
+            this.lblFront.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFront.Location = new System.Drawing.Point(431, 69);
             this.lblFront.Name = "lblFront";
-            this.lblFront.Size = new System.Drawing.Size(37, 13);
+            this.lblFront.Size = new System.Drawing.Size(53, 18);
             this.lblFront.TabIndex = 6;
             this.lblFront.Text = "Frente";
             // 
             // comboBoxFront
             // 
             this.comboBoxFront.FormattingEnabled = true;
-            this.comboBoxFront.Location = new System.Drawing.Point(493, 51);
+            this.comboBoxFront.Location = new System.Drawing.Point(529, 65);
             this.comboBoxFront.Name = "comboBoxFront";
-            this.comboBoxFront.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxFront.Size = new System.Drawing.Size(236, 21);
             this.comboBoxFront.TabIndex = 4;
             // 
             // lblType
             // 
             this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(43, 98);
+            this.lblType.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblType.Location = new System.Drawing.Point(45, 112);
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(28, 13);
+            this.lblType.Size = new System.Drawing.Size(38, 18);
             this.lblType.TabIndex = 8;
             this.lblType.Text = "Tipo";
             // 
             // comboBoxType
             // 
             this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Location = new System.Drawing.Point(123, 95);
+            this.comboBoxType.Location = new System.Drawing.Point(125, 109);
             this.comboBoxType.Name = "comboBoxType";
-            this.comboBoxType.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxType.Size = new System.Drawing.Size(276, 21);
             this.comboBoxType.TabIndex = 5;
             // 
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(429, 98);
+            this.lblDescription.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescription.Location = new System.Drawing.Point(431, 112);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(63, 13);
+            this.lblDescription.Size = new System.Drawing.Size(92, 18);
             this.lblDescription.TabIndex = 10;
             this.lblDescription.Text = "Descripcion";
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Location = new System.Drawing.Point(493, 94);
+            this.textBoxDescription.Location = new System.Drawing.Point(529, 108);
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(121, 20);
+            this.textBoxDescription.Size = new System.Drawing.Size(236, 20);
             this.textBoxDescription.TabIndex = 6;
             // 
             // comboBoxHotel
             // 
             this.comboBoxHotel.FormattingEnabled = true;
-            this.comboBoxHotel.Location = new System.Drawing.Point(123, 10);
+            this.comboBoxHotel.Location = new System.Drawing.Point(125, 24);
             this.comboBoxHotel.Name = "comboBoxHotel";
-            this.comboBoxHotel.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxHotel.Size = new System.Drawing.Size(276, 21);
             this.comboBoxHotel.TabIndex = 1;
             // 
             // textBoxRoom
             // 
-            this.textBoxRoom.Location = new System.Drawing.Point(493, 10);
+            this.textBoxRoom.Location = new System.Drawing.Point(529, 24);
             this.textBoxRoom.Name = "textBoxRoom";
-            this.textBoxRoom.Size = new System.Drawing.Size(121, 20);
+            this.textBoxRoom.Size = new System.Drawing.Size(236, 20);
             this.textBoxRoom.TabIndex = 2;
             // 
             // buttonClean
             // 
-            this.buttonClean.Location = new System.Drawing.Point(105, 133);
+            this.buttonClean.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClean.Location = new System.Drawing.Point(417, 157);
             this.buttonClean.Name = "buttonClean";
-            this.buttonClean.Size = new System.Drawing.Size(75, 23);
+            this.buttonClean.Size = new System.Drawing.Size(97, 37);
             this.buttonClean.TabIndex = 13;
             this.buttonClean.Text = "Limpiar";
             this.buttonClean.UseVisualStyleBackColor = true;
@@ -161,9 +168,10 @@
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(493, 132);
+            this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.Location = new System.Drawing.Point(158, 157);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(109, 37);
             this.buttonSearch.TabIndex = 14;
             this.buttonSearch.Text = "Buscar";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -171,17 +179,19 @@
             // 
             // dgvRoom
             // 
+            this.dgvRoom.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvRoom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRoom.Location = new System.Drawing.Point(19, 171);
+            this.dgvRoom.Location = new System.Drawing.Point(125, 212);
             this.dgvRoom.Name = "dgvRoom";
-            this.dgvRoom.Size = new System.Drawing.Size(667, 150);
+            this.dgvRoom.Size = new System.Drawing.Size(640, 86);
             this.dgvRoom.TabIndex = 15;
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(46, 353);
+            this.buttonBack.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.Location = new System.Drawing.Point(670, 156);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(75, 23);
+            this.buttonBack.Size = new System.Drawing.Size(93, 39);
             this.buttonBack.TabIndex = 16;
             this.buttonBack.Text = "Volver";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -189,9 +199,10 @@
             // 
             // buttonCreate
             // 
-            this.buttonCreate.Location = new System.Drawing.Point(230, 352);
+            this.buttonCreate.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCreate.Location = new System.Drawing.Point(158, 333);
             this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(75, 23);
+            this.buttonCreate.Size = new System.Drawing.Size(134, 53);
             this.buttonCreate.TabIndex = 17;
             this.buttonCreate.Text = "Crear";
             this.buttonCreate.UseVisualStyleBackColor = true;
@@ -199,9 +210,10 @@
             // 
             // buttonModify
             // 
-            this.buttonModify.Location = new System.Drawing.Point(591, 353);
+            this.buttonModify.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonModify.Location = new System.Drawing.Point(388, 333);
             this.buttonModify.Name = "buttonModify";
-            this.buttonModify.Size = new System.Drawing.Size(75, 23);
+            this.buttonModify.Size = new System.Drawing.Size(135, 53);
             this.buttonModify.TabIndex = 20;
             this.buttonModify.Text = "Modificar";
             this.buttonModify.UseVisualStyleBackColor = true;
@@ -209,9 +221,10 @@
             // 
             // buttonDisablePeriod
             // 
-            this.buttonDisablePeriod.Location = new System.Drawing.Point(417, 352);
+            this.buttonDisablePeriod.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDisablePeriod.Location = new System.Drawing.Point(622, 333);
             this.buttonDisablePeriod.Name = "buttonDisablePeriod";
-            this.buttonDisablePeriod.Size = new System.Drawing.Size(75, 23);
+            this.buttonDisablePeriod.Size = new System.Drawing.Size(141, 53);
             this.buttonDisablePeriod.TabIndex = 21;
             this.buttonDisablePeriod.Text = "Baja Periodo";
             this.buttonDisablePeriod.UseVisualStyleBackColor = true;
@@ -221,7 +234,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 424);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(843, 400);
             this.Controls.Add(this.buttonDisablePeriod);
             this.Controls.Add(this.buttonModify);
             this.Controls.Add(this.buttonCreate);
@@ -241,6 +255,8 @@
             this.Controls.Add(this.textBoxRoom);
             this.Controls.Add(this.lblRoom);
             this.Controls.Add(this.lblHotel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormABMHabitacion";
             this.Text = "FormABMHabitacion";
             this.Load += new System.EventHandler(this.FormABMHabitacion_Load);

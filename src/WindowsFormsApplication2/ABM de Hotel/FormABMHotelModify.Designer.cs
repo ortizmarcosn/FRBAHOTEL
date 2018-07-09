@@ -61,153 +61,163 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.Location = new System.Drawing.Point(47, 39);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(44, 13);
+            this.lblName.Size = new System.Drawing.Size(64, 18);
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Nombre";
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(106, 36);
+            this.textBoxName.Location = new System.Drawing.Point(134, 40);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(116, 20);
+            this.textBoxName.Size = new System.Drawing.Size(198, 20);
             this.textBoxName.TabIndex = 1;
             // 
             // lblMail
             // 
             this.lblMail.AutoSize = true;
+            this.lblMail.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMail.Location = new System.Drawing.Point(409, 39);
             this.lblMail.Name = "lblMail";
-            this.lblMail.Size = new System.Drawing.Size(26, 13);
+            this.lblMail.Size = new System.Drawing.Size(37, 18);
             this.lblMail.TabIndex = 2;
             this.lblMail.Text = "Mail";
             // 
             // textBoxMail
             // 
-            this.textBoxMail.Location = new System.Drawing.Point(461, 36);
+            this.textBoxMail.Location = new System.Drawing.Point(478, 37);
             this.textBoxMail.Name = "textBoxMail";
-            this.textBoxMail.Size = new System.Drawing.Size(121, 20);
+            this.textBoxMail.Size = new System.Drawing.Size(174, 20);
             this.textBoxMail.TabIndex = 2;
             // 
             // lblAddress
             // 
             this.lblAddress.AutoSize = true;
+            this.lblAddress.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAddress.Location = new System.Drawing.Point(47, 82);
             this.lblAddress.Name = "lblAddress";
-            this.lblAddress.Size = new System.Drawing.Size(52, 13);
+            this.lblAddress.Size = new System.Drawing.Size(75, 18);
             this.lblAddress.TabIndex = 4;
-            this.lblAddress.Text = "Direccion";
+            this.lblAddress.Text = "Dirección";
             // 
             // textBoxAddress
             // 
-            this.textBoxAddress.Location = new System.Drawing.Point(106, 80);
+            this.textBoxAddress.Location = new System.Drawing.Point(134, 84);
             this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(116, 20);
+            this.textBoxAddress.Size = new System.Drawing.Size(198, 20);
             this.textBoxAddress.TabIndex = 3;
             // 
             // lblAddressNumber
             // 
             this.lblAddressNumber.AutoSize = true;
+            this.lblAddressNumber.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAddressNumber.Location = new System.Drawing.Point(409, 82);
             this.lblAddressNumber.Name = "lblAddressNumber";
-            this.lblAddressNumber.Size = new System.Drawing.Size(24, 13);
+            this.lblAddressNumber.Size = new System.Drawing.Size(63, 18);
             this.lblAddressNumber.TabIndex = 6;
-            this.lblAddressNumber.Text = "Nro";
+            this.lblAddressNumber.Text = "Número";
             // 
             // textBoxAddressNumber
             // 
-            this.textBoxAddressNumber.Location = new System.Drawing.Point(461, 79);
+            this.textBoxAddressNumber.Location = new System.Drawing.Point(478, 80);
             this.textBoxAddressNumber.Name = "textBoxAddressNumber";
-            this.textBoxAddressNumber.Size = new System.Drawing.Size(121, 20);
+            this.textBoxAddressNumber.Size = new System.Drawing.Size(174, 20);
             this.textBoxAddressNumber.TabIndex = 4;
             // 
             // lblTelephone
             // 
             this.lblTelephone.AutoSize = true;
+            this.lblTelephone.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTelephone.Location = new System.Drawing.Point(47, 122);
             this.lblTelephone.Name = "lblTelephone";
-            this.lblTelephone.Size = new System.Drawing.Size(49, 13);
+            this.lblTelephone.Size = new System.Drawing.Size(66, 18);
             this.lblTelephone.TabIndex = 8;
-            this.lblTelephone.Text = "Telefono";
+            this.lblTelephone.Text = "Teléfono";
             // 
             // textBoxTelephone
             // 
-            this.textBoxTelephone.Location = new System.Drawing.Point(106, 119);
+            this.textBoxTelephone.Location = new System.Drawing.Point(134, 123);
             this.textBoxTelephone.Name = "textBoxTelephone";
-            this.textBoxTelephone.Size = new System.Drawing.Size(116, 20);
+            this.textBoxTelephone.Size = new System.Drawing.Size(198, 20);
             this.textBoxTelephone.TabIndex = 5;
             // 
             // lblStar
             // 
             this.lblStar.AutoSize = true;
+            this.lblStar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStar.Location = new System.Drawing.Point(409, 122);
             this.lblStar.Name = "lblStar";
-            this.lblStar.Size = new System.Drawing.Size(46, 13);
+            this.lblStar.Size = new System.Drawing.Size(68, 18);
             this.lblStar.TabIndex = 10;
             this.lblStar.Text = "Estrellas";
             // 
             // comboBoxStar
             // 
             this.comboBoxStar.FormattingEnabled = true;
-            this.comboBoxStar.Location = new System.Drawing.Point(461, 119);
+            this.comboBoxStar.Location = new System.Drawing.Point(478, 120);
             this.comboBoxStar.Name = "comboBoxStar";
-            this.comboBoxStar.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStar.Size = new System.Drawing.Size(174, 21);
             this.comboBoxStar.TabIndex = 6;
             // 
             // lblCity
             // 
             this.lblCity.AutoSize = true;
+            this.lblCity.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCity.Location = new System.Drawing.Point(47, 165);
             this.lblCity.Name = "lblCity";
-            this.lblCity.Size = new System.Drawing.Size(40, 13);
+            this.lblCity.Size = new System.Drawing.Size(59, 18);
             this.lblCity.TabIndex = 12;
             this.lblCity.Text = "Ciudad";
             // 
             // textBoxCity
             // 
-            this.textBoxCity.Location = new System.Drawing.Point(106, 162);
+            this.textBoxCity.Location = new System.Drawing.Point(134, 166);
             this.textBoxCity.Name = "textBoxCity";
-            this.textBoxCity.Size = new System.Drawing.Size(116, 20);
+            this.textBoxCity.Size = new System.Drawing.Size(198, 20);
             this.textBoxCity.TabIndex = 7;
             // 
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
+            this.lblCountry.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCountry.Location = new System.Drawing.Point(409, 165);
             this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(27, 13);
+            this.lblCountry.Size = new System.Drawing.Size(39, 18);
             this.lblCountry.TabIndex = 14;
-            this.lblCountry.Text = "Pais";
+            this.lblCountry.Text = "País";
             // 
             // textBoxCountry
             // 
-            this.textBoxCountry.Location = new System.Drawing.Point(461, 162);
+            this.textBoxCountry.Location = new System.Drawing.Point(478, 163);
             this.textBoxCountry.Name = "textBoxCountry";
-            this.textBoxCountry.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCountry.Size = new System.Drawing.Size(174, 20);
             this.textBoxCountry.TabIndex = 8;
             // 
             // lblCreation
             // 
             this.lblCreation.AutoSize = true;
+            this.lblCreation.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCreation.Location = new System.Drawing.Point(47, 209);
             this.lblCreation.Name = "lblCreation";
-            this.lblCreation.Size = new System.Drawing.Size(49, 13);
+            this.lblCreation.Size = new System.Drawing.Size(72, 18);
             this.lblCreation.TabIndex = 16;
-            this.lblCreation.Text = "Creacion";
+            this.lblCreation.Text = "Creación";
             // 
             // dtCreation
             // 
-            this.dtCreation.Location = new System.Drawing.Point(104, 205);
+            this.dtCreation.Location = new System.Drawing.Point(132, 209);
             this.dtCreation.Name = "dtCreation";
             this.dtCreation.Size = new System.Drawing.Size(200, 20);
             this.dtCreation.TabIndex = 9;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(478, 199);
+            this.buttonSave.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSave.Location = new System.Drawing.Point(177, 257);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.Size = new System.Drawing.Size(119, 40);
             this.buttonSave.TabIndex = 17;
             this.buttonSave.Text = "Guardar";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -215,23 +225,25 @@
             // 
             // dgvToAdd
             // 
+            this.dgvToAdd.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvToAdd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvToAdd.Location = new System.Drawing.Point(50, 293);
+            this.dgvToAdd.Location = new System.Drawing.Point(78, 361);
             this.dgvToAdd.Name = "dgvToAdd";
-            this.dgvToAdd.Size = new System.Drawing.Size(254, 150);
+            this.dgvToAdd.Size = new System.Drawing.Size(254, 100);
             this.dgvToAdd.TabIndex = 18;
             // 
             // dgvSelected
             // 
+            this.dgvSelected.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvSelected.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSelected.Location = new System.Drawing.Point(412, 293);
+            this.dgvSelected.Location = new System.Drawing.Point(437, 361);
             this.dgvSelected.Name = "dgvSelected";
-            this.dgvSelected.Size = new System.Drawing.Size(240, 150);
+            this.dgvSelected.Size = new System.Drawing.Size(240, 100);
             this.dgvSelected.TabIndex = 19;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(319, 310);
+            this.buttonAdd.Location = new System.Drawing.Point(347, 373);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 20;
@@ -241,7 +253,7 @@
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Location = new System.Drawing.Point(319, 402);
+            this.buttonRemove.Location = new System.Drawing.Point(347, 427);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(75, 23);
             this.buttonRemove.TabIndex = 21;
@@ -252,26 +264,29 @@
             // lblRegimenAvailable
             // 
             this.lblRegimenAvailable.AutoSize = true;
-            this.lblRegimenAvailable.Location = new System.Drawing.Point(114, 260);
+            this.lblRegimenAvailable.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegimenAvailable.Location = new System.Drawing.Point(131, 327);
             this.lblRegimenAvailable.Name = "lblRegimenAvailable";
-            this.lblRegimenAvailable.Size = new System.Drawing.Size(117, 13);
+            this.lblRegimenAvailable.Size = new System.Drawing.Size(175, 18);
             this.lblRegimenAvailable.TabIndex = 22;
             this.lblRegimenAvailable.Text = "Regimenes Disponibles";
             // 
             // lblRegimenAssign
             // 
             this.lblRegimenAssign.AutoSize = true;
-            this.lblRegimenAssign.Location = new System.Drawing.Point(475, 260);
+            this.lblRegimenAssign.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRegimenAssign.Location = new System.Drawing.Point(475, 327);
             this.lblRegimenAssign.Name = "lblRegimenAssign";
-            this.lblRegimenAssign.Size = new System.Drawing.Size(112, 13);
+            this.lblRegimenAssign.Size = new System.Drawing.Size(166, 18);
             this.lblRegimenAssign.TabIndex = 23;
             this.lblRegimenAssign.Text = "Regimenes Asignados";
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(319, 471);
+            this.buttonBack.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.Location = new System.Drawing.Point(520, 257);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(75, 23);
+            this.buttonBack.Size = new System.Drawing.Size(104, 40);
             this.buttonBack.TabIndex = 24;
             this.buttonBack.Text = "Volver";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -281,6 +296,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(713, 532);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.lblRegimenAssign);
@@ -308,6 +324,8 @@
             this.Controls.Add(this.lblMail);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.lblName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormABMHotelModify";
             this.Text = "FormABMHotelModify";
             this.Load += new System.EventHandler(this.FormABMHotelModify_Load);

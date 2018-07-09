@@ -51,114 +51,128 @@
             // lblStayId
             // 
             this.lblStayId.AutoSize = true;
+            this.lblStayId.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStayId.Location = new System.Drawing.Point(38, 54);
             this.lblStayId.Name = "lblStayId";
-            this.lblStayId.Size = new System.Drawing.Size(54, 13);
+            this.lblStayId.Size = new System.Drawing.Size(78, 18);
             this.lblStayId.TabIndex = 0;
             this.lblStayId.Text = "Id Estadia";
             // 
             // textBoxStayId
             // 
+            this.textBoxStayId.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxStayId.Location = new System.Drawing.Point(126, 51);
             this.textBoxStayId.Name = "textBoxStayId";
-            this.textBoxStayId.Size = new System.Drawing.Size(121, 20);
+            this.textBoxStayId.Size = new System.Drawing.Size(175, 26);
             this.textBoxStayId.TabIndex = 1;
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
+            this.lblName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.Location = new System.Drawing.Point(38, 91);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(44, 13);
+            this.lblName.Size = new System.Drawing.Size(64, 18);
             this.lblName.TabIndex = 2;
             this.lblName.Text = "Nombre";
             // 
             // textBoxName
             // 
+            this.textBoxName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxName.Location = new System.Drawing.Point(126, 88);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(121, 20);
+            this.textBoxName.Size = new System.Drawing.Size(175, 26);
             this.textBoxName.TabIndex = 3;
             // 
             // lblLastName
             // 
             this.lblLastName.AutoSize = true;
-            this.lblLastName.Location = new System.Drawing.Point(379, 90);
+            this.lblLastName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLastName.Location = new System.Drawing.Point(348, 90);
             this.lblLastName.Name = "lblLastName";
-            this.lblLastName.Size = new System.Drawing.Size(44, 13);
+            this.lblLastName.Size = new System.Drawing.Size(65, 18);
             this.lblLastName.TabIndex = 4;
             this.lblLastName.Text = "Apellido";
             // 
             // textBoxLastName
             // 
+            this.textBoxLastName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxLastName.Location = new System.Drawing.Point(448, 87);
             this.textBoxLastName.Name = "textBoxLastName";
-            this.textBoxLastName.Size = new System.Drawing.Size(112, 20);
+            this.textBoxLastName.Size = new System.Drawing.Size(142, 26);
             this.textBoxLastName.TabIndex = 5;
             // 
             // lblTypePay
             // 
             this.lblTypePay.AutoSize = true;
+            this.lblTypePay.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTypePay.Location = new System.Drawing.Point(38, 131);
             this.lblTypePay.Name = "lblTypePay";
-            this.lblTypePay.Size = new System.Drawing.Size(56, 13);
+            this.lblTypePay.Size = new System.Drawing.Size(80, 18);
             this.lblTypePay.TabIndex = 6;
             this.lblTypePay.Text = "Tipo Pago";
             // 
             // comboBoxTypePay
             // 
+            this.comboBoxTypePay.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxTypePay.FormattingEnabled = true;
             this.comboBoxTypePay.Location = new System.Drawing.Point(126, 128);
             this.comboBoxTypePay.Name = "comboBoxTypePay";
-            this.comboBoxTypePay.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxTypePay.Size = new System.Drawing.Size(175, 26);
             this.comboBoxTypePay.TabIndex = 1;
             this.comboBoxTypePay.SelectedIndexChanged += new System.EventHandler(this.comboBoxTypePay_SelectedIndexChanged);
             // 
             // lblCardNumber
             // 
             this.lblCardNumber.AutoSize = true;
-            this.lblCardNumber.Location = new System.Drawing.Point(382, 131);
+            this.lblCardNumber.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardNumber.Location = new System.Drawing.Point(351, 131);
             this.lblCardNumber.Name = "lblCardNumber";
-            this.lblCardNumber.Size = new System.Drawing.Size(40, 13);
+            this.lblCardNumber.Size = new System.Drawing.Size(54, 18);
             this.lblCardNumber.TabIndex = 8;
             this.lblCardNumber.Text = "Tarjeta";
             // 
             // textBoxCardNumber
             // 
+            this.textBoxCardNumber.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCardNumber.Location = new System.Drawing.Point(448, 128);
             this.textBoxCardNumber.Name = "textBoxCardNumber";
-            this.textBoxCardNumber.Size = new System.Drawing.Size(112, 20);
+            this.textBoxCardNumber.Size = new System.Drawing.Size(142, 26);
             this.textBoxCardNumber.TabIndex = 9;
             // 
             // lblClientId
             // 
             this.lblClientId.AutoSize = true;
-            this.lblClientId.Location = new System.Drawing.Point(382, 53);
+            this.lblClientId.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientId.Location = new System.Drawing.Point(351, 53);
             this.lblClientId.Name = "lblClientId";
-            this.lblClientId.Size = new System.Drawing.Size(51, 13);
+            this.lblClientId.Size = new System.Drawing.Size(73, 18);
             this.lblClientId.TabIndex = 10;
             this.lblClientId.Text = "Id Cliente";
             // 
             // textBoxClientId
             // 
+            this.textBoxClientId.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxClientId.Location = new System.Drawing.Point(448, 50);
             this.textBoxClientId.Name = "textBoxClientId";
-            this.textBoxClientId.Size = new System.Drawing.Size(112, 20);
+            this.textBoxClientId.Size = new System.Drawing.Size(142, 26);
             this.textBoxClientId.TabIndex = 11;
             // 
             // dgvChargeDetail
             // 
+            this.dgvChargeDetail.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvChargeDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChargeDetail.Location = new System.Drawing.Point(26, 200);
+            this.dgvChargeDetail.Location = new System.Drawing.Point(41, 176);
             this.dgvChargeDetail.Name = "dgvChargeDetail";
-            this.dgvChargeDetail.Size = new System.Drawing.Size(564, 150);
+            this.dgvChargeDetail.Size = new System.Drawing.Size(549, 101);
             this.dgvChargeDetail.TabIndex = 12;
             // 
             // buttonCharge
             // 
-            this.buttonCharge.Location = new System.Drawing.Point(126, 415);
+            this.buttonCharge.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCharge.Location = new System.Drawing.Point(126, 378);
             this.buttonCharge.Name = "buttonCharge";
-            this.buttonCharge.Size = new System.Drawing.Size(75, 23);
+            this.buttonCharge.Size = new System.Drawing.Size(98, 36);
             this.buttonCharge.TabIndex = 13;
             this.buttonCharge.Text = "Facturar";
             this.buttonCharge.UseVisualStyleBackColor = true;
@@ -167,24 +181,27 @@
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(157, 370);
+            this.lblTotal.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(249, 294);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(90, 13);
+            this.lblTotal.Size = new System.Drawing.Size(126, 18);
             this.lblTotal.TabIndex = 14;
             this.lblTotal.Text = "Total Facturacion";
             // 
             // textBoxTotalCharge
             // 
-            this.textBoxTotalCharge.Location = new System.Drawing.Point(275, 367);
+            this.textBoxTotalCharge.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTotalCharge.Location = new System.Drawing.Point(223, 325);
             this.textBoxTotalCharge.Name = "textBoxTotalCharge";
-            this.textBoxTotalCharge.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTotalCharge.Size = new System.Drawing.Size(182, 26);
             this.textBoxTotalCharge.TabIndex = 15;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(385, 415);
+            this.buttonCancel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancel.Location = new System.Drawing.Point(406, 378);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(97, 36);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancelar";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -194,7 +211,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 496);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(639, 433);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.textBoxTotalCharge);
             this.Controls.Add(this.lblTotal);

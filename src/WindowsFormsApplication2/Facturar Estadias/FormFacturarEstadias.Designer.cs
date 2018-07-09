@@ -40,17 +40,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 37);
+            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(307, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(95, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nro Reserva";
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(301, 32);
+            this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.Location = new System.Drawing.Point(310, 71);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(92, 35);
             this.buttonSearch.TabIndex = 2;
             this.buttonSearch.Text = "Buscar";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -58,24 +60,27 @@
             // 
             // textBoxBooking
             // 
-            this.textBoxBooking.Location = new System.Drawing.Point(105, 34);
+            this.textBoxBooking.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxBooking.Location = new System.Drawing.Point(177, 35);
             this.textBoxBooking.Name = "textBoxBooking";
-            this.textBoxBooking.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBooking.Size = new System.Drawing.Size(397, 26);
             this.textBoxBooking.TabIndex = 1;
             // 
             // dgvStay
             // 
+            this.dgvStay.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvStay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvStay.Location = new System.Drawing.Point(25, 100);
+            this.dgvStay.Location = new System.Drawing.Point(24, 132);
             this.dgvStay.Name = "dgvStay";
-            this.dgvStay.Size = new System.Drawing.Size(653, 150);
+            this.dgvStay.Size = new System.Drawing.Size(653, 78);
             this.dgvStay.TabIndex = 3;
             // 
             // buttonCharge
             // 
-            this.buttonCharge.Location = new System.Drawing.Point(458, 278);
+            this.buttonCharge.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCharge.Location = new System.Drawing.Point(446, 227);
             this.buttonCharge.Name = "buttonCharge";
-            this.buttonCharge.Size = new System.Drawing.Size(75, 23);
+            this.buttonCharge.Size = new System.Drawing.Size(128, 49);
             this.buttonCharge.TabIndex = 4;
             this.buttonCharge.Text = "Ver Detalle";
             this.buttonCharge.UseVisualStyleBackColor = true;
@@ -83,9 +88,10 @@
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(166, 278);
+            this.buttonBack.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.Location = new System.Drawing.Point(154, 227);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(75, 23);
+            this.buttonBack.Size = new System.Drawing.Size(128, 49);
             this.buttonBack.TabIndex = 5;
             this.buttonBack.Text = "Volver";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -95,6 +101,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(708, 339);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonCharge);

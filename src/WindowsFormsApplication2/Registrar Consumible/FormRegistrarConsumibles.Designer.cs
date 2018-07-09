@@ -47,24 +47,26 @@
             // lblSelected
             // 
             this.lblSelected.AutoSize = true;
-            this.lblSelected.Location = new System.Drawing.Point(443, 134);
+            this.lblSelected.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelected.Location = new System.Drawing.Point(409, 157);
             this.lblSelected.Name = "lblSelected";
-            this.lblSelected.Size = new System.Drawing.Size(118, 13);
+            this.lblSelected.Size = new System.Drawing.Size(177, 18);
             this.lblSelected.TabIndex = 19;
             this.lblSelected.Text = "Consumibles Asignados";
             // 
             // lblConsumibles
             // 
             this.lblConsumibles.AutoSize = true;
-            this.lblConsumibles.Location = new System.Drawing.Point(69, 134);
+            this.lblConsumibles.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConsumibles.Location = new System.Drawing.Point(51, 157);
             this.lblConsumibles.Name = "lblConsumibles";
-            this.lblConsumibles.Size = new System.Drawing.Size(123, 13);
+            this.lblConsumibles.Size = new System.Drawing.Size(186, 18);
             this.lblConsumibles.TabIndex = 18;
             this.lblConsumibles.Text = "Consumibles Disponibles";
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(270, 253);
+            this.btnRemove.Location = new System.Drawing.Point(277, 285);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(59, 23);
             this.btnRemove.TabIndex = 17;
@@ -74,7 +76,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(270, 175);
+            this.btnAdd.Location = new System.Drawing.Point(277, 207);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(59, 23);
             this.btnAdd.TabIndex = 16;
@@ -84,9 +86,10 @@
             // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(250, 32);
+            this.btnFilter.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFilter.Location = new System.Drawing.Point(133, 87);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(141, 23);
+            this.btnFilter.Size = new System.Drawing.Size(149, 39);
             this.btnFilter.TabIndex = 15;
             this.btnFilter.Text = "Filtrar";
             this.btnFilter.UseVisualStyleBackColor = true;
@@ -94,9 +97,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(261, 349);
+            this.btnCancel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Location = new System.Drawing.Point(465, 87);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(83, 39);
             this.btnCancel.TabIndex = 14;
             this.btnCancel.Text = "Volver";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -104,56 +108,63 @@
             // 
             // dgvSelected
             // 
+            this.dgvSelected.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvSelected.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSelected.Location = new System.Drawing.Point(335, 159);
+            this.dgvSelected.Location = new System.Drawing.Point(354, 191);
             this.dgvSelected.Name = "dgvSelected";
-            this.dgvSelected.Size = new System.Drawing.Size(305, 150);
+            this.dgvSelected.Size = new System.Drawing.Size(271, 150);
             this.dgvSelected.TabIndex = 13;
             // 
             // dgvConsumiblesList
             // 
+            this.dgvConsumiblesList.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvConsumiblesList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvConsumiblesList.Location = new System.Drawing.Point(23, 159);
+            this.dgvConsumiblesList.Location = new System.Drawing.Point(30, 191);
             this.dgvConsumiblesList.Name = "dgvConsumiblesList";
             this.dgvConsumiblesList.Size = new System.Drawing.Size(240, 150);
             this.dgvConsumiblesList.TabIndex = 12;
             // 
             // txtConsumibles
             // 
-            this.txtConsumibles.Location = new System.Drawing.Point(88, 34);
+            this.txtConsumibles.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConsumibles.Location = new System.Drawing.Point(105, 39);
             this.txtConsumibles.Name = "txtConsumibles";
-            this.txtConsumibles.Size = new System.Drawing.Size(140, 20);
+            this.txtConsumibles.Size = new System.Drawing.Size(223, 26);
             this.txtConsumibles.TabIndex = 11;
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(27, 37);
+            this.lblName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.Location = new System.Drawing.Point(27, 42);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(44, 13);
+            this.lblName.Size = new System.Drawing.Size(64, 18);
             this.lblName.TabIndex = 10;
             this.lblName.Text = "Nombre";
             // 
             // lblCantidad
             // 
             this.lblCantidad.AutoSize = true;
-            this.lblCantidad.Location = new System.Drawing.Point(27, 78);
+            this.lblCantidad.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidad.Location = new System.Drawing.Point(334, 42);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(49, 13);
+            this.lblCantidad.Size = new System.Drawing.Size(72, 18);
             this.lblCantidad.TabIndex = 20;
             this.lblCantidad.Text = "Cantidad";
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(88, 75);
+            this.txtCantidad.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCantidad.Location = new System.Drawing.Point(412, 39);
             this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.Size = new System.Drawing.Size(59, 20);
+            this.txtCantidad.Size = new System.Drawing.Size(180, 26);
             this.txtCantidad.TabIndex = 21;
             // 
             // FormRegistrarConsumibles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(652, 399);
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.lblCantidad);

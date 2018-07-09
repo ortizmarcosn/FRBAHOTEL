@@ -36,17 +36,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 9);
+            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(58, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 13);
+            this.label1.Size = new System.Drawing.Size(92, 18);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Seleccione el Rol que desea utilizar";
+            this.label1.Text = "Rol a utilizar";
             // 
             // button_accept
             // 
-            this.button_accept.Location = new System.Drawing.Point(75, 83);
+            this.button_accept.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_accept.Location = new System.Drawing.Point(61, 74);
             this.button_accept.Name = "button_accept";
-            this.button_accept.Size = new System.Drawing.Size(65, 31);
+            this.button_accept.Size = new System.Drawing.Size(89, 39);
             this.button_accept.TabIndex = 2;
             this.button_accept.Text = "Aceptar";
             this.button_accept.UseVisualStyleBackColor = true;
@@ -54,16 +56,18 @@
             // 
             // comboBox_Roles
             // 
+            this.comboBox_Roles.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox_Roles.FormattingEnabled = true;
-            this.comboBox_Roles.Location = new System.Drawing.Point(46, 42);
+            this.comboBox_Roles.Location = new System.Drawing.Point(12, 42);
             this.comboBox_Roles.Name = "comboBox_Roles";
-            this.comboBox_Roles.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_Roles.Size = new System.Drawing.Size(196, 26);
             this.comboBox_Roles.TabIndex = 3;
             // 
             // FormSeleccionRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(220, 134);
             this.Controls.Add(this.comboBox_Roles);
             this.Controls.Add(this.button_accept);

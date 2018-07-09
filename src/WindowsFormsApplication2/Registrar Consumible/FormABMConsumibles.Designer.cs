@@ -41,24 +41,27 @@
             // lblEstadia
             // 
             this.lblEstadia.AutoSize = true;
-            this.lblEstadia.Location = new System.Drawing.Point(38, 32);
+            this.lblEstadia.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstadia.Location = new System.Drawing.Point(180, 9);
             this.lblEstadia.Name = "lblEstadia";
-            this.lblEstadia.Size = new System.Drawing.Size(67, 13);
+            this.lblEstadia.Size = new System.Drawing.Size(95, 18);
             this.lblEstadia.TabIndex = 0;
             this.lblEstadia.Text = "Nro Reserva";
             // 
             // txtNroReserva
             // 
-            this.txtNroReserva.Location = new System.Drawing.Point(111, 29);
+            this.txtNroReserva.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNroReserva.Location = new System.Drawing.Point(41, 43);
             this.txtNroReserva.Name = "txtNroReserva";
-            this.txtNroReserva.Size = new System.Drawing.Size(135, 20);
+            this.txtNroReserva.Size = new System.Drawing.Size(409, 26);
             this.txtNroReserva.TabIndex = 1;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(315, 27);
+            this.btnSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Location = new System.Drawing.Point(79, 80);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(101, 23);
+            this.btnSearch.Size = new System.Drawing.Size(131, 38);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Buscar";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -66,9 +69,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(41, 341);
+            this.btnCancelar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(281, 80);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(124, 38);
             this.btnCancelar.TabIndex = 3;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -76,9 +80,10 @@
             // 
             // btnSelect
             // 
-            this.btnSelect.Location = new System.Drawing.Point(241, 341);
+            this.btnSelect.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSelect.Location = new System.Drawing.Point(79, 144);
             this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(131, 23);
+            this.btnSelect.Size = new System.Drawing.Size(131, 50);
             this.btnSelect.TabIndex = 4;
             this.btnSelect.Text = "Ver Consumibles";
             this.btnSelect.UseVisualStyleBackColor = true;
@@ -88,18 +93,20 @@
             // 
             this.dgvEstadias.AllowUserToAddRows = false;
             this.dgvEstadias.AllowUserToDeleteRows = false;
+            this.dgvEstadias.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvEstadias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEstadias.Location = new System.Drawing.Point(41, 118);
+            this.dgvEstadias.Location = new System.Drawing.Point(41, 200);
             this.dgvEstadias.Name = "dgvEstadias";
             this.dgvEstadias.ReadOnly = true;
-            this.dgvEstadias.Size = new System.Drawing.Size(409, 198);
+            this.dgvEstadias.Size = new System.Drawing.Size(409, 117);
             this.dgvEstadias.TabIndex = 5;
             // 
             // btnClean
             // 
-            this.btnClean.Location = new System.Drawing.Point(41, 67);
+            this.btnClean.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClean.Location = new System.Drawing.Point(281, 144);
             this.btnClean.Name = "btnClean";
-            this.btnClean.Size = new System.Drawing.Size(75, 23);
+            this.btnClean.Size = new System.Drawing.Size(124, 38);
             this.btnClean.TabIndex = 6;
             this.btnClean.Text = "Limpiar";
             this.btnClean.UseVisualStyleBackColor = true;
@@ -109,6 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(493, 395);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.dgvEstadias);

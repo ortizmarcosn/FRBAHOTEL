@@ -211,5 +211,10 @@ namespace WindowsFormsApplication2.ABM_de_Cliente
 
             return clientData;
         }
+
+        private void comboBoxNationality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

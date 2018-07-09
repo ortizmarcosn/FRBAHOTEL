@@ -41,17 +41,19 @@
             // lblBookingId
             // 
             this.lblBookingId.AutoSize = true;
-            this.lblBookingId.Location = new System.Drawing.Point(171, 39);
+            this.lblBookingId.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBookingId.Location = new System.Drawing.Point(244, 21);
             this.lblBookingId.Name = "lblBookingId";
-            this.lblBookingId.Size = new System.Drawing.Size(67, 13);
+            this.lblBookingId.Size = new System.Drawing.Size(95, 18);
             this.lblBookingId.TabIndex = 0;
             this.lblBookingId.Text = "Nro Reserva";
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(236, 79);
+            this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.Location = new System.Drawing.Point(236, 90);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(103, 36);
             this.buttonSearch.TabIndex = 1;
             this.buttonSearch.Text = "Buscar";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -59,24 +61,27 @@
             // 
             // textBoxBookingId
             // 
-            this.textBoxBookingId.Location = new System.Drawing.Point(268, 36);
+            this.textBoxBookingId.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxBookingId.Location = new System.Drawing.Point(12, 48);
             this.textBoxBookingId.Name = "textBoxBookingId";
-            this.textBoxBookingId.Size = new System.Drawing.Size(137, 20);
+            this.textBoxBookingId.Size = new System.Drawing.Size(552, 26);
             this.textBoxBookingId.TabIndex = 1;
             // 
             // dgvBooking
             // 
+            this.dgvBooking.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvBooking.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBooking.Location = new System.Drawing.Point(12, 119);
+            this.dgvBooking.Location = new System.Drawing.Point(12, 149);
             this.dgvBooking.Name = "dgvBooking";
             this.dgvBooking.Size = new System.Drawing.Size(552, 93);
             this.dgvBooking.TabIndex = 2;
             // 
             // buttonCheckIn
             // 
-            this.buttonCheckIn.Location = new System.Drawing.Point(236, 239);
+            this.buttonCheckIn.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCheckIn.Location = new System.Drawing.Point(236, 269);
             this.buttonCheckIn.Name = "buttonCheckIn";
-            this.buttonCheckIn.Size = new System.Drawing.Size(75, 23);
+            this.buttonCheckIn.Size = new System.Drawing.Size(91, 36);
             this.buttonCheckIn.TabIndex = 3;
             this.buttonCheckIn.Text = "Check In";
             this.buttonCheckIn.UseVisualStyleBackColor = true;
@@ -84,9 +89,10 @@
             // 
             // buttonCheckOut
             // 
-            this.buttonCheckOut.Location = new System.Drawing.Point(364, 239);
+            this.buttonCheckOut.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCheckOut.Location = new System.Drawing.Point(364, 269);
             this.buttonCheckOut.Name = "buttonCheckOut";
-            this.buttonCheckOut.Size = new System.Drawing.Size(75, 23);
+            this.buttonCheckOut.Size = new System.Drawing.Size(95, 36);
             this.buttonCheckOut.TabIndex = 4;
             this.buttonCheckOut.Text = "Check Out";
             this.buttonCheckOut.UseVisualStyleBackColor = true;
@@ -94,9 +100,10 @@
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(97, 239);
+            this.buttonBack.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.Location = new System.Drawing.Point(97, 269);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(75, 23);
+            this.buttonBack.Size = new System.Drawing.Size(93, 36);
             this.buttonBack.TabIndex = 5;
             this.buttonBack.Text = "Volver";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -106,7 +113,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 309);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(611, 359);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonCheckOut);
             this.Controls.Add(this.buttonCheckIn);

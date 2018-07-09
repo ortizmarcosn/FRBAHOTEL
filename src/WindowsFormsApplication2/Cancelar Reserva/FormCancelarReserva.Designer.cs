@@ -45,40 +45,46 @@
             // lblBookig
             // 
             this.lblBookig.AutoSize = true;
-            this.lblBookig.Location = new System.Drawing.Point(44, 32);
+            this.lblBookig.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBookig.Location = new System.Drawing.Point(20, 33);
             this.lblBookig.Name = "lblBookig";
-            this.lblBookig.Size = new System.Drawing.Size(47, 13);
+            this.lblBookig.Size = new System.Drawing.Size(66, 18);
             this.lblBookig.TabIndex = 0;
             this.lblBookig.Text = "Reserva";
             // 
             // textBoxBookingId
             // 
-            this.textBoxBookingId.Location = new System.Drawing.Point(107, 30);
+            this.textBoxBookingId.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxBookingId.Location = new System.Drawing.Point(92, 30);
             this.textBoxBookingId.Name = "textBoxBookingId";
-            this.textBoxBookingId.Size = new System.Drawing.Size(100, 20);
+            this.textBoxBookingId.Size = new System.Drawing.Size(189, 26);
             this.textBoxBookingId.TabIndex = 1;
+            this.textBoxBookingId.TextChanged += new System.EventHandler(this.textBoxBookingId_TextChanged);
             // 
             // lblBookingOwner
             // 
             this.lblBookingOwner.AutoSize = true;
+            this.lblBookingOwner.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBookingOwner.Location = new System.Drawing.Point(287, 32);
             this.lblBookingOwner.Name = "lblBookingOwner";
-            this.lblBookingOwner.Size = new System.Drawing.Size(44, 13);
+            this.lblBookingOwner.Size = new System.Drawing.Size(65, 18);
             this.lblBookingOwner.TabIndex = 2;
             this.lblBookingOwner.Text = "Apellido";
             // 
             // textBoxLastname
             // 
-            this.textBoxLastname.Location = new System.Drawing.Point(343, 30);
+            this.textBoxLastname.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxLastname.Location = new System.Drawing.Point(358, 29);
             this.textBoxLastname.Name = "textBoxLastname";
-            this.textBoxLastname.Size = new System.Drawing.Size(100, 20);
+            this.textBoxLastname.Size = new System.Drawing.Size(172, 26);
             this.textBoxLastname.TabIndex = 2;
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(303, 71);
+            this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.Location = new System.Drawing.Point(121, 71);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(103, 37);
             this.buttonSearch.TabIndex = 3;
             this.buttonSearch.Text = "Buscar";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -86,33 +92,37 @@
             // 
             // dgvCancellationBooking
             // 
+            this.dgvCancellationBooking.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvCancellationBooking.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCancellationBooking.Location = new System.Drawing.Point(23, 114);
             this.dgvCancellationBooking.Name = "dgvCancellationBooking";
-            this.dgvCancellationBooking.Size = new System.Drawing.Size(507, 150);
+            this.dgvCancellationBooking.Size = new System.Drawing.Size(507, 117);
             this.dgvCancellationBooking.TabIndex = 5;
             // 
             // lblMotive
             // 
             this.lblMotive.AutoSize = true;
-            this.lblMotive.Location = new System.Drawing.Point(29, 287);
+            this.lblMotive.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMotive.Location = new System.Drawing.Point(247, 248);
             this.lblMotive.Name = "lblMotive";
-            this.lblMotive.Size = new System.Drawing.Size(39, 13);
+            this.lblMotive.Size = new System.Drawing.Size(54, 18);
             this.lblMotive.TabIndex = 6;
             this.lblMotive.Text = "Motivo";
             // 
             // textBoxMotive
             // 
-            this.textBoxMotive.Location = new System.Drawing.Point(111, 284);
+            this.textBoxMotive.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxMotive.Location = new System.Drawing.Point(23, 284);
             this.textBoxMotive.Name = "textBoxMotive";
-            this.textBoxMotive.Size = new System.Drawing.Size(419, 20);
+            this.textBoxMotive.Size = new System.Drawing.Size(507, 26);
             this.textBoxMotive.TabIndex = 3;
             // 
             // buttonClean
             // 
-            this.buttonClean.Location = new System.Drawing.Point(122, 71);
+            this.buttonClean.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClean.Location = new System.Drawing.Point(372, 71);
             this.buttonClean.Name = "buttonClean";
-            this.buttonClean.Size = new System.Drawing.Size(75, 23);
+            this.buttonClean.Size = new System.Drawing.Size(93, 37);
             this.buttonClean.TabIndex = 8;
             this.buttonClean.Text = "Limpiar";
             this.buttonClean.UseVisualStyleBackColor = true;
@@ -120,9 +130,10 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.Location = new System.Drawing.Point(96, 335);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(101, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(158, 42);
             this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "Cancelar Reserva";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -130,9 +141,10 @@
             // 
             // buttonBack
             // 
+            this.buttonBack.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonBack.Location = new System.Drawing.Point(303, 335);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(103, 23);
+            this.buttonBack.Size = new System.Drawing.Size(137, 42);
             this.buttonBack.TabIndex = 10;
             this.buttonBack.Text = "Volver";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -142,6 +154,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(556, 413);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonCancel);

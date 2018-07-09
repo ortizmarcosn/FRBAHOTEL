@@ -49,73 +49,78 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(118, 38);
+            this.lblName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.Location = new System.Drawing.Point(29, 30);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(44, 13);
+            this.lblName.Size = new System.Drawing.Size(64, 18);
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Nombre";
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(189, 35);
+            this.textBoxName.Location = new System.Drawing.Point(99, 32);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(100, 20);
+            this.textBoxName.Size = new System.Drawing.Size(287, 20);
             this.textBoxName.TabIndex = 1;
             // 
             // lblStar
             // 
             this.lblStar.AutoSize = true;
-            this.lblStar.Location = new System.Drawing.Point(641, 39);
+            this.lblStar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStar.Location = new System.Drawing.Point(412, 31);
             this.lblStar.Name = "lblStar";
-            this.lblStar.Size = new System.Drawing.Size(46, 13);
+            this.lblStar.Size = new System.Drawing.Size(68, 18);
             this.lblStar.TabIndex = 2;
             this.lblStar.Text = "Estrellas";
             // 
             // comboBoxStar
             // 
             this.comboBoxStar.FormattingEnabled = true;
-            this.comboBoxStar.Location = new System.Drawing.Point(719, 36);
+            this.comboBoxStar.Location = new System.Drawing.Point(490, 28);
             this.comboBoxStar.Name = "comboBoxStar";
-            this.comboBoxStar.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStar.Size = new System.Drawing.Size(261, 21);
             this.comboBoxStar.TabIndex = 2;
             // 
             // lblCity
             // 
             this.lblCity.AutoSize = true;
-            this.lblCity.Location = new System.Drawing.Point(121, 69);
+            this.lblCity.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCity.Location = new System.Drawing.Point(29, 63);
             this.lblCity.Name = "lblCity";
-            this.lblCity.Size = new System.Drawing.Size(40, 13);
+            this.lblCity.Size = new System.Drawing.Size(59, 18);
             this.lblCity.TabIndex = 4;
             this.lblCity.Text = "Ciudad";
             // 
             // textBoxCity
             // 
-            this.textBoxCity.Location = new System.Drawing.Point(189, 69);
+            this.textBoxCity.Location = new System.Drawing.Point(99, 66);
             this.textBoxCity.Name = "textBoxCity";
-            this.textBoxCity.Size = new System.Drawing.Size(100, 20);
+            this.textBoxCity.Size = new System.Drawing.Size(287, 20);
             this.textBoxCity.TabIndex = 3;
             // 
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(644, 70);
+            this.lblCountry.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCountry.Location = new System.Drawing.Point(415, 62);
             this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(27, 13);
+            this.lblCountry.Size = new System.Drawing.Size(40, 18);
             this.lblCountry.TabIndex = 6;
             this.lblCountry.Text = "Pais";
             // 
             // textBoxCountry
             // 
-            this.textBoxCountry.Location = new System.Drawing.Point(719, 69);
+            this.textBoxCountry.Location = new System.Drawing.Point(490, 61);
             this.textBoxCountry.Name = "textBoxCountry";
-            this.textBoxCountry.Size = new System.Drawing.Size(100, 20);
+            this.textBoxCountry.Size = new System.Drawing.Size(261, 20);
             this.textBoxCountry.TabIndex = 4;
             // 
             // buttonClean
             // 
-            this.buttonClean.Location = new System.Drawing.Point(189, 121);
+            this.buttonClean.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClean.Location = new System.Drawing.Point(390, 113);
             this.buttonClean.Name = "buttonClean";
-            this.buttonClean.Size = new System.Drawing.Size(75, 23);
+            this.buttonClean.Size = new System.Drawing.Size(90, 37);
             this.buttonClean.TabIndex = 8;
             this.buttonClean.Text = "Limpiar";
             this.buttonClean.UseVisualStyleBackColor = true;
@@ -123,9 +128,10 @@
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(719, 121);
+            this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.Location = new System.Drawing.Point(99, 113);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(92, 37);
             this.buttonSearch.TabIndex = 9;
             this.buttonSearch.Text = "Buscar";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -133,17 +139,19 @@
             // 
             // dgvHotel
             // 
+            this.dgvHotel.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvHotel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHotel.Location = new System.Drawing.Point(24, 182);
+            this.dgvHotel.Location = new System.Drawing.Point(32, 170);
             this.dgvHotel.Name = "dgvHotel";
-            this.dgvHotel.Size = new System.Drawing.Size(920, 150);
+            this.dgvHotel.Size = new System.Drawing.Size(719, 150);
             this.dgvHotel.TabIndex = 10;
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(57, 358);
+            this.buttonBack.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.Location = new System.Drawing.Point(661, 113);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(75, 23);
+            this.buttonBack.Size = new System.Drawing.Size(90, 37);
             this.buttonBack.TabIndex = 11;
             this.buttonBack.Text = "Volver";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -151,9 +159,10 @@
             // 
             // buttonCreate
             // 
-            this.buttonCreate.Location = new System.Drawing.Point(317, 357);
+            this.buttonCreate.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCreate.Location = new System.Drawing.Point(99, 341);
             this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(75, 23);
+            this.buttonCreate.Size = new System.Drawing.Size(107, 33);
             this.buttonCreate.TabIndex = 12;
             this.buttonCreate.Text = "Crear";
             this.buttonCreate.UseVisualStyleBackColor = true;
@@ -161,9 +170,10 @@
             // 
             // buttonDisablePeriod
             // 
-            this.buttonDisablePeriod.Location = new System.Drawing.Point(612, 358);
+            this.buttonDisablePeriod.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDisablePeriod.Location = new System.Drawing.Point(366, 342);
             this.buttonDisablePeriod.Name = "buttonDisablePeriod";
-            this.buttonDisablePeriod.Size = new System.Drawing.Size(75, 23);
+            this.buttonDisablePeriod.Size = new System.Drawing.Size(125, 32);
             this.buttonDisablePeriod.TabIndex = 13;
             this.buttonDisablePeriod.Text = "Baja Periodo";
             this.buttonDisablePeriod.UseVisualStyleBackColor = true;
@@ -171,9 +181,10 @@
             // 
             // buttonModify
             // 
-            this.buttonModify.Location = new System.Drawing.Point(833, 357);
+            this.buttonModify.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonModify.Location = new System.Drawing.Point(615, 341);
             this.buttonModify.Name = "buttonModify";
-            this.buttonModify.Size = new System.Drawing.Size(75, 23);
+            this.buttonModify.Size = new System.Drawing.Size(109, 33);
             this.buttonModify.TabIndex = 15;
             this.buttonModify.Text = "Modificar";
             this.buttonModify.UseVisualStyleBackColor = true;
@@ -183,7 +194,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(971, 424);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(799, 397);
             this.Controls.Add(this.buttonModify);
             this.Controls.Add(this.buttonDisablePeriod);
             this.Controls.Add(this.buttonCreate);
@@ -199,6 +211,8 @@
             this.Controls.Add(this.lblStar);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.lblName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormABMHotel";
             this.Text = "FormABMHotel";
             this.Load += new System.EventHandler(this.FormABMHotel_Load);

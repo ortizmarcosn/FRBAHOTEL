@@ -86,5 +86,10 @@ namespace WindowsFormsApplication2.ABM_de_Habitacion
 
             return period;
         }
+
+        private void FormABMHabitacionPeriod_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

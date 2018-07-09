@@ -41,59 +41,66 @@
             // lblOldPassword
             // 
             this.lblOldPassword.AutoSize = true;
-            this.lblOldPassword.Location = new System.Drawing.Point(120, 44);
+            this.lblOldPassword.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOldPassword.Location = new System.Drawing.Point(48, 44);
             this.lblOldPassword.Name = "lblOldPassword";
-            this.lblOldPassword.Size = new System.Drawing.Size(43, 13);
+            this.lblOldPassword.Size = new System.Drawing.Size(63, 18);
             this.lblOldPassword.TabIndex = 0;
             this.lblOldPassword.Text = "Anterior";
             // 
             // lblNewPassword
             // 
             this.lblNewPassword.AutoSize = true;
-            this.lblNewPassword.Location = new System.Drawing.Point(120, 97);
+            this.lblNewPassword.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewPassword.Location = new System.Drawing.Point(48, 97);
             this.lblNewPassword.Name = "lblNewPassword";
-            this.lblNewPassword.Size = new System.Drawing.Size(39, 13);
+            this.lblNewPassword.Size = new System.Drawing.Size(52, 18);
             this.lblNewPassword.TabIndex = 1;
             this.lblNewPassword.Text = "Nueva";
             // 
             // lblConfirmNewPassword
             // 
             this.lblConfirmNewPassword.AutoSize = true;
-            this.lblConfirmNewPassword.Location = new System.Drawing.Point(120, 148);
+            this.lblConfirmNewPassword.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConfirmNewPassword.Location = new System.Drawing.Point(48, 148);
             this.lblConfirmNewPassword.Name = "lblConfirmNewPassword";
-            this.lblConfirmNewPassword.Size = new System.Drawing.Size(86, 13);
+            this.lblConfirmNewPassword.Size = new System.Drawing.Size(125, 18);
             this.lblConfirmNewPassword.TabIndex = 2;
             this.lblConfirmNewPassword.Text = "Confirmar Nueva";
             // 
             // textBoxOldPassword
             // 
-            this.textBoxOldPassword.Location = new System.Drawing.Point(224, 41);
+            this.textBoxOldPassword.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxOldPassword.Location = new System.Drawing.Point(176, 41);
             this.textBoxOldPassword.Name = "textBoxOldPassword";
             this.textBoxOldPassword.PasswordChar = '*';
-            this.textBoxOldPassword.Size = new System.Drawing.Size(100, 20);
+            this.textBoxOldPassword.Size = new System.Drawing.Size(253, 26);
             this.textBoxOldPassword.TabIndex = 1;
             // 
             // textBoxNewPassword
             // 
-            this.textBoxNewPassword.Location = new System.Drawing.Point(224, 94);
+            this.textBoxNewPassword.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNewPassword.Location = new System.Drawing.Point(176, 94);
             this.textBoxNewPassword.Name = "textBoxNewPassword";
             this.textBoxNewPassword.PasswordChar = '*';
-            this.textBoxNewPassword.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNewPassword.Size = new System.Drawing.Size(253, 26);
             this.textBoxNewPassword.TabIndex = 2;
             // 
             // textBoxConfirmNewPassword
             // 
-            this.textBoxConfirmNewPassword.Location = new System.Drawing.Point(224, 145);
+            this.textBoxConfirmNewPassword.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxConfirmNewPassword.Location = new System.Drawing.Point(176, 145);
             this.textBoxConfirmNewPassword.Name = "textBoxConfirmNewPassword";
             this.textBoxConfirmNewPassword.PasswordChar = '*';
-            this.textBoxConfirmNewPassword.Size = new System.Drawing.Size(100, 20);
+            this.textBoxConfirmNewPassword.Size = new System.Drawing.Size(253, 26);
             this.textBoxConfirmNewPassword.TabIndex = 3;
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(123, 208);
+            this.buttonBack.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.Location = new System.Drawing.Point(327, 207);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(75, 23);
+            this.buttonBack.Size = new System.Drawing.Size(102, 42);
             this.buttonBack.TabIndex = 5;
             this.buttonBack.Text = "Volver";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -101,9 +108,10 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(280, 207);
+            this.buttonSave.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSave.Location = new System.Drawing.Point(109, 207);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.Size = new System.Drawing.Size(107, 42);
             this.buttonSave.TabIndex = 7;
             this.buttonSave.Text = "Guardar";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -113,6 +121,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(469, 297);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonBack);

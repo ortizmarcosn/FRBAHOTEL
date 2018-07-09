@@ -40,9 +40,10 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(173, 188);
+            this.buttonCancel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancel.Location = new System.Drawing.Point(243, 179);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(96, 37);
             this.buttonCancel.TabIndex = 15;
             this.buttonCancel.Text = "Cancelar";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -50,9 +51,10 @@
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(40, 188);
+            this.buttonAccept.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAccept.Location = new System.Drawing.Point(110, 179);
             this.buttonAccept.Name = "buttonAccept";
-            this.buttonAccept.Size = new System.Drawing.Size(75, 23);
+            this.buttonAccept.Size = new System.Drawing.Size(100, 37);
             this.buttonAccept.TabIndex = 14;
             this.buttonAccept.Text = "Aceptar";
             this.buttonAccept.UseVisualStyleBackColor = true;
@@ -60,49 +62,52 @@
             // 
             // textBoxMotive
             // 
-            this.textBoxMotive.Location = new System.Drawing.Point(65, 134);
+            this.textBoxMotive.Location = new System.Drawing.Point(82, 138);
             this.textBoxMotive.Name = "textBoxMotive";
-            this.textBoxMotive.Size = new System.Drawing.Size(207, 20);
+            this.textBoxMotive.Size = new System.Drawing.Size(302, 20);
             this.textBoxMotive.TabIndex = 12;
             // 
             // lblMotive
             // 
             this.lblMotive.AutoSize = true;
+            this.lblMotive.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMotive.Location = new System.Drawing.Point(20, 137);
             this.lblMotive.Name = "lblMotive";
-            this.lblMotive.Size = new System.Drawing.Size(39, 13);
+            this.lblMotive.Size = new System.Drawing.Size(54, 18);
             this.lblMotive.TabIndex = 13;
             this.lblMotive.Text = "Motivo";
             // 
             // dtTo
             // 
-            this.dtTo.Location = new System.Drawing.Point(65, 96);
+            this.dtTo.Location = new System.Drawing.Point(82, 100);
             this.dtTo.Name = "dtTo";
-            this.dtTo.Size = new System.Drawing.Size(207, 20);
+            this.dtTo.Size = new System.Drawing.Size(302, 20);
             this.dtTo.TabIndex = 10;
             // 
             // lblTo
             // 
             this.lblTo.AutoSize = true;
+            this.lblTo.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTo.Location = new System.Drawing.Point(20, 100);
             this.lblTo.Name = "lblTo";
-            this.lblTo.Size = new System.Drawing.Size(35, 13);
+            this.lblTo.Size = new System.Drawing.Size(49, 18);
             this.lblTo.TabIndex = 11;
             this.lblTo.Text = "Hasta";
             // 
             // dtFrom
             // 
-            this.dtFrom.Location = new System.Drawing.Point(65, 59);
+            this.dtFrom.Location = new System.Drawing.Point(82, 63);
             this.dtFrom.Name = "dtFrom";
-            this.dtFrom.Size = new System.Drawing.Size(207, 20);
+            this.dtFrom.Size = new System.Drawing.Size(302, 20);
             this.dtFrom.TabIndex = 9;
             // 
             // lblFrom
             // 
             this.lblFrom.AutoSize = true;
+            this.lblFrom.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFrom.Location = new System.Drawing.Point(21, 63);
             this.lblFrom.Name = "lblFrom";
-            this.lblFrom.Size = new System.Drawing.Size(38, 13);
+            this.lblFrom.Size = new System.Drawing.Size(55, 18);
             this.lblFrom.TabIndex = 8;
             this.lblFrom.Text = "Desde";
             // 
@@ -110,7 +115,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 269);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(431, 274);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAccept);
             this.Controls.Add(this.textBoxMotive);
@@ -119,8 +125,11 @@
             this.Controls.Add(this.lblTo);
             this.Controls.Add(this.dtFrom);
             this.Controls.Add(this.lblFrom);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormABMHabitacionPeriod";
             this.Text = "FormABMHabitacionPeriod";
+            this.Load += new System.EventHandler(this.FormABMHabitacionPeriod_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

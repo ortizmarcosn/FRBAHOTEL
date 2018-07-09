@@ -45,40 +45,44 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(20, 38);
+            this.lblName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.Location = new System.Drawing.Point(255, 9);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(44, 13);
+            this.lblName.Size = new System.Drawing.Size(64, 18);
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Nombre";
             // 
             // txtRolDescription
             // 
-            this.txtRolDescription.Location = new System.Drawing.Point(81, 35);
+            this.txtRolDescription.Location = new System.Drawing.Point(79, 30);
             this.txtRolDescription.Name = "txtRolDescription";
-            this.txtRolDescription.Size = new System.Drawing.Size(100, 20);
+            this.txtRolDescription.Size = new System.Drawing.Size(406, 20);
             this.txtRolDescription.TabIndex = 1;
             // 
             // dgvToAdd
             // 
+            this.dgvToAdd.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvToAdd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvToAdd.Location = new System.Drawing.Point(16, 99);
+            this.dgvToAdd.Location = new System.Drawing.Point(17, 162);
             this.dgvToAdd.Name = "dgvToAdd";
             this.dgvToAdd.Size = new System.Drawing.Size(240, 150);
             this.dgvToAdd.TabIndex = 2;
             // 
             // dgvSelected
             // 
+            this.dgvSelected.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvSelected.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSelected.Location = new System.Drawing.Point(328, 99);
+            this.dgvSelected.Location = new System.Drawing.Point(329, 162);
             this.dgvSelected.Name = "dgvSelected";
             this.dgvSelected.Size = new System.Drawing.Size(240, 150);
             this.dgvSelected.TabIndex = 3;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(254, 289);
+            this.buttonCancel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancel.Location = new System.Drawing.Point(397, 69);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(88, 38);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Volver";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -86,9 +90,10 @@
             // 
             // buttonSaveName
             // 
-            this.buttonSaveName.Location = new System.Drawing.Point(227, 33);
+            this.buttonSaveName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSaveName.Location = new System.Drawing.Point(76, 69);
             this.buttonSaveName.Name = "buttonSaveName";
-            this.buttonSaveName.Size = new System.Drawing.Size(141, 23);
+            this.buttonSaveName.Size = new System.Drawing.Size(154, 38);
             this.buttonSaveName.TabIndex = 5;
             this.buttonSaveName.Text = "Agregar Nombre";
             this.buttonSaveName.UseVisualStyleBackColor = true;
@@ -96,7 +101,7 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(263, 115);
+            this.buttonAdd.Location = new System.Drawing.Point(264, 178);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(59, 23);
             this.buttonAdd.TabIndex = 6;
@@ -106,7 +111,7 @@
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Location = new System.Drawing.Point(263, 193);
+            this.buttonRemove.Location = new System.Drawing.Point(264, 256);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(59, 23);
             this.buttonRemove.TabIndex = 7;
@@ -117,18 +122,20 @@
             // lblToAdd
             // 
             this.lblToAdd.AutoSize = true;
-            this.lblToAdd.Location = new System.Drawing.Point(62, 74);
+            this.lblToAdd.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblToAdd.Location = new System.Drawing.Point(39, 141);
             this.lblToAdd.Name = "lblToAdd";
-            this.lblToAdd.Size = new System.Drawing.Size(141, 13);
+            this.lblToAdd.Size = new System.Drawing.Size(210, 18);
             this.lblToAdd.TabIndex = 8;
             this.lblToAdd.Text = "Funcionalidades Disponibles";
             // 
             // lblSelected
             // 
             this.lblSelected.AutoSize = true;
-            this.lblSelected.Location = new System.Drawing.Point(378, 74);
+            this.lblSelected.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelected.Location = new System.Drawing.Point(355, 141);
             this.lblSelected.Name = "lblSelected";
-            this.lblSelected.Size = new System.Drawing.Size(136, 13);
+            this.lblSelected.Size = new System.Drawing.Size(201, 18);
             this.lblSelected.TabIndex = 9;
             this.lblSelected.Text = "Funcionalidades Asignadas";
             // 
@@ -136,6 +143,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(613, 344);
             this.Controls.Add(this.lblSelected);
             this.Controls.Add(this.lblToAdd);
@@ -147,6 +155,8 @@
             this.Controls.Add(this.dgvToAdd);
             this.Controls.Add(this.txtRolDescription);
             this.Controls.Add(this.lblName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormABMRolModify";
             this.Text = "ABM Rol";
             this.Load += new System.EventHandler(this.FormABMRolModify_Load);

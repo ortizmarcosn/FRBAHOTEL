@@ -35,9 +35,10 @@
             // 
             // button_accept
             // 
-            this.button_accept.Location = new System.Drawing.Point(89, 100);
+            this.button_accept.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_accept.Location = new System.Drawing.Point(73, 100);
             this.button_accept.Name = "button_accept";
-            this.button_accept.Size = new System.Drawing.Size(65, 31);
+            this.button_accept.Size = new System.Drawing.Size(104, 31);
             this.button_accept.TabIndex = 5;
             this.button_accept.Text = "Aceptar";
             this.button_accept.UseVisualStyleBackColor = true;
@@ -46,24 +47,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 21);
+            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(70, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 13);
+            this.label1.Size = new System.Drawing.Size(107, 18);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Seleccione el Hotel sobre el cual desea operar:";
+            this.label1.Text = "Hotel a operar";
             // 
             // comboBox_hotel
             // 
+            this.comboBox_hotel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox_hotel.FormattingEnabled = true;
-            this.comboBox_hotel.Location = new System.Drawing.Point(49, 53);
+            this.comboBox_hotel.Location = new System.Drawing.Point(23, 53);
             this.comboBox_hotel.Name = "comboBox_hotel";
-            this.comboBox_hotel.Size = new System.Drawing.Size(162, 21);
+            this.comboBox_hotel.Size = new System.Drawing.Size(210, 26);
             this.comboBox_hotel.TabIndex = 6;
             // 
             // FormSeleccionHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(245, 156);
             this.Controls.Add(this.comboBox_hotel);
             this.Controls.Add(this.button_accept);

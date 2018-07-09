@@ -80,5 +80,10 @@ namespace WindowsFormsApplication2.Cancelar_Reserva
                 MessageBox.Show("Debe seleccionar una reserva a cancelar");
             }
         }
+
+        private void textBoxBookingId_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

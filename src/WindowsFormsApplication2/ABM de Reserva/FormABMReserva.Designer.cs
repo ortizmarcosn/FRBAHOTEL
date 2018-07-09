@@ -46,9 +46,10 @@
             // 
             // buttonModify
             // 
-            this.buttonModify.Location = new System.Drawing.Point(793, 352);
+            this.buttonModify.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonModify.Location = new System.Drawing.Point(306, 331);
             this.buttonModify.Name = "buttonModify";
-            this.buttonModify.Size = new System.Drawing.Size(111, 23);
+            this.buttonModify.Size = new System.Drawing.Size(114, 46);
             this.buttonModify.TabIndex = 30;
             this.buttonModify.Text = "Modificar Reserva";
             this.buttonModify.UseVisualStyleBackColor = true;
@@ -56,18 +57,20 @@
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(569, 352);
+            this.buttonDelete.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDelete.Location = new System.Drawing.Point(473, 331);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(97, 23);
+            this.buttonDelete.Size = new System.Drawing.Size(97, 46);
             this.buttonDelete.TabIndex = 29;
             this.buttonDelete.Text = "Baja Reserva";
             this.buttonDelete.UseVisualStyleBackColor = true;
             // 
             // buttonCreate
             // 
-            this.buttonCreate.Location = new System.Drawing.Point(290, 352);
+            this.buttonCreate.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCreate.Location = new System.Drawing.Point(137, 331);
             this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(111, 23);
+            this.buttonCreate.Size = new System.Drawing.Size(128, 46);
             this.buttonCreate.TabIndex = 28;
             this.buttonCreate.Text = "Crear Reserva";
             this.buttonCreate.UseVisualStyleBackColor = true;
@@ -75,9 +78,10 @@
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(45, 353);
+            this.buttonBack.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonBack.Location = new System.Drawing.Point(475, 123);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(75, 23);
+            this.buttonBack.Size = new System.Drawing.Size(95, 34);
             this.buttonBack.TabIndex = 27;
             this.buttonBack.Text = "Volver";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -85,17 +89,19 @@
             // 
             // dgvReserva
             // 
+            this.dgvReserva.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvReserva.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReserva.Location = new System.Drawing.Point(12, 177);
+            this.dgvReserva.Location = new System.Drawing.Point(137, 177);
             this.dgvReserva.Name = "dgvReserva";
-            this.dgvReserva.Size = new System.Drawing.Size(920, 150);
+            this.dgvReserva.Size = new System.Drawing.Size(433, 117);
             this.dgvReserva.TabIndex = 26;
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(341, 116);
+            this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.Location = new System.Drawing.Point(137, 120);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(99, 37);
             this.buttonSearch.TabIndex = 25;
             this.buttonSearch.Text = "Buscar";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -103,9 +109,10 @@
             // 
             // buttonClean
             // 
-            this.buttonClean.Location = new System.Drawing.Point(45, 116);
+            this.buttonClean.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClean.Location = new System.Drawing.Point(306, 127);
             this.buttonClean.Name = "buttonClean";
-            this.buttonClean.Size = new System.Drawing.Size(75, 23);
+            this.buttonClean.Size = new System.Drawing.Size(95, 30);
             this.buttonClean.TabIndex = 24;
             this.buttonClean.Text = "Limpiar";
             this.buttonClean.UseVisualStyleBackColor = true;
@@ -113,49 +120,52 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(177, 30);
+            this.txtNombre.Location = new System.Drawing.Point(137, 20);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(121, 20);
+            this.txtNombre.Size = new System.Drawing.Size(433, 20);
             this.txtNombre.TabIndex = 17;
             // 
             // lblCliente
             // 
             this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(106, 33);
+            this.lblCliente.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCliente.Location = new System.Drawing.Point(46, 19);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(44, 13);
+            this.lblCliente.Size = new System.Drawing.Size(64, 18);
             this.lblCliente.TabIndex = 16;
             this.lblCliente.Text = "Nombre";
             // 
             // TxtNroReserva
             // 
-            this.TxtNroReserva.Location = new System.Drawing.Point(402, 30);
+            this.TxtNroReserva.Location = new System.Drawing.Point(137, 87);
             this.TxtNroReserva.Name = "TxtNroReserva";
-            this.TxtNroReserva.Size = new System.Drawing.Size(121, 20);
+            this.TxtNroReserva.Size = new System.Drawing.Size(433, 20);
             this.TxtNroReserva.TabIndex = 32;
             // 
             // lblNroreserva
             // 
             this.lblNroreserva.AutoSize = true;
-            this.lblNroreserva.Location = new System.Drawing.Point(331, 33);
+            this.lblNroreserva.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNroreserva.Location = new System.Drawing.Point(46, 86);
             this.lblNroreserva.Name = "lblNroreserva";
-            this.lblNroreserva.Size = new System.Drawing.Size(62, 13);
+            this.lblNroreserva.Size = new System.Drawing.Size(87, 18);
             this.lblNroreserva.TabIndex = 31;
             this.lblNroreserva.Text = "N° Reserva";
             // 
             // txtApellido
             // 
-            this.txtApellido.Location = new System.Drawing.Point(177, 65);
+            this.txtApellido.Location = new System.Drawing.Point(137, 55);
             this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(121, 20);
+            this.txtApellido.Size = new System.Drawing.Size(433, 20);
             this.txtApellido.TabIndex = 33;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 65);
+            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(46, 51);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.Size = new System.Drawing.Size(65, 18);
             this.label1.TabIndex = 34;
             this.label1.Text = "Apellido";
             // 
@@ -163,7 +173,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1010, 487);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(615, 395);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtApellido);
             this.Controls.Add(this.TxtNroReserva);
