@@ -27,7 +27,7 @@ namespace WindowsFormsApplication2.Listado_Estadistico
         private void FormListadoEstadistico_Load(object sender, EventArgs e)
         {
             EstadisticHelper.fillQuater(comboBoxQuater);
-            EstadisticHelper.fillYear(comboBoxYear);
+            //EstadisticHelper.fillYear(comboBoxYear);
             EstadisticHelper.fillEstadistic(comboBoxEstadistic);
         }
 
@@ -45,11 +45,11 @@ namespace WindowsFormsApplication2.Listado_Estadistico
                 return;
             }
 
-            if (comboBoxYear.Text == String.Empty)
+            /*if (comboBoxYear.Text == String.Empty)
             {
                 MessageBox.Show("Debe seleccionar un año", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
-            }
+            }*/
 
 
             String sp = comboBoxEstadistic.SelectedValue.ToString();
@@ -59,7 +59,31 @@ namespace WindowsFormsApplication2.Listado_Estadistico
             Int16 dayTo = Convert.ToInt16(quater[1].Split(',')[0]);
             Int16 monthTo = Convert.ToInt16(quater[1].Split(',')[1]);
 
-            Int32 year = Convert.ToInt32(comboBoxYear.SelectedValue.ToString());
+            Int32 year = 0;
+            if (textBoxYear.Text != String.Empty)
+            {
+                Boolean isValid;
+                isValid = Validaciones.validAndRequiredInt32MoreThan0(textBoxYear.Text, "El año debe ser numerico");
+                if (isValid)
+                    year = Convert.ToInt32(textBoxYear.Text);
+                else
+                {
+                    year = 0;
+                    return;
+                }
+
+                if (year < 1900 || year > 2100)
+                {
+                    MessageBox.Show("Ingrese un año valido", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar un año", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            
 
             DateTime from = new DateTime(year, monthFrom, dayFrom);
             DateTime to = new DateTime(year, monthTo, dayTo);

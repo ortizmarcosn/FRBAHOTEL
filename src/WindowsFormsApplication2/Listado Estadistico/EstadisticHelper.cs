@@ -9,11 +9,11 @@ namespace WindowsFormsApplication2.Listado_Estadistico
 {
     public class EstadisticHelper
     {
-        public static void fillYear(ComboBox comboBoxYear)
+        /*public static void fillYear(ComboBox comboBoxYear)
         {
             ComboBoxHelper.fill(comboBoxYear, "PUNTO_ZIP.Ano a",
                 "a.Ano", "a.Ano", "", null);
-        }
+        }*/
 
         public static void fillEstadistic(ComboBox comboBoxEstadistic)
         {

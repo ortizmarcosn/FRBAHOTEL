@@ -81,3 +81,40 @@ C:\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\FrbaHotel.csproj.GenerateRes
 C:\Users\Marcos\Desktop\FRBAHOTEL PUNTOZIP\FRBAHOTEL\src\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
 C:\Users\Marcos\Desktop\FRBAHOTEL PUNTOZIP\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.exe
 C:\Users\Marcos\Desktop\FRBAHOTEL PUNTOZIP\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.pdb
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.exe
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.pdb
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.pdb
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\FrbaHotel.csprojResolveAssemblyReference.cache
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Cliente.FormABMClient.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Cliente.FormABMClientModify.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Habitacion.FormABMHabitacion.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Habitacion.FormABMHabitacionModify.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Habitacion.FormABMHabitacionPeriod.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Hotel.FormABMHotel.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Hotel.FormABMHotelModify.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Hotel.FormABMHotelPeriod.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Regimen.FormABMRegimen.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Reserva.FormAltaReserva.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Reserva.FormModificacionReserva.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Rol.FormABMRolModify.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Rol.FormABMRol.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Usuario.FormABMUsuario.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Usuario.FormABMUsuarioModify.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Cancelar_Reserva.FormCancelarReserva.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Facturar_Estadias.FormFacturarEstadias.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Facturar_Estadias.FormFacturarEstadiasDetail.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.FormMenu.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.ABM_de_Reserva.FormABMReserva.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Listado_Estadistico.FormListadoEstadistico.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Login.FormLogin.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Login.FormSeleccionHotel.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Login.FormSeleccionRol.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Properties.Resources.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Registrar_Consumible.FormABMConsumibles.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Registrar_Consumible.FormRegistrarConsumibles.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Registrar_Estadia.FormRegistrarEstadia.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Registrar_Estadia.FormRegistrarEstadiaCliente.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.Seguridad.FormCambiarPassword.resources
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache

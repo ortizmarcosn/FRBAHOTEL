@@ -33,10 +33,10 @@
             this.lblQ = new System.Windows.Forms.Label();
             this.comboBoxQuater = new System.Windows.Forms.ComboBox();
             this.lblYear = new System.Windows.Forms.Label();
-            this.comboBoxYear = new System.Windows.Forms.ComboBox();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.dgvEstadistic = new System.Windows.Forms.DataGridView();
             this.buttonBack = new System.Windows.Forms.Button();
+            this.textBoxYear = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstadistic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +56,7 @@
             this.comboBoxEstadistic.FormattingEnabled = true;
             this.comboBoxEstadistic.Location = new System.Drawing.Point(140, 45);
             this.comboBoxEstadistic.Name = "comboBoxEstadistic";
-            this.comboBoxEstadistic.Size = new System.Drawing.Size(405, 26);
+            this.comboBoxEstadistic.Size = new System.Drawing.Size(445, 26);
             this.comboBoxEstadistic.TabIndex = 1;
             // 
             // lblQ
@@ -82,20 +82,11 @@
             // 
             this.lblYear.AutoSize = true;
             this.lblYear.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYear.Location = new System.Drawing.Point(348, 93);
+            this.lblYear.Location = new System.Drawing.Point(398, 93);
             this.lblYear.Name = "lblYear";
             this.lblYear.Size = new System.Drawing.Size(36, 18);
             this.lblYear.TabIndex = 4;
             this.lblYear.Text = "Año";
-            // 
-            // comboBoxYear
-            // 
-            this.comboBoxYear.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxYear.FormattingEnabled = true;
-            this.comboBoxYear.Location = new System.Drawing.Point(410, 90);
-            this.comboBoxYear.Name = "comboBoxYear";
-            this.comboBoxYear.Size = new System.Drawing.Size(135, 26);
-            this.comboBoxYear.TabIndex = 5;
             // 
             // buttonSearch
             // 
@@ -114,7 +105,7 @@
             this.dgvEstadistic.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEstadistic.Location = new System.Drawing.Point(51, 207);
             this.dgvEstadistic.Name = "dgvEstadistic";
-            this.dgvEstadistic.Size = new System.Drawing.Size(494, 118);
+            this.dgvEstadistic.Size = new System.Drawing.Size(534, 180);
             this.dgvEstadistic.TabIndex = 7;
             // 
             // buttonBack
@@ -128,16 +119,24 @@
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
+            // textBoxYear
+            // 
+            this.textBoxYear.Font = new System.Drawing.Font("Arial", 12F);
+            this.textBoxYear.Location = new System.Drawing.Point(450, 90);
+            this.textBoxYear.Name = "textBoxYear";
+            this.textBoxYear.Size = new System.Drawing.Size(135, 26);
+            this.textBoxYear.TabIndex = 9;
+            // 
             // FormListadoEstadistico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(597, 351);
+            this.ClientSize = new System.Drawing.Size(633, 399);
+            this.Controls.Add(this.textBoxYear);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.dgvEstadistic);
             this.Controls.Add(this.buttonSearch);
-            this.Controls.Add(this.comboBoxYear);
             this.Controls.Add(this.lblYear);
             this.Controls.Add(this.comboBoxQuater);
             this.Controls.Add(this.lblQ);
@@ -159,9 +158,9 @@
         private System.Windows.Forms.Label lblQ;
         private System.Windows.Forms.ComboBox comboBoxQuater;
         private System.Windows.Forms.Label lblYear;
-        private System.Windows.Forms.ComboBox comboBoxYear;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.DataGridView dgvEstadistic;
         private System.Windows.Forms.Button buttonBack;
+        private System.Windows.Forms.TextBox textBoxYear;
     }
 }
