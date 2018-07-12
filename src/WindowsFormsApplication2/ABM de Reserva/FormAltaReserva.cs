@@ -77,7 +77,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             }
             else
             {
-                MessageBox.Show("Verificar las fechas Desde y Hasta. Hoy es: " + VarGlobal.FechaHoraSistema.Date.ToShortDateString()");
+                MessageBox.Show("Verificar las fechas Desde y Hasta. Hoy es: " + VarGlobal.FechaHoraSistema.Date.ToShortDateString());
             }
                 
         }
@@ -103,7 +103,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 }
                 if (dgvClient.Rows.Count > 0)
                 {
-                    if (dgvClient.CurrentRow.Selected == false)
+                    if (dgvClient.CurrentRow.Selected)
                         reserva.clienteId = Convert.ToInt32(dgvClient.CurrentRow.Cells[0].Value);
                 }
                 reserva.fecha_inicio = dTDesde.Value;

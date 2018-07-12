@@ -3032,17 +3032,33 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_reserva_listar](
 )
 AS
 BEGIN
-	select res.Id_Reserva, cli.Nombre,cli.Apellido, res.Fecha_Inicio
-	from PUNTO_ZIP.Habitacion_Reserva Hres, PUNTO_ZIP.Reserva res, PUNTO_ZIP.Reserva_Cliente resc,
-		PUNTO_ZIP.Clientes cli
-	where Hres.Id_Reserva=res.Id_Reserva
-	and		res.Id_Reserva=resc.Id_Reserva
-	and		cli.Id_Cliente=resc.Id_Cliente
-	and		((@p_nombre is null) or (cli.Nombre=@p_nombre))
-	and		((@p_apellido is null) or (cli.Apellido=@p_apellido))
-	and		((@p_res_id=0) or (res.Id_Reserva=@p_res_id))
-	and		Id_Hotel=@p_hotel_id
-	order by res.Id_Reserva	
+	if(@p_hotel_id = 0)
+		BEGIN
+			select res.Id_Reserva, cli.Nombre,cli.Apellido, res.Fecha_Inicio
+			from PUNTO_ZIP.Habitacion_Reserva Hres, PUNTO_ZIP.Reserva res, PUNTO_ZIP.Reserva_Cliente resc,
+				PUNTO_ZIP.Clientes cli
+			where Hres.Id_Reserva=res.Id_Reserva
+			and		res.Id_Reserva=resc.Id_Reserva
+			and		cli.Id_Cliente=resc.Id_Cliente
+			and		((@p_nombre is null) or (cli.Nombre=@p_nombre))
+			and		((@p_apellido is null) or (cli.Apellido=@p_apellido))
+			and		((@p_res_id=0) or (res.Id_Reserva=@p_res_id))
+			order by res.Id_Reserva	
+		END
+	ELSE
+		BEGIN
+			select res.Id_Reserva, cli.Nombre,cli.Apellido, res.Fecha_Inicio
+			from PUNTO_ZIP.Habitacion_Reserva Hres, PUNTO_ZIP.Reserva res, PUNTO_ZIP.Reserva_Cliente resc,
+				PUNTO_ZIP.Clientes cli
+			where Hres.Id_Reserva=res.Id_Reserva
+			and		res.Id_Reserva=resc.Id_Reserva
+			and		cli.Id_Cliente=resc.Id_Cliente
+			and		((@p_nombre is null) or (cli.Nombre=@p_nombre))
+			and		((@p_apellido is null) or (cli.Apellido=@p_apellido))
+			and		((@p_res_id=0) or (res.Id_Reserva=@p_res_id))
+			and		Id_Hotel=@p_hotel_id
+			order by res.Id_Reserva	
+		END
 END
 GO
 
@@ -3403,6 +3419,8 @@ SELECT TOP 1 @nroHabitacion = h.Nro, @nroPiso = h.Piso, @nroHotel = h.Id_Hotel
 			
 			INSERT INTO PUNTO_ZIP.Habitacion_Reserva (Id_Hotel, Id_Reserva, Habitacion_Nro, Habitacion_Piso)
 			VALUES (@nroHotel, @idReserva, @nroHabitacion, @nroPiso)
+			
+			INSERT INTO PUNTO_ZIP.Reserva_Cliente (Id_Reserva,Id_Cliente) VALUES (@idReserva,@p_client_id)
 		end
 		
 		else
@@ -3422,6 +3440,8 @@ SELECT TOP 1 @nroHabitacion = h.Nro, @nroPiso = h.Piso, @nroHotel = h.Id_Hotel
 				Habitacion_Nro=@nroHabitacion,
 				Habitacion_Piso=@nroPiso
 			where Id_Reserva=@p_id_reserva
+			
+			update PUNTO_ZIP.Reserva_Cliente set Id_Cliente = @p_client_id where Id_Reserva = @p_id_reserva
 		end
 			
 	END
