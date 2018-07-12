@@ -2487,8 +2487,8 @@ END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_check_client_search](
-@p_check_client_name varchar(255) = null,
-@p_check_client_lastname varchar(255) = null,
+@p_check_client_mail varchar(255) = null,
+@p_check_client_doc_type int = 0,
 @p_check_client_document_number varchar(255) = null
 )
 AS
@@ -2503,8 +2503,8 @@ BEGIN
 		
 		FROM PUNTO_ZIP.Clientes c
 		WHERE
-		( (@p_check_client_name IS NULL) OR (UPPER(c.Nombre) like UPPER(@p_check_client_name) + '%'))
-		AND ((@p_check_client_lastname IS NULL) OR (UPPER(c.Apellido) like UPPER(@p_check_client_lastname) + '%'))
+		( (@p_check_client_mail IS NULL) OR (UPPER(c.Mail) like UPPER(@p_check_client_mail) + '%'))
+		AND ((@p_check_client_doc_type = 0) OR (c.Tipo_Identificacion = @p_check_client_doc_type))
 		AND ((@p_check_client_document_number IS NULL) OR (LTRIM(RTRIM(STR(c.Nro_Identificacion))) like @p_check_client_document_number + '%'))
 		AND (c.Habilitado = 1)
 END
