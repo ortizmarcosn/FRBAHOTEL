@@ -386,7 +386,8 @@ CREATE TABLE [PUNTO_ZIP].[Usuario](
 
 --Se agrega usuario admin con contraseña "shadea" w23e
 INSERT INTO PUNTO_ZIP.Usuario(Id_Usuario,Password, Cantidad_Login, Habilitado) 
-VALUES ('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', 0, 1)
+VALUES ('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', 0, 1),
+('guest','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', 0, 1)
 
 --TABLA ROL
 /*
@@ -510,7 +511,8 @@ CREATE TABLE [PUNTO_ZIP].[Datos_Usuario](
 --Ingreso datos del usuario administrador
 INSERT INTO PUNTO_ZIP.Datos_Usuario (Id_Usuario, Nombre_Apellido, Mail, Tipo_DNI, Nro_DNI, Telefono,
 	Direccion, Fecha_Nacimiento)
-VALUES ('admin', 'admin', 'test@gmail.com' ,1, 1, '1234-5678','Calle Falsa 123, Algun Pais', getdate())
+VALUES ('admin', 'admin', 'admin@gmail.com' ,1, 1, '12345678','Calle Falsa 123, Algun Pais', getdate()),
+	   ('guest', 'guest', 'guest@gmail.com' ,1, 1, '87654321','Calle Verdadera 456, Otro Pais', getdate())
 
 --TABLA HOTEL
 /*
