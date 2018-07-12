@@ -103,17 +103,20 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             Boolean isValid;
             isValid = Validaciones.requiredString(txtAddress.Text, "La direccion es necesaria");
             if (isValid)
+            {
                 userData.address = txtAddress.Text;
+            }
+                
             else
                 return null;
 
-            isValid = Validaciones.validAndRequiredInt32(txtDocumentNumber.Text, "El numero de documento debe ser numerico");
+            isValid = Validaciones.validAndRequiredInt32(txtDocumentNumber.Text, "El numero de documento debe ser numerico y no tan largo");
             if (isValid)
                 userData.documentNumber = Convert.ToInt32(txtDocumentNumber.Text);
             else
                 return null;
 
-            isValid = Validaciones.validAndRequiredMail(txtMail.Text, "El mail es necesario");
+            isValid = Validaciones.validAndRequiredMail(txtMail.Text, "El mail es requerido y debe ser valido");
             if (isValid)
                 userData.mail = this.txtMail.Text;
             else
@@ -121,13 +124,27 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
 
             isValid = Validaciones.requiredString(txtNameLastname.Text, "El nombre/apellido es necesario");
             if (isValid)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtAddress.Text, "^[a-zA-Z ]"))
+                {
+                    MessageBox.Show("El nombre/apellido no puede contener numeros");
+                    return null;
+                }
                 userData.nameLastname = this.txtNameLastname.Text;
+            }
             else
                 return null;
 
             isValid = Validaciones.requiredString(txtTelephone.Text, "El telefono es necesario");
             if (isValid)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtAddress.Text, "[^0-9]"))
+                {
+                    MessageBox.Show("El telefono solo debe contener numeros");
+                    return null;
+                }
                 userData.telephone = this.txtTelephone.Text;
+            }
             else
                 return null;
 
@@ -146,6 +163,13 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             userData.enabled = this.checkBoxEnable.Checked;
 
             DateTime birthDate = this.dtBirthDate.Value;
+
+            if (birthDate > DateTime.Now)
+            {
+                MessageBox.Show("La fecha de nacimiento ingresada no es valida");
+                return null;
+            }
+
             DateHelper.truncate(birthDate);
             userData.birthDate = birthDate;
 

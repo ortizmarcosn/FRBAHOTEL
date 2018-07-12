@@ -42,7 +42,7 @@ namespace WindowsFormsApplication2.ABM_de_Rol
         public static void fillComboBoxByUser(ComboBox comboBox_Roles, Usuario user)
         {
             ComboBoxHelper.fill(comboBox_Roles, "PUNTO_ZIP.Usuario_Rol_Hotel urh INNER JOIN PUNTO_ZIP.Rol r ON urh.Id_Rol = r.Id_Rol",
-                "urh.Id_Rol", "Descripcion", "urh.Id_Usuario = '" + user.id + "' AND r.Habilitado = 1 AND urh.Habilitado = 1", null);
+                "DISTINCT urh.Id_Rol", "Descripcion", "urh.Id_Usuario = '" + user.id + "' AND r.Habilitado = 1 AND urh.Habilitado = 1", null);
         }
 
         public static void fillComboBox(ComboBox comboBox)

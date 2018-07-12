@@ -51,7 +51,7 @@ namespace WindowsFormsApplication2.ABM_de_Cliente
                     clientData.typeDocument, clientData.documentNumber);
                 if (existEqualTypeAndDocumentNumber)
                 {
-                    DialogResult dialogDocument = MessageBox.Show("Existe ya un usuario con ese tipo de documento y numero. Desea continuar igual?",
+                    DialogResult dialogDocument = MessageBox.Show("Existe ya un usuario con ese tipo y numero de documento. Desea continuar igual?",
                         "Mensaje importante", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dialogDocument != DialogResult.Yes)
                     {
@@ -135,13 +135,27 @@ namespace WindowsFormsApplication2.ABM_de_Cliente
             Boolean isValid;
             isValid = Validaciones.requiredString(textBoxName.Text, "El nombre es necesario");
             if (isValid)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(textBoxName.Text, "^[a-zA-Z ]"))
+                {
+                    MessageBox.Show("El nombre no puede contener numeros");
+                    return null;
+                }
                 clientData.name = textBoxName.Text;
+            }
             else
                 return null;
 
             isValid = Validaciones.requiredString(textBoxLastname.Text, "El apellido es necesario");
             if (isValid)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(textBoxLastname.Text, "^[a-zA-Z ]"))
+                {
+                    MessageBox.Show("El apellido no puede contener numeros");
+                    return null;
+                }
                 clientData.lastname = textBoxLastname.Text;
+            }
             else
                 return null;
 
@@ -151,7 +165,7 @@ namespace WindowsFormsApplication2.ABM_de_Cliente
             else
                 return null;
 
-            isValid = Validaciones.validAndRequiredInt32MoreThan0(textBoxDocumentNumber.Text, "El numero de telefono es requerido");
+            isValid = Validaciones.validAndRequiredInt32MoreThan0(textBoxDocumentNumber.Text, "El numero de documento es requerido");
             if (isValid)
                 clientData.documentNumber = Convert.ToInt32(textBoxDocumentNumber.Text);
             else
@@ -171,7 +185,9 @@ namespace WindowsFormsApplication2.ABM_de_Cliente
 
             isValid = Validaciones.requiredString(textBoxAddress.Text, "La direccion es obligatoria");
             if (isValid)
+            {
                 clientData.addressName = textBoxAddress.Text;
+            }
             else
                 return null;
 
