@@ -91,7 +91,7 @@ namespace WindowsFormsApplication2
                     func.folder = "Registrar_Consumible";
                     func.form = "FormABMConsumibles";
                     break;
-                case "Facturar Estadias":
+                case "Facturar Estadías":
                     func.folder = "Facturar_Estadias";
                     func.form = "FormFacturarEstadias";
                     break;

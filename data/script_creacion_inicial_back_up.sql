@@ -433,7 +433,7 @@ INSERT INTO PUNTO_ZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(8,'ABM 
 INSERT INTO PUNTO_ZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(9,'Cancelar Reserva')
 INSERT INTO PUNTO_ZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(10,'Registrar Estadía')
 INSERT INTO PUNTO_ZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(11,'Registrar Consumibles')
-INSERT INTO PUNTO_ZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(12,'Facturar Estadía')
+INSERT INTO PUNTO_ZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(12,'Facturar Estadías')
 INSERT INTO PUNTO_ZIP.Funcionalidad(Id_Funcionalidad,Descripcion) VALUES(13,'Listado Estadistico')
 
 --TABLA ROL_FUNCIONALIDAD
@@ -487,7 +487,7 @@ CREATE TABLE [PUNTO_ZIP].[Tipo_Identificacion](
 )
 
 INSERT INTO PUNTO_ZIP.Tipo_Identificacion (Descripcion)
-VALUES ('PASAPORTE ARGENTINA')
+VALUES ('DNI'),('PASAPORTE'), ('Otro') 
 
 --TABLA DATOS_USUARIO
 /*
@@ -820,7 +820,7 @@ INSERT INTO PUNTO_ZIP.Clientes (Nombre, Apellido, Tipo_Identificacion, Nro_Ident
 SELECT tc.Nombre, tc.Apellido, ti.Id_Tipo_Identificacion, tc.Nro_Identificacion, tc.Mail, tc.Telefono, tc.Calle_Direccion,
 	tc.Calle_Nro, tc.Calle_Piso, tc.Calle_Depto, n.Id_Nacionalidad, tc.Fecha_Nacimiento, 1
 	FROM PUNTO_ZIP.Temp_Clientes tc
-		INNER JOIN PUNTO_ZIP.Tipo_Identificacion ti ON ti.Descripcion = 'PASAPORTE ARGENTINA'
+		INNER JOIN PUNTO_ZIP.Tipo_Identificacion ti ON ti.Descripcion = 'PASAPORTE'
 		INNER JOIN PUNTO_ZIP.Nacionalidad n ON UPPER(LTRIM(RTRIM(tc.Nacionalidad))) = UPPER(n.Descripcion)
 
 /* TODO: Pensar un fix para el nro de pasaporte = 1652782 */
