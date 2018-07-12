@@ -159,9 +159,9 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
 
             DateTime birthDate = this.dtBirthDate.Value;
 
-            if (birthDate > DateTime.Now)
+            if (birthDate > VarGlobal.FechaHoraSistema)
             {
-                MessageBox.Show("La fecha de nacimiento ingresada no es valida");
+                MessageBox.Show("La fecha de nacimiento ingresada no es valida. Hoy es: " + VarGlobal.FechaHoraSistema.Date.ToShortDateString()");
                 return null;
             }
 

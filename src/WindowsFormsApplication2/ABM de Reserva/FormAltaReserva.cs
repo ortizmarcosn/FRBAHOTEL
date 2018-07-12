@@ -44,7 +44,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
         private void button_consultar_Click(object sender, EventArgs e)
         {
-            if ((dTDesde.Value > DateTime.Now) && (dTHasta.Value > DateTime.Now))
+            if ((dTDesde.Value > VarGlobal.FechaHoraSistema) && (dTHasta.Value > VarGlobal.FechaHoraSistema))
             {
                 if (VarGlobal.usuario.id == "guest")
                 {
@@ -77,7 +77,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             }
             else
             {
-                MessageBox.Show("Verificar las fechas Desde y Hasta");
+                MessageBox.Show("Verificar las fechas Desde y Hasta. Hoy es: " + VarGlobal.FechaHoraSistema.Date.ToShortDateString()");
             }
                 
         }
