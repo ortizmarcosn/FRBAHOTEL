@@ -170,6 +170,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             {
                 MessageBox.Show("Debe seleccionar algun cliente ya registrado, o registrar uno nuevo");
                 estaTodoOk = false;
+                return;
             }
             else
             {
@@ -185,7 +186,25 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 VarGlobal.usuario.hotel = Convert.ToInt32(cmbHotel.SelectedValue.ToString());
                 ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
                 ReservaHelper.search_tipo_hab(VarGlobal.usuario.hotel, dgvTipoHabitacion);
-            }  
+
+                //estaTodoOk = false;
+            }
+            else
+            {
+                if (VarGlobal.usuario.id == "guest")
+                {
+                    MessageBox.Show("Debe seleccionar algun hotel");
+                    estaTodoOk = false;
+                    return;
+                }
+            }
+
+            if (VarGlobal.usuario.id == "guest" && cmbHotel.Text == "")
+            {
+                MessageBox.Show("Debe seleccionar algun hotel");
+                estaTodoOk = false;
+                return;
+            }
             
 
             if (estaTodoOk)

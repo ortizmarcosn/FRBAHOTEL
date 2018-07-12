@@ -51,6 +51,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.buttonClean = new System.Windows.Forms.Button();
             this.buttonReservar = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRegimen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTipoHabitacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
@@ -103,20 +104,20 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(763, 26);
+            this.label4.Location = new System.Drawing.Point(712, 29);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(111, 18);
+            this.label4.Size = new System.Drawing.Size(198, 18);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Regimen Hotel";
+            this.label4.Text = "Seleccionar Regimen Hotel";
             // 
             // button_consultar
             // 
             this.button_consultar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_consultar.Location = new System.Drawing.Point(565, 26);
+            this.button_consultar.Location = new System.Drawing.Point(498, 26);
             this.button_consultar.Name = "button_consultar";
-            this.button_consultar.Size = new System.Drawing.Size(88, 35);
+            this.button_consultar.Size = new System.Drawing.Size(139, 48);
             this.button_consultar.TabIndex = 8;
-            this.button_consultar.Text = "Consultar";
+            this.button_consultar.Text = "Consultar Disponibilidad";
             this.button_consultar.UseVisualStyleBackColor = true;
             this.button_consultar.Click += new System.EventHandler(this.button_consultar_Click);
             // 
@@ -144,11 +145,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(752, 214);
+            this.label3.Location = new System.Drawing.Point(711, 218);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(117, 18);
+            this.label3.Size = new System.Drawing.Size(204, 18);
             this.label3.TabIndex = 11;
-            this.label3.Text = "Tipo Habitacion";
+            this.label3.Text = "Seleccionar Tipo Habitacion";
             // 
             // cmbHotel
             // 
@@ -184,7 +185,7 @@
             // 
             this.dgvClient.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvClient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClient.Location = new System.Drawing.Point(26, 316);
+            this.dgvClient.Location = new System.Drawing.Point(26, 326);
             this.dgvClient.Name = "dgvClient";
             this.dgvClient.Size = new System.Drawing.Size(632, 154);
             this.dgvClient.TabIndex = 18;
@@ -273,12 +274,23 @@
             this.buttonReservar.UseVisualStyleBackColor = true;
             this.buttonReservar.Click += new System.EventHandler(this.buttonReservar_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial", 12F);
+            this.label5.Location = new System.Drawing.Point(33, 305);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(144, 18);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "Seleccionar Cliente";
+            // 
             // FormAltaReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(950, 503);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonReservar);
             this.Controls.Add(this.buttonClean);
             this.Controls.Add(this.textBoxDocumentNumber);
@@ -305,7 +317,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "FormAltaReserva";
-            this.Text = "FormAltaReserva";
+            this.Text = "Alta Reserva";
             this.Load += new System.EventHandler(this.FormAltaReserva_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRegimen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTipoHabitacion)).EndInit();
@@ -340,5 +352,6 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button buttonClean;
         private System.Windows.Forms.Button buttonReservar;
+        private System.Windows.Forms.Label label5;
     }
 }
