@@ -44,7 +44,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
         private void button_consultar_Click(object sender, EventArgs e)
         {
-            if ((dTDesde.Value > VarGlobal.FechaHoraSistema) && (dTHasta.Value > VarGlobal.FechaHoraSistema))
+            if ((dTDesde.Value >= VarGlobal.FechaHoraSistema) && (dTHasta.Value > VarGlobal.FechaHoraSistema) && (dTDesde.Value < dTHasta.Value))
             {
                 if (VarGlobal.usuario.id == "guest")
                 {
