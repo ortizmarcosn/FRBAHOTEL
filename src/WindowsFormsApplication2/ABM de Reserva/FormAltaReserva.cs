@@ -94,10 +94,15 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 }
                 else
                 reserva.id_hotel = VarGlobal.usuario.hotel;
-                reserva.clienteId = Convert.ToInt32(dgvClient.CurrentRow.Cells[0].Value);
+                if (dgvClient.Rows.Count > 0)
+                {
+                    if (dgvClient.CurrentRow.Selected == false)
+                        reserva.clienteId = Convert.ToInt32(dgvClient.CurrentRow.Cells[0].Value);
+                }
                 reserva.fecha_inicio = dTDesde.Value;
                 reserva.fecha_fin = dTHasta.Value;
                 reserva.tipo_habitacion = dgvTipoHabitacion.CurrentRow.Cells[0].Value.ToString();
+                reserva.tipo_regimen = dgvRegimen.CurrentRow.Cells[0].Value.ToString();
                 return reserva;
             }
         }
@@ -153,9 +158,30 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
         private void buttonReservar_Click(object sender, EventArgs e)
         {
-            if (dgvClient.CurrentRow.Selected == false)
+            Boolean estaTodoOk = true;
+            if (dgvClient.Rows.Count == 0)
+            {
                 MessageBox.Show("Debe seleccionar algun cliente ya registrado, o registrar uno nuevo");
+                estaTodoOk = false;
+            }
             else
+            {
+                if (dgvClient.CurrentRow.Selected == false)
+                {
+                    MessageBox.Show("Debe seleccionar algun cliente ya registrado, o registrar uno nuevo");
+                    estaTodoOk = false;
+                }
+                
+            }
+            if (cmbHotel.SelectedValue.ToString() != String.Empty)
+            {
+                VarGlobal.usuario.hotel = Convert.ToInt32(cmbHotel.SelectedValue.ToString());
+                ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
+                ReservaHelper.search_tipo_hab(VarGlobal.usuario.hotel, dgvTipoHabitacion);
+            }  
+            
+
+            if (estaTodoOk)
             {
                 Reserva reserva = this.getdataConsulta();
                 ReservaHelper.reservar(reserva);

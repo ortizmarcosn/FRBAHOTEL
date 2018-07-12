@@ -135,14 +135,9 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             else
                 return null;
 
-            isValid = Validaciones.requiredString(txtTelephone.Text, "El telefono es necesario");
+            isValid = Validaciones.validAndRequiredInt32(txtTelephone.Text, "El telefono debe ser numerico y no tan largo");
             if (isValid)
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(txtAddress.Text, "[^0-9]"))
-                {
-                    MessageBox.Show("El telefono solo debe contener numeros");
-                    return null;
-                }
                 userData.telephone = this.txtTelephone.Text;
             }
             else

@@ -186,6 +186,11 @@ namespace WindowsFormsApplication2.ABM_de_Cliente
             isValid = Validaciones.requiredString(textBoxAddress.Text, "La direccion es obligatoria");
             if (isValid)
             {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(textBoxAddress.Text, "^[a-zA-Z ]"))
+                {
+                    MessageBox.Show("La direccion no puede contener numeros");
+                    return null;
+                }
                 clientData.addressName = textBoxAddress.Text;
             }
             else
@@ -200,7 +205,11 @@ namespace WindowsFormsApplication2.ABM_de_Cliente
             if (textBoxAddressFloor.Text != "" && textBoxAddressFloor.Text != String.Empty)
             {
                 isValid = Validaciones.validAndRequiredInt32(textBoxAddressFloor.Text, "El piso debe ser numerico");
-                clientData.addressFloor = Convert.ToInt32(textBoxAddressFloor.Text);
+                if (isValid)
+                    clientData.addressFloor = Convert.ToInt32(textBoxAddressFloor.Text);
+                else
+                    return null;
+                
                 clientData.adressDeptName = textBoxAddressDept.Text;
             }
             else
@@ -221,7 +230,11 @@ namespace WindowsFormsApplication2.ABM_de_Cliente
                 return null;
 
             DateTime birthdate = dtBrithdate.Value;
-
+            if (birthdate > DateTime.Now)
+            {
+                MessageBox.Show("La fecha de nacimiento ingresada no es valida");
+                return null;
+            }
             DateHelper.truncate(birthdate);
             clientData.birthdate = birthdate;
 

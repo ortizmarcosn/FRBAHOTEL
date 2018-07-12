@@ -92,21 +92,37 @@ namespace WindowsFormsApplication2.ABM_de_Hotel
             else
                 return null;
 
-            isValid = Validaciones.requiredString(textBoxTelephone.Text, "El telefono es necesario");
+            isValid = Validaciones.validAndRequiredInt32(textBoxTelephone.Text, "El telefono debe ser numerico y no tan largo");
             if (isValid)
+            {
                 hotelData.telephone = textBoxTelephone.Text;
+            }
             else
                 return null;
 
             isValid = Validaciones.requiredString(textBoxCity.Text, "La ciudad es necesaria");
             if (isValid)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(textBoxCity.Text, "^[a-zA-Z ]"))
+                {
+                    MessageBox.Show("La ciudad no puede contener numeros");
+                    return null;
+                }
                 hotelData.city = textBoxCity.Text;
+            }
             else
                 return null;
 
             isValid = Validaciones.requiredString(textBoxCountry.Text, "El pais es necesario");
             if (isValid)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(textBoxCountry.Text, "^[a-zA-Z ]"))
+                {
+                    MessageBox.Show("La ciudad no puede contener numeros");
+                    return null;
+                }
                 hotelData.country = textBoxCountry.Text;
+            }
             else
                 return null;
 

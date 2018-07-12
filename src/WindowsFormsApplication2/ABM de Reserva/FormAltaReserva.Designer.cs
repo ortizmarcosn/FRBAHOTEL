@@ -58,16 +58,16 @@
             // 
             // dTDesde
             // 
-            this.dTDesde.Location = new System.Drawing.Point(136, 21);
+            this.dTDesde.Location = new System.Drawing.Point(146, 21);
             this.dTDesde.Name = "dTDesde";
-            this.dTDesde.Size = new System.Drawing.Size(190, 20);
+            this.dTDesde.Size = new System.Drawing.Size(215, 20);
             this.dTDesde.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(23, 23);
+            this.label1.Location = new System.Drawing.Point(33, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 18);
             this.label1.TabIndex = 1;
@@ -77,7 +77,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(341, 23);
+            this.label2.Location = new System.Drawing.Point(33, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 18);
             this.label2.TabIndex = 3;
@@ -85,16 +85,16 @@
             // 
             // dTHasta
             // 
-            this.dTHasta.Location = new System.Drawing.Point(448, 21);
+            this.dTHasta.Location = new System.Drawing.Point(146, 54);
             this.dTHasta.Name = "dTHasta";
-            this.dTHasta.Size = new System.Drawing.Size(190, 20);
+            this.dTHasta.Size = new System.Drawing.Size(215, 20);
             this.dTHasta.TabIndex = 2;
             // 
             // dgvRegimen
             // 
             this.dgvRegimen.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvRegimen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRegimen.Location = new System.Drawing.Point(26, 316);
+            this.dgvRegimen.Location = new System.Drawing.Point(708, 54);
             this.dgvRegimen.Name = "dgvRegimen";
             this.dgvRegimen.Size = new System.Drawing.Size(211, 134);
             this.dgvRegimen.TabIndex = 6;
@@ -103,7 +103,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(85, 288);
+            this.label4.Location = new System.Drawing.Point(763, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 18);
             this.label4.TabIndex = 7;
@@ -112,7 +112,7 @@
             // button_consultar
             // 
             this.button_consultar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_consultar.Location = new System.Drawing.Point(159, 54);
+            this.button_consultar.Location = new System.Drawing.Point(565, 26);
             this.button_consultar.Name = "button_consultar";
             this.button_consultar.Size = new System.Drawing.Size(88, 35);
             this.button_consultar.TabIndex = 8;
@@ -123,7 +123,7 @@
             // button_volver
             // 
             this.button_volver.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_volver.Location = new System.Drawing.Point(442, 54);
+            this.button_volver.Location = new System.Drawing.Point(693, 429);
             this.button_volver.Name = "button_volver";
             this.button_volver.Size = new System.Drawing.Size(88, 35);
             this.button_volver.TabIndex = 9;
@@ -135,16 +135,16 @@
             // 
             this.dgvTipoHabitacion.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvTipoHabitacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTipoHabitacion.Location = new System.Drawing.Point(281, 316);
+            this.dgvTipoHabitacion.Location = new System.Drawing.Point(708, 242);
             this.dgvTipoHabitacion.Name = "dgvTipoHabitacion";
-            this.dgvTipoHabitacion.Size = new System.Drawing.Size(198, 134);
+            this.dgvTipoHabitacion.Size = new System.Drawing.Size(211, 154);
             this.dgvTipoHabitacion.TabIndex = 10;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(325, 288);
+            this.label3.Location = new System.Drawing.Point(752, 214);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(117, 18);
             this.label3.TabIndex = 11;
@@ -153,7 +153,7 @@
             // cmbHotel
             // 
             this.cmbHotel.FormattingEnabled = true;
-            this.cmbHotel.Location = new System.Drawing.Point(525, 137);
+            this.cmbHotel.Location = new System.Drawing.Point(411, 53);
             this.cmbHotel.Name = "cmbHotel";
             this.cmbHotel.Size = new System.Drawing.Size(58, 21);
             this.cmbHotel.TabIndex = 12;
@@ -163,7 +163,7 @@
             // 
             this.lblHotel.AutoSize = true;
             this.lblHotel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHotel.Location = new System.Drawing.Point(522, 108);
+            this.lblHotel.Location = new System.Drawing.Point(408, 23);
             this.lblHotel.Name = "lblHotel";
             this.lblHotel.Size = new System.Drawing.Size(63, 18);
             this.lblHotel.TabIndex = 13;
@@ -172,7 +172,7 @@
             // buttonAddClient
             // 
             this.buttonAddClient.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddClient.Location = new System.Drawing.Point(558, 215);
+            this.buttonAddClient.Location = new System.Drawing.Point(202, 241);
             this.buttonAddClient.Name = "buttonAddClient";
             this.buttonAddClient.Size = new System.Drawing.Size(132, 47);
             this.buttonAddClient.TabIndex = 19;
@@ -184,25 +184,25 @@
             // 
             this.dgvClient.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvClient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClient.Location = new System.Drawing.Point(510, 316);
+            this.dgvClient.Location = new System.Drawing.Point(26, 316);
             this.dgvClient.Name = "dgvClient";
-            this.dgvClient.Size = new System.Drawing.Size(180, 134);
+            this.dgvClient.Size = new System.Drawing.Size(632, 154);
             this.dgvClient.TabIndex = 18;
             // 
             // buttonSearch
             // 
             this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSearch.Location = new System.Drawing.Point(158, 214);
+            this.buttonSearch.Location = new System.Drawing.Point(36, 241);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(89, 48);
+            this.buttonSearch.Size = new System.Drawing.Size(132, 48);
             this.buttonSearch.TabIndex = 20;
-            this.buttonSearch.Text = "Buscar";
+            this.buttonSearch.Text = "Buscar clientes";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // textBoxDocumentNumber
             // 
-            this.textBoxDocumentNumber.Location = new System.Drawing.Point(136, 176);
+            this.textBoxDocumentNumber.Location = new System.Drawing.Point(146, 203);
             this.textBoxDocumentNumber.Name = "textBoxDocumentNumber";
             this.textBoxDocumentNumber.Size = new System.Drawing.Size(323, 20);
             this.textBoxDocumentNumber.TabIndex = 23;
@@ -211,7 +211,7 @@
             // 
             this.lblNroDocument.AutoSize = true;
             this.lblNroDocument.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNroDocument.Location = new System.Drawing.Point(23, 175);
+            this.lblNroDocument.Location = new System.Drawing.Point(33, 202);
             this.lblNroDocument.Name = "lblNroDocument";
             this.lblNroDocument.Size = new System.Drawing.Size(117, 18);
             this.lblNroDocument.TabIndex = 26;
@@ -219,7 +219,7 @@
             // 
             // textBoxLastName
             // 
-            this.textBoxLastName.Location = new System.Drawing.Point(136, 141);
+            this.textBoxLastName.Location = new System.Drawing.Point(146, 168);
             this.textBoxLastName.Name = "textBoxLastName";
             this.textBoxLastName.Size = new System.Drawing.Size(323, 20);
             this.textBoxLastName.TabIndex = 22;
@@ -228,7 +228,7 @@
             // 
             this.lblLastName.AutoSize = true;
             this.lblLastName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLastName.Location = new System.Drawing.Point(23, 140);
+            this.lblLastName.Location = new System.Drawing.Point(33, 167);
             this.lblLastName.Name = "lblLastName";
             this.lblLastName.Size = new System.Drawing.Size(65, 18);
             this.lblLastName.TabIndex = 25;
@@ -236,7 +236,7 @@
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(136, 106);
+            this.textBoxName.Location = new System.Drawing.Point(146, 133);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(323, 20);
             this.textBoxName.TabIndex = 21;
@@ -245,7 +245,7 @@
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(23, 105);
+            this.lblName.Location = new System.Drawing.Point(33, 132);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(64, 18);
             this.lblName.TabIndex = 24;
@@ -254,7 +254,7 @@
             // buttonClean
             // 
             this.buttonClean.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClean.Location = new System.Drawing.Point(425, 215);
+            this.buttonClean.Location = new System.Drawing.Point(376, 241);
             this.buttonClean.Name = "buttonClean";
             this.buttonClean.Size = new System.Drawing.Size(93, 47);
             this.buttonClean.TabIndex = 27;
@@ -265,7 +265,7 @@
             // buttonReservar
             // 
             this.buttonReservar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonReservar.Location = new System.Drawing.Point(281, 215);
+            this.buttonReservar.Location = new System.Drawing.Point(801, 423);
             this.buttonReservar.Name = "buttonReservar";
             this.buttonReservar.Size = new System.Drawing.Size(105, 47);
             this.buttonReservar.TabIndex = 28;
@@ -278,7 +278,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(775, 474);
+            this.ClientSize = new System.Drawing.Size(950, 503);
             this.Controls.Add(this.buttonReservar);
             this.Controls.Add(this.buttonClean);
             this.Controls.Add(this.textBoxDocumentNumber);
