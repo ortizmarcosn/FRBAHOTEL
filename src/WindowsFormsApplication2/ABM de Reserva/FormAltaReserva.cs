@@ -30,8 +30,10 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             if (VarGlobal.usuario.id == "guest")
                 ReservaHelper.fillHotel(cmbHotel);
             else
+            {
                 cmbHotel.Visible = false;
                 lblHotel.Visible = false;
+            }
                 
         }
 
@@ -43,14 +45,16 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
         private void button_consultar_Click(object sender, EventArgs e)
         {
             if ((dTDesde.Value > DateTime.Now) && (dTHasta.Value > DateTime.Now))
-
             {
-                if (cmbHotel.SelectedValue.ToString() != String.Empty)
+                if (VarGlobal.usuario.id == "guest")
                 {
-                    VarGlobal.usuario.hotel = Convert.ToInt32(cmbHotel.SelectedValue.ToString());
-                    ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
-                    ReservaHelper.search_tipo_hab(VarGlobal.usuario.hotel, dgvTipoHabitacion);
-                }   
+                    if (cmbHotel.SelectedValue.ToString() != String.Empty)
+                    {
+                        VarGlobal.usuario.hotel = Convert.ToInt32(cmbHotel.SelectedValue.ToString());
+                        ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
+                        ReservaHelper.search_tipo_hab(VarGlobal.usuario.hotel, dgvTipoHabitacion);
+                    }
+                }
                 
                     Reserva reserva = this.getdataConsulta();
                     if (reserva != null)
@@ -80,7 +84,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
         private Reserva getdataConsulta()
         {
-            if (cmbHotel.Text == "")
+            if (VarGlobal.usuario.id == "guest" && cmbHotel.Text == "")
             {
                 MessageBox.Show("Debe seleccionar un hotel");
                 return null;
@@ -88,12 +92,15 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             else
             {
                 Reserva reserva = new Reserva();
-                if (VarGlobal.usuario.id=="guest"){
-                    reserva.id_hotel=Convert.ToInt32(cmbHotel.Text);
+                if (VarGlobal.usuario.id == "guest")
+                {
+                    reserva.id_hotel = Convert.ToInt32(cmbHotel.Text);
                     lblHotel.Visible = true;
                 }
                 else
-                reserva.id_hotel = VarGlobal.usuario.hotel;
+                {
+                    reserva.id_hotel = VarGlobal.usuario.hotel;
+                }
                 if (dgvClient.Rows.Count > 0)
                 {
                     if (dgvClient.CurrentRow.Selected == false)
@@ -173,7 +180,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 }
                 
             }
-            if (cmbHotel.SelectedValue.ToString() != String.Empty)
+            if (VarGlobal.usuario.id == "guest" && cmbHotel.SelectedValue.ToString() != String.Empty)
             {
                 VarGlobal.usuario.hotel = Convert.ToInt32(cmbHotel.SelectedValue.ToString());
                 ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
