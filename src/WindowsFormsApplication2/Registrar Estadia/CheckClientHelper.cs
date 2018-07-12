@@ -16,17 +16,17 @@ namespace WindowsFormsApplication2.Registrar_Estadia
             SqlCommand command = new SqlCommand();
             command.CommandText = "PUNTO_ZIP.sp_check_client_search";
 
-            command.Parameters.Add(new SqlParameter("@p_check_client_name", SqlDbType.VarChar, 255));
-            if (client.name == string.Empty)
-                command.Parameters["@p_check_client_name"].Value = null;
+            command.Parameters.Add(new SqlParameter("@p_check_client_mail", SqlDbType.VarChar, 255));
+            if (client.mail == string.Empty)
+                command.Parameters["@p_check_client_mail"].Value = null;
             else
-                command.Parameters["@p_check_client_name"].Value = client.name;
+                command.Parameters["@p_check_client_mail"].Value = client.mail;
 
-            command.Parameters.Add(new SqlParameter("@p_check_client_lastname", SqlDbType.VarChar, 255));
-            if (client.lastname == string.Empty)
-                command.Parameters["@p_check_client_lastname"].Value = null;
+            command.Parameters.Add(new SqlParameter("@p_check_client_doc_type", SqlDbType.Int));
+            if (client.typeDocument == string.Empty)
+                command.Parameters["@p_check_client_doc_type"].Value = null;
             else
-                command.Parameters["@p_check_client_lastname"].Value = client.lastname;
+                command.Parameters["@p_check_client_doc_type"].Value = client.idTypeDocument;
 
             command.Parameters.Add(new SqlParameter("@p_check_client_document_number", SqlDbType.VarChar, 255));
             if (client.documentNumber == 0)

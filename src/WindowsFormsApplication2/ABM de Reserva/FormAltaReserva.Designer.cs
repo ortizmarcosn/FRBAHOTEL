@@ -45,13 +45,13 @@
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBoxDocumentNumber = new System.Windows.Forms.TextBox();
             this.lblNroDocument = new System.Windows.Forms.Label();
-            this.textBoxLastName = new System.Windows.Forms.TextBox();
+            this.textBoxMail = new System.Windows.Forms.TextBox();
             this.lblLastName = new System.Windows.Forms.Label();
-            this.textBoxName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.buttonClean = new System.Windows.Forms.Button();
             this.buttonReservar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.comboTypeDocument = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRegimen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTipoHabitacion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
@@ -203,54 +203,47 @@
             // 
             // textBoxDocumentNumber
             // 
-            this.textBoxDocumentNumber.Location = new System.Drawing.Point(146, 203);
+            this.textBoxDocumentNumber.Location = new System.Drawing.Point(186, 166);
             this.textBoxDocumentNumber.Name = "textBoxDocumentNumber";
-            this.textBoxDocumentNumber.Size = new System.Drawing.Size(323, 20);
+            this.textBoxDocumentNumber.Size = new System.Drawing.Size(283, 20);
             this.textBoxDocumentNumber.TabIndex = 23;
             // 
             // lblNroDocument
             // 
             this.lblNroDocument.AutoSize = true;
             this.lblNroDocument.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNroDocument.Location = new System.Drawing.Point(33, 202);
+            this.lblNroDocument.Location = new System.Drawing.Point(33, 168);
             this.lblNroDocument.Name = "lblNroDocument";
             this.lblNroDocument.Size = new System.Drawing.Size(117, 18);
             this.lblNroDocument.TabIndex = 26;
             this.lblNroDocument.Text = "Nro Documento";
             // 
-            // textBoxLastName
+            // textBoxMail
             // 
-            this.textBoxLastName.Location = new System.Drawing.Point(146, 168);
-            this.textBoxLastName.Name = "textBoxLastName";
-            this.textBoxLastName.Size = new System.Drawing.Size(323, 20);
-            this.textBoxLastName.TabIndex = 22;
+            this.textBoxMail.Location = new System.Drawing.Point(186, 197);
+            this.textBoxMail.Name = "textBoxMail";
+            this.textBoxMail.Size = new System.Drawing.Size(283, 20);
+            this.textBoxMail.TabIndex = 22;
             // 
             // lblLastName
             // 
             this.lblLastName.AutoSize = true;
             this.lblLastName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLastName.Location = new System.Drawing.Point(33, 167);
+            this.lblLastName.Location = new System.Drawing.Point(30, 199);
             this.lblLastName.Name = "lblLastName";
-            this.lblLastName.Size = new System.Drawing.Size(65, 18);
+            this.lblLastName.Size = new System.Drawing.Size(37, 18);
             this.lblLastName.TabIndex = 25;
-            this.lblLastName.Text = "Apellido";
-            // 
-            // textBoxName
-            // 
-            this.textBoxName.Location = new System.Drawing.Point(146, 133);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(323, 20);
-            this.textBoxName.TabIndex = 21;
+            this.lblLastName.Text = "Mail";
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(33, 132);
+            this.lblName.Location = new System.Drawing.Point(30, 131);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(64, 18);
+            this.lblName.Size = new System.Drawing.Size(147, 18);
             this.lblName.TabIndex = 24;
-            this.lblName.Text = "Nombre";
+            this.lblName.Text = "Tipo De Documento";
             // 
             // buttonClean
             // 
@@ -284,20 +277,28 @@
             this.label5.TabIndex = 29;
             this.label5.Text = "Seleccionar Cliente";
             // 
+            // comboTypeDocument
+            // 
+            this.comboTypeDocument.FormattingEnabled = true;
+            this.comboTypeDocument.Location = new System.Drawing.Point(186, 132);
+            this.comboTypeDocument.Name = "comboTypeDocument";
+            this.comboTypeDocument.Size = new System.Drawing.Size(283, 21);
+            this.comboTypeDocument.TabIndex = 30;
+            // 
             // FormAltaReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(950, 503);
+            this.Controls.Add(this.comboTypeDocument);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonReservar);
             this.Controls.Add(this.buttonClean);
             this.Controls.Add(this.textBoxDocumentNumber);
             this.Controls.Add(this.lblNroDocument);
-            this.Controls.Add(this.textBoxLastName);
+            this.Controls.Add(this.textBoxMail);
             this.Controls.Add(this.lblLastName);
-            this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.buttonAddClient);
@@ -346,12 +347,12 @@
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TextBox textBoxDocumentNumber;
         private System.Windows.Forms.Label lblNroDocument;
-        private System.Windows.Forms.TextBox textBoxLastName;
+        private System.Windows.Forms.TextBox textBoxMail;
         private System.Windows.Forms.Label lblLastName;
-        private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button buttonClean;
         private System.Windows.Forms.Button buttonReservar;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboTypeDocument;
     }
 }

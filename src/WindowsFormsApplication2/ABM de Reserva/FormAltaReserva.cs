@@ -22,6 +22,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
         private void FormAltaReserva_Load(object sender, EventArgs e)
         {
+            TypeDocument.fillComboBox(comboTypeDocument);
             this.ControlBox = false;
             cmbHotel.Text = "";
             this.WindowState = FormWindowState.Maximized;
@@ -132,8 +133,16 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
         private Cliente getDataFromForm()
         {
             Cliente cliente = new Cliente();
-            cliente.name = textBoxName.Text;
-            cliente.lastname = textBoxLastName.Text;
+            cliente.mail = textBoxMail.Text;
+            if (comboTypeDocument.SelectedValue.ToString() != String.Empty)
+            {
+                cliente.idTypeDocument = Convert.ToInt32(comboTypeDocument.SelectedValue.ToString());
+            }
+            else
+            {
+                cliente.idTypeDocument = 0;
+            }
+            cliente.typeDocument = comboTypeDocument.SelectedText;
 
             if (textBoxDocumentNumber.Text != String.Empty)
             {
@@ -153,8 +162,8 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
         private void buttonClean_Click(object sender, EventArgs e)
         {
             textBoxDocumentNumber.Text = "";
-            textBoxName.Text = "";
-            textBoxLastName.Text = "";
+            comboTypeDocument.SelectedIndex = -1;
+            textBoxMail.Text = "";
             DataGridViewHelper.clean(dgvClient);
         }
 
@@ -211,6 +220,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             {
                 Reserva reserva = this.getdataConsulta();
                 ReservaHelper.reservar(reserva);
+                this.Close();
             }
 
         }
