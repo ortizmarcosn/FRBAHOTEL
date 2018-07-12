@@ -36,8 +36,8 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             else
                 command.Parameters["@p_apellido"].Value = reserva.apellido;
 
-            /*command.Parameters.Add(new SqlParameter("@p_res_id", SqlDbType.Int));
-            command.Parameters["@p_res_id"].Value = reserva.id;*/
+            command.Parameters.Add(new SqlParameter("@p_res_id", SqlDbType.Int));
+            command.Parameters["@p_res_id"].Value = reserva.id;
 
             DataGridViewHelper.fill(command, dgvReserva);
         }

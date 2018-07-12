@@ -3027,8 +3027,8 @@ GO
 CREATE PROCEDURE [PUNTO_ZIP].[sp_reserva_listar](
 @p_hotel_id int,
 @p_nombre varchar(255)=null,
-@p_apellido varchar(255)=null--,
---@p_res_id int = 0
+@p_apellido varchar(255)=null,
+@p_res_id int = 0
 )
 AS
 BEGIN
@@ -3040,7 +3040,7 @@ BEGIN
 	and		cli.Id_Cliente=resc.Id_Cliente
 	and		((@p_nombre is null) or (cli.Nombre=@p_nombre))
 	and		((@p_apellido is null) or (cli.Apellido=@p_apellido))
-	--and		((@p_res_id=0) or (res.Id_Reserva=@p_res_id))
+	and		((@p_res_id=0) or (res.Id_Reserva=@p_res_id))
 	and		Id_Hotel=@p_hotel_id
 	order by res.Id_Reserva	
 END

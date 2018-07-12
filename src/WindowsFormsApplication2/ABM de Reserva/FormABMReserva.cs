@@ -42,14 +42,11 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
         private Reserva getDataToSearch()
         {
             Reserva reserva = new Reserva();
-
-                reserva.nombre = txtNombre.Text;
-                reserva.apellido = txtApellido.Text;
-                if (TxtNroReserva.Text!=String.Empty)
-                    reserva.id = int.Parse(TxtNroReserva.Text); 
-                reserva.id_hotel = VarGlobal.usuario.hotel;
-            
-
+            reserva.nombre = txtNombre.Text;
+            reserva.apellido = txtApellido.Text;
+            if (TxtNroReserva.Text != String.Empty)
+                reserva.id = int.Parse(TxtNroReserva.Text); 
+            reserva.id_hotel = VarGlobal.usuario.hotel;
             return reserva;
         }
 
@@ -63,6 +60,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
         {
             txtNombre.Text = "";
             txtApellido.Text = "";
+            TxtNroReserva.Text = "";
             Reserva reserva = this.getDataToSearch();
             ReservaHelper.search(reserva, dgvReserva);
         }
