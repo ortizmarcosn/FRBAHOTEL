@@ -173,7 +173,7 @@
             this.dgvClient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClient.Location = new System.Drawing.Point(28, 216);
             this.dgvClient.Name = "dgvClient";
-            this.dgvClient.Size = new System.Drawing.Size(939, 79);
+            this.dgvClient.Size = new System.Drawing.Size(939, 149);
             this.dgvClient.TabIndex = 12;
             this.dgvClient.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClient_CellContentClick);
             // 
@@ -191,7 +191,7 @@
             // buttonCreate
             // 
             this.buttonCreate.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCreate.Location = new System.Drawing.Point(104, 312);
+            this.buttonCreate.Location = new System.Drawing.Point(28, 378);
             this.buttonCreate.Name = "buttonCreate";
             this.buttonCreate.Size = new System.Drawing.Size(133, 43);
             this.buttonCreate.TabIndex = 14;
@@ -224,7 +224,7 @@
             // buttonEdit
             // 
             this.buttonEdit.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEdit.Location = new System.Drawing.Point(776, 312);
+            this.buttonEdit.Location = new System.Drawing.Point(835, 371);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(132, 50);
             this.buttonEdit.TabIndex = 17;

@@ -116,3 +116,4 @@ C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2
 C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
 C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.exe
 C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\WindowsFormsApplication2.pdb
+C:\GDD\FRBAHOTEL\src\WindowsFormsApplication2\obj\Debug\FrbaHotel.csprojResolveAssemblyReference.cache

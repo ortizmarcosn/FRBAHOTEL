@@ -333,7 +333,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "FormABMClientModify";
-            this.Text = "FormABMClienteModify";
+            this.Text = "Modificar Cliente";
             this.Load += new System.EventHandler(this.FormABMClientModify_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
