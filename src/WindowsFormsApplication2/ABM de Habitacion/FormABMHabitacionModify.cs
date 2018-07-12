@@ -115,7 +115,7 @@ namespace WindowsFormsApplication2.ABM_de_Habitacion
             else
                 return null;
 
-            isValid = Validaciones.validAndRequiredInt32MoreThanEqual0(textBoxRoom.Text, "El hotel debe ser numerico mayor o igual a 0");
+            isValid = Validaciones.validAndRequiredInt32MoreThanEqual0(textBoxRoom.Text, "El nro de habitacion debe ser numerico mayor o igual a 0");
             if (isValid)
                 room.id = Convert.ToInt32(textBoxRoom.Text);
             else
