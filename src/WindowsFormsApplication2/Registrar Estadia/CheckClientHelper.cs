@@ -23,7 +23,7 @@ namespace WindowsFormsApplication2.Registrar_Estadia
                 command.Parameters["@p_check_client_mail"].Value = client.mail;
 
             command.Parameters.Add(new SqlParameter("@p_check_client_doc_type", SqlDbType.Int));
-            if (client.typeDocument == string.Empty)
+            if (client.idTypeDocument <= 0)
                 command.Parameters["@p_check_client_doc_type"].Value = null;
             else
                 command.Parameters["@p_check_client_doc_type"].Value = client.idTypeDocument;

@@ -134,7 +134,8 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
         {
             Cliente cliente = new Cliente();
             cliente.mail = textBoxMail.Text;
-            if (comboTypeDocument.SelectedValue.ToString() != String.Empty)
+
+            if ((comboTypeDocument.SelectedIndex>-1) && comboTypeDocument.SelectedValue.ToString() != String.Empty)
             {
                 cliente.idTypeDocument = Convert.ToInt32(comboTypeDocument.SelectedValue.ToString());
             }
