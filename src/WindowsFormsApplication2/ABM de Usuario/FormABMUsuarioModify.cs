@@ -110,7 +110,7 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             else
                 return null;
 
-            isValid = Validaciones.validAndRequiredInt32(txtDocumentNumber.Text, "El numero de documento debe ser numerico y no tan largo");
+            isValid = Validaciones.validAndRequiredInt32(txtDocumentNumber.Text, "El numero de documento debe ser numerico");
             if (isValid)
                 userData.documentNumber = Convert.ToInt32(txtDocumentNumber.Text);
             else
@@ -125,7 +125,7 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             isValid = Validaciones.requiredString(txtNameLastname.Text, "El nombre/apellido es necesario");
             if (isValid)
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(txtAddress.Text, "^[a-zA-Z ]"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtNameLastname.Text, "^[a-zA-Z ]"))
                 {
                     MessageBox.Show("El nombre/apellido no puede contener numeros");
                     return null;
@@ -135,7 +135,7 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             else
                 return null;
 
-            isValid = Validaciones.validAndRequiredInt32(txtTelephone.Text, "El telefono debe ser numerico y no tan largo");
+            isValid = Validaciones.validAndRequiredInt32(txtTelephone.Text, "El telefono debe ser numerico");
             if (isValid)
             {
                 userData.telephone = this.txtTelephone.Text;

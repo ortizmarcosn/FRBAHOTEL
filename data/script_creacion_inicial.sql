@@ -391,7 +391,9 @@ CREATE TABLE [PUNTO_ZIP].[USUARIOS](
 
 --Se agrega usuario admin con contraseña "shadea" w23e
 INSERT INTO PUNTO_ZIP.USUARIOS(usu_username, usu_password, usu_cant_login, usu_habilitado) 
-VALUES ('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', 0, 1)
+VALUES ('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', 0, 1),
+		('recepcionista','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', 0, 1),
+		('guest','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7', 0, 1)
 
 -- TABLA ROLES
 /*
@@ -491,7 +493,7 @@ CREATE TABLE [PUNTO_ZIP].[TIPOS_DOCUMENTOS](
 	CONSTRAINT UQ_TIPOS_DOCUMENTOS_td_descripcion UNIQUE (td_descripcion)
 )
 
-INSERT INTO PUNTO_ZIP.TIPOS_DOCUMENTOS (td_descripcion) VALUES ('PASAPORTE ARGENTINA')
+INSERT INTO PUNTO_ZIP.TIPOS_DOCUMENTOS (td_descripcion) VALUES ('PASAPORTE ARGENTINA'), ('DNI')
 
 -- TABLA DATOS_USUARIO
 /*
@@ -514,7 +516,9 @@ CREATE TABLE [PUNTO_ZIP].[DATOS_USUARIO](
 
 -- Ingreso datos del usuario administrador
 INSERT INTO PUNTO_ZIP.DATOS_USUARIO (du_usuario_id, du_nombre_apellido, du_mail, du_tipo_doc_id, du_dni, du_telefono, du_direccion, du_fecha_nacimiento)
-VALUES (1, 'admin', 'test@gmail.com' ,1, 1, '1234-5678','Calle Falsa 123, Algun Pais', getdate())
+VALUES (1, 'admin', 'admin@gmail.com' ,1, 12345678, '1234-5678','Calle Falsa 123, Algun Pais', getdate()),
+		(1, 'recepcionista', 'recepcionista@gmail.com' ,1, 87654321, '8765-4321','Calle Verdadera 123, Otro Pais', getdate()),
+		(1, 'guest', 'guest@gmail.com' ,1, 14725836, '1472-5836','Calle por ahi 123, El Pais', getdate())
 
 -- TABLA HOTEL
 /*
@@ -595,7 +599,8 @@ CREATE TABLE [PUNTO_ZIP].[USUARIOS_ROLES_HOTELES](
 
 -- Se agrega al usuario admin el rol de administrador
 INSERT INTO PUNTO_ZIP.USUARIOS_ROLES_HOTELES (urh_usuario_id, urh_rol_id, urh_hotel_id, urh_habilitado) values (1, 1, 1, 1)
-INSERT INTO PUNTO_ZIP.USUARIOS_ROLES_HOTELES (urh_usuario_id, urh_rol_id, urh_hotel_id, urh_habilitado) values (1, 2, 1, 1)
+INSERT INTO PUNTO_ZIP.USUARIOS_ROLES_HOTELES (urh_usuario_id, urh_rol_id, urh_hotel_id, urh_habilitado) values (2, 2, 1, 1)
+INSERT INTO PUNTO_ZIP.USUARIOS_ROLES_HOTELES (urh_usuario_id, urh_rol_id, urh_hotel_id, urh_habilitado) values (3, 3, 1, 1)
 
 -- TABLA REGIMENES
 /*
@@ -693,7 +698,7 @@ INSERT INTO PUNTO_ZIP.FRENTE (fre_descripcion) VALUES ('N')
 
 -- TABLA HABITACION
 /*
-	Tabla con cada habitacion dependiendo del hotel
+	Tabla con cada habitacion depENDiENDo del hotel
 */
 CREATE TABLE [PUNTO_ZIP].[HABITACION](
 	[habi_hotel_id][Int] NOT NULL,
@@ -862,7 +867,7 @@ INSERT INTO PUNTO_ZIP.ESTADO_RESERVA (esre_descripcion) VALUES ('Reserva con ing
 CREATE TABLE [PUNTO_ZIP].[RESERVA](
 	[rese_id][numeric](18,0)IDENTITY(1,1) NOT NULL,
 	[rese_fecha_inicio][datetime] NOT NULL,
-	[rese_ESTADIAS_id][Int] NOT NULL,
+	[rese_cantidad_noches][Int] NOT NULL,
 	[rese_regimen_id][Int] NOT NULL,
 	[rese_estado_reserva_id][Int] NOT NULL,
 	[rese_usuario_id][Int] NOT NULL
@@ -878,7 +883,7 @@ CREATE TABLE [PUNTO_ZIP].[RESERVA](
 
 SET IDENTITY_INSERT [PUNTO_ZIP].RESERVA ON
 
-INSERT INTO PUNTO_ZIP.RESERVA(rese_id, rese_fecha_inicio, rese_ESTADIAS_id, rese_regimen_id, rese_estado_reserva_id, rese_usuario_id)
+INSERT INTO PUNTO_ZIP.RESERVA(rese_id, rese_fecha_inicio, rese_cantidad_noches, rese_regimen_id, rese_estado_reserva_id, rese_usuario_id)
 SELECT m.Reserva_Codigo, m.Reserva_Fecha_Inicio, m.Reserva_Cant_Noches, r.regi_id, 1, 1 
 	FROM gd_esquema.Maestra m 
 	INNER JOIN PUNTO_ZIP.REGIMENES r
@@ -967,15 +972,16 @@ CREATE TABLE [PUNTO_ZIP].[ESTADIAS](
 	[esta_id][int]IDENTITY(1,1) NOT NULL,
 	[esta_reserva_id][numeric](18,0) NOT NULL,
 	[esta_check_in][datetime],
+	[esta_usuario_id_in][Int],
 	[esta_check_out][datetime],
-	[esta_usuario_id][Int]
-	/*[usu_id_Check_In][varchar](20),
-	[usu_id_Check_Out][varchar](20)*/
+	[esta_usuario_id_out][Int]
 
 	CONSTRAINT [PK_ESTADIAS_esta_id] PRIMARY KEY (esta_id),
 	CONSTRAINT [PK_ESTADIAS_esta_reserva_id] FOREIGN KEY (esta_reserva_id)
 		REFERENCES [PUNTO_ZIP].[RESERVA](rese_id),
-	CONSTRAINT [FK_HISTORIAL_CANCELACION_RESERVA_esta_usuario_id] FOREIGN KEY (esta_usuario_id)
+	CONSTRAINT [FK_HISTORIAL_CANCELACION_RESERVA_esta_usuario_id_in] FOREIGN KEY (esta_usuario_id_in)
+		REFERENCES [PUNTO_ZIP].[USUARIOS](usu_id),
+	CONSTRAINT [FK_HISTORIAL_CANCELACION_RESERVA_esta_usuario_id_out] FOREIGN KEY (esta_usuario_id_out)
 		REFERENCES [PUNTO_ZIP].[USUARIOS](usu_id)
 )
 
@@ -987,8 +993,8 @@ SELECT * FROM gd_esquema.Maestra m WHERE m.Estadia_Fecha_Inicio IS NOT NULL AND
 */
 
 -- Migracion las Reservas completadas
-INSERT INTO PUNTO_ZIP.ESTADIAS (esta_reserva_id, esta_check_in, esta_check_out, esta_usuario_id)
-	SELECT DISTINCT m.Reserva_Codigo, m.Estadia_Fecha_Inicio, DATEADD(DAY, m.RESERVA_Cant_Noches, CAST(m.Estadia_Fecha_Inicio AS DATE)), 1 
+INSERT INTO PUNTO_ZIP.ESTADIAS (esta_reserva_id, esta_check_in, esta_usuario_id_in, esta_check_out, esta_usuario_id_out)
+	SELECT DISTINCT m.Reserva_Codigo, m.Estadia_Fecha_Inicio, 1, DATEADD(DAY, m.RESERVA_Cant_Noches, CAST(m.Estadia_Fecha_Inicio AS DATE)), 1 
 	FROM gd_esquema.Maestra m WHERE m.Estadia_Fecha_Inicio IS NOT NULL AND m.Factura_Fecha IS NOT NULL
 
 -- TABLA CONSUMIBLES
@@ -1128,7 +1134,6 @@ CREATE TABLE [PUNTO_ZIP].[TIPO_PAGO](
 
 INSERT INTO PUNTO_ZIP.TIPO_PAGO(tipa_descripcion) VALUES('Efectivo')
 INSERT INTO PUNTO_ZIP.TIPO_PAGO(tipa_descripcion) VALUES('Tarjeta Credito')
-INSERT INTO PUNTO_ZIP.TIPO_PAGO(tipa_descripcion) VALUES('Tarjeta Debito')
 
 -- TABLA FORMA PAGO
 /*
@@ -1137,7 +1142,7 @@ INSERT INTO PUNTO_ZIP.TIPO_PAGO(tipa_descripcion) VALUES('Tarjeta Debito')
 CREATE TABLE [PUNTO_ZIP].[FORMA_PAGO](
 	[fp_factura_id][numeric](18,0) NOT NULL,
 	[fp_tipo_pago_id][Int] NOT NULL,
-	[fo_tarjeta_numero][Int] NULL,
+	[fp_tarjeta_numero][Int] NULL,
 
 	CONSTRAINT [FK_FORMA_PAGO_fp_factura_id] FOREIGN KEY(fp_factura_id)
 	REFERENCES [PUNTO_ZIP].[FACTURAS](fact_id),
@@ -1282,9 +1287,10 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_rol_exist_one_by_user](
 )
 AS
 BEGIN
-	DECLARE @count_rol int
+	DECLARE @count_rol int, @user_id int
+	SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_id)	
 	SELECT DISTINCT urh_usuario_id, urh_rol_id FROM PUNTO_ZIP.USUARIOS_ROLES_HOTELES
-		WHERE urh_usuario_id = @p_id AND urh_habilitado = 1
+		WHERE urh_usuario_id = @user_id AND urh_habilitado = 1
 
 	SET @count_rol = @@ROWCOUNT
 	SET @p_count_rol = @count_rol
@@ -1292,7 +1298,7 @@ BEGIN
 		BEGIN
 			SELECT @p_id_rol = urh.urh_rol_id, @p_rol_desc = r.rol_descripcion FROM PUNTO_ZIP.USUARIOS_ROLES_HOTELES urh 
 				INNER JOIN PUNTO_ZIP.ROLES r ON urh.urh_rol_id = r.rol_id 
-				WHERE urh.urh_usuario_id = @p_id AND r.rol_habilitado = 1 AND urh.urh_habilitado = 1
+				WHERE urh.urh_usuario_id = @user_id AND r.rol_habilitado = 1 AND urh.urh_habilitado = 1
 		END
 	ELSE
 		BEGIN
@@ -1311,16 +1317,17 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_exist_one_by_user](
 )
 AS
 BEGIN
-	DECLARE @count_hotel int
+	DECLARE @count_hotel int, @user_id int
+	SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_id)
 	SELECT @count_hotel = COUNT(1) FROM PUNTO_ZIP.USUARIOS_ROLES_HOTELES 
-		WHERE urh_usuario_id = @p_id AND urh_rol_id = @p_id_rol AND urh_habilitado = 1
+		WHERE urh_usuario_id = @user_id AND urh_rol_id = @p_id_rol AND urh_habilitado = 1
 		
 	SET @p_count_hotel = @count_hotel
 	IF ( @count_hotel = 1 )
 	BEGIN
 		SELECT @p_id_hotel = urh.urh_hotel_id, @p_hotel_desc = h.hote_nombre FROM PUNTO_ZIP.USUARIOS_ROLES_HOTELES urh 
 			INNER JOIN PUNTO_ZIP.HOTELES h ON urh.urh_hotel_id = h.hote_id
-			WHERE urh.urh_usuario_id = @p_id AND urh.urh_rol_id = @p_id_rol AND urh.urh_habilitado = 1
+			WHERE urh.urh_usuario_id = @user_id AND urh.urh_rol_id = @p_id_rol AND urh.urh_habilitado = 1
 	END
 	ELSE
 	BEGIN
@@ -1367,9 +1374,9 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_user_enable_disable](
 )
 AS
 BEGIN
-	UPDATE PUNTO_ZIP.Usuario_Rol_Hotel SET Habilitado = @p_enable_disable
-		WHERE Id_Usuario = @p_user_name
-		AND Id_Hotel = @p_id_hotel
+	DECLARE @user_id int
+	SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_user_name)
+	UPDATE PUNTO_ZIP.USUARIOS_ROLES_HOTELES SET urh_habilitado = @p_enable_disable WHERE urh_usuario_id = @user_id AND urh_hotel_id = @p_id_hotel
 END
 GO
 
@@ -1378,7 +1385,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_user_clean_login](
 )
 AS
 BEGIN
-	UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = 0
+	UPDATE PUNTO_ZIP.USUARIOS SET usu_cant_login = 0 WHERE usu_username = @p_user_name
 END
 GO
 
@@ -1387,12 +1394,10 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_user_data_get_by_user](
 )
 AS
 BEGIN
-	SELECT * FROM PUNTO_ZIP.Usuario u
-		INNER JOIN PUNTO_ZIP.Datos_Usuario ud
-			ON u.Id_Usuario = ud.Id_Usuario
-		INNER JOIN PUNTO_ZIP.Tipo_Identificacion ti
-			ON ti.Id_Tipo_Identificacion = ud.Tipo_DNI
-		WHERE u.Id_Usuario = @p_user_name
+	SELECT * FROM PUNTO_ZIP.USUARIOS u
+		INNER JOIN PUNTO_ZIP.DATOS_USUARIO du ON u.usu_id = du_usuario_id
+		INNER JOIN PUNTO_ZIP.TIPOS_DOCUMENTOS td ON td.td_id = du.du_tipo_doc_id
+		WHERE u.usu_username = @p_user_name
 END
 GO
 
@@ -1402,16 +1407,12 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_user_search_rol_hotel_by_user](
 )
 AS
 BEGIN
-	SELECT
-		r.Id_Rol 'IdRol',
-		r.Descripcion 'Descripcion'
-	FROM PUNTO_ZIP.Usuario_Rol_Hotel urh
-	INNER JOIN PUNTO_ZIP.Rol r 
-		ON urh.Id_Rol = r.Id_Rol
-	WHERE urh.Id_Usuario = @p_user_name
-	AND urh.Id_Hotel = @p_id_hotel
-	AND r.Habilitado = 1
-	AND urh.Habilitado = 1
+	DECLARE @user_id int
+	SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_user_name)
+	SELECT r.rol_id 'Rol ID', r.rol_descripcion 'Descripcion'
+	FROM PUNTO_ZIP.USUARIOS_ROLES_HOTELES urh
+	INNER JOIN PUNTO_ZIP.ROLES r ON urh.urh_rol_id = r.rol_id
+	WHERE urh.urh_usuario_id = @user_id AND urh.urh_hotel_id = @p_id_hotel AND r.rol_habilitado = 1 AND urh.urh_habilitado = 1
 END
 GO
 
@@ -1432,68 +1433,45 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_user_save_update](
 AS
 BEGIN
 	BEGIN TRANSACTION
-		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Usuario WHERE ID_Usuario = @p_user_name))
-		BEGIN
-			IF (@p_password IS NOT NULL)
-				UPDATE PUNTO_ZIP.Usuario SET Password = @p_password
-				WHERE Id_Usuario = @p_user_name
-			UPDATE PUNTO_ZIP.Usuario SET Habilitado = @p_enabled
-			WHERE Id_Usuario = @p_user_name
-		END
+		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_user_name))
+			BEGIN
+				IF (@p_password IS NOT NULL)
+					UPDATE PUNTO_ZIP.USUARIOS SET usu_password = @p_password WHERE usu_username = @p_user_name
+				UPDATE PUNTO_ZIP.USUARIOS SET usu_habilitado = @p_enabled WHERE usu_username = @p_user_name
+			END
 		ELSE
-		BEGIN
-			INSERT INTO PUNTO_ZIP.Usuario (Id_Usuario, Password, Cantidad_Login, Ultima_Fecha, Habilitado)
-			VALUES (@p_user_name, @p_password, 0, null, @p_enabled)
-		END
+			BEGIN
+				INSERT INTO PUNTO_ZIP.USUARIOS (usu_username, usu_password, usu_cant_login, usu_ultima_fecha, usu_habilitado)
+				VALUES (@p_user_name, @p_password, 0, null, @p_enabled)
+			END
 
-		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Usuario_Rol_Hotel urh
-			WHERE Id_Usuario = @p_user_name
-			AND Id_Hotel = @p_id_hotel ))
-		BEGIN
-			UPDATE PUNTO_ZIP.Usuario_Rol_Hotel SET Id_Rol = @p_id_rol, Habilitado = @p_enabled
-			WHERE Id_Usuario = @p_user_name
-			AND Id_Hotel = @p_id_hotel
-		END
+		DECLARE @user_id int
+		set @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_user_name)	
+			
+		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.USUARIOS_ROLES_HOTELES WHERE urh_usuario_id = @user_id AND urh_hotel_id = @p_id_hotel ) )
+			BEGIN
+				UPDATE PUNTO_ZIP.USUARIOS_ROLES_HOTELES SET urh_rol_id = @p_id_rol, urh_habilitado = @p_enabled
+					WHERE urh_usuario_id = @user_id AND urh_hotel_id = @p_id_hotel
+			END
 		ELSE
-		BEGIN
-			INSERT INTO PUNTO_ZIP.Usuario_Rol_Hotel (Id_Usuario, Id_Rol, Id_Hotel, Habilitado)
-				VALUES (@p_user_name, @p_id_rol, @p_id_hotel, @p_enabled)
-		END
+			BEGIN
+				INSERT INTO PUNTO_ZIP.USUARIOS_ROLES_HOTELES (urh_usuario_id, urh_rol_id, urh_hotel_id, urh_habilitado)
+					VALUES (@user_id, @p_id_rol, @p_id_hotel, @p_enabled)
+			END
 
-		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Datos_Usuario WHERE Id_Usuario = @p_user_name))
-		BEGIN
-			UPDATE PUNTO_ZIP.Datos_Usuario SET Nombre_Apellido = @p_name_lastName, Mail = @p_mail,
-				Tipo_DNI = @p_id_type_document, Nro_DNI = @p_document_number,
-				Telefono = @p_telephone, Direccion = @p_address, Fecha_Nacimiento = @p_birthdate
-			WHERE Id_Usuario = @p_user_name
-		END
+		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.DATOS_USUARIO WHERE du_usuario_id = @user_id) )
+			BEGIN
+				UPDATE PUNTO_ZIP.DATOS_USUARIO SET du_nombre_apellido = @p_name_lastName, du_mail = @p_mail, du_tipo_doc_id = @p_id_type_document, 
+					du_dni = @p_document_number, du_telefono = @p_telephone, du_direccion = @p_address, du_fecha_nacimiento = @p_birthdate
+				WHERE du_usuario_id = @user_id
+			END
 		ELSE
-		BEGIN
-			INSERT INTO PUNTO_ZIP.Datos_Usuario (Id_Usuario, Nombre_Apellido, Mail, Tipo_DNI, Nro_DNI, Telefono,
-				Direccion, Fecha_Nacimiento)
-			VALUES (@p_user_name, @p_name_lastName, @p_mail, @p_id_type_document, @p_document_number, @p_telephone,
-				@p_address, @p_birthdate)
-		END
-
+			BEGIN
+				INSERT INTO PUNTO_ZIP.DATOS_USUARIO (du_usuario_id, du_nombre_apellido, du_mail, du_tipo_doc_id, du_dni, du_telefono,
+					du_direccion, du_fecha_nacimiento)
+				VALUES (@user_id, @p_name_lastName, @p_mail, @p_id_type_document, @p_document_number, @p_telephone, @p_address, @p_birthdate)
+			END
 	COMMIT TRANSACTION
-END
-GO
-
-CREATE PROCEDURE [PUNTO_ZIP].[sp_rol_search](
-@p_rol_name varchar(255) = null
-)
-AS
-BEGIN
-	SELECT DISTINCT
-				
-		r.Id_Rol 'Id Rol',
-		r.Descripcion 'Descripcion',
-		r.Habilitado 'Habilitado'
-		
-		FROM PUNTO_ZIP.Rol r
-
-		WHERE
-		((@p_rol_name IS NULL) OR (r.Descripcion like @p_rol_name + '%'))
 END
 GO
 
@@ -1502,9 +1480,9 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_rol_enable_disable](
 @p_enable_disable int
 )
 AS
+
 BEGIN
-	UPDATE PUNTO_ZIP.Rol SET Habilitado = @p_enable_disable
-		WHERE Id_Rol = @p_id_rol
+	UPDATE PUNTO_ZIP.ROLES SET rol_habilitado = @p_enable_disable WHERE rol_id = @p_id_rol
 END
 GO
 
@@ -1513,14 +1491,8 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_rol_functionality_availability](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-		f.Id_Funcionalidad 'Id Funcionalidad',
-		f.Descripcion 'Descripcion'
-
-		FROM PUNTO_ZIP.Funcionalidad f
-		WHERE NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.Rol_Funcionalidad rf
-			WHERE f.Id_Funcionalidad = rf.Id_Funcionalidad
-			AND rf.Id_Rol = @p_id_rol)
+	SELECT DISTINCT f.func_id 'Funcion ID', f.func_descripcion 'Descripcion'
+		FROM PUNTO_ZIP.FUNCIONES f WHERE NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.ROLES_FUNCIONES rf WHERE f.func_id = rf.rf_func_id AND rf.rf_rol_id = @p_id_rol)
 END
 GO
 
@@ -1529,14 +1501,8 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_rol_functionality_enabled](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-		f.Id_Funcionalidad 'Id Funcionalidad',
-		f.Descripcion 'Descripcion'
-
-		FROM PUNTO_ZIP.Funcionalidad f
-		WHERE EXISTS (SELECT 1 FROM PUNTO_ZIP.Rol_Funcionalidad rf
-			WHERE f.Id_Funcionalidad = rf.Id_Funcionalidad
-			AND rf.Id_Rol = @p_id_rol)
+	SELECT DISTINCT f.func_id 'Funcion ID', f.func_descripcion 'Descripcion'
+		FROM PUNTO_ZIP.FUNCIONES f WHERE EXISTS (SELECT 1 FROM PUNTO_ZIP.ROLES_FUNCIONES rf WHERE f.func_id = rf.rf_func_id AND rf.rf_rol_id = @p_id_rol)
 END
 GO
 
@@ -1547,17 +1513,13 @@ CREATE PROCEDURE PUNTO_ZIP.[sp_rol_create](
 AS
 BEGIN
 	IF (@p_id_rol = 0)
-	BEGIN
-		INSERT INTO PUNTO_ZIP.Rol (Descripcion, Habilitado)
-			VALUES(@p_rol_description, 1)
-		SET @p_id_rol = @@IDENTITY
-	END
+		BEGIN
+			INSERT INTO PUNTO_ZIP.ROLES (rol_descripcion, rol_habilitado) VALUES(@p_rol_description, 1) SET @p_id_rol = @@IDENTITY
+		END
 	ELSE
-	BEGIN
-		UPDATE PUNTO_ZIP.Rol SET Descripcion = @p_rol_description
-			WHERE Id_Rol = @p_id_rol 
-	END
-	
+		BEGIN
+			UPDATE PUNTO_ZIP.ROLES SET rol_descripcion = @p_rol_description WHERE rol_id = @p_id_rol 
+		END
 END
 GO
 
@@ -1567,8 +1529,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_rol_functionality_add](
 )
 AS
 BEGIN
-	INSERT INTO PUNTO_ZIP.Rol_Funcionalidad (Id_Rol, Id_Funcionalidad)
-		VALUES (@p_id_rol, @p_id_functionality)
+	INSERT INTO PUNTO_ZIP.ROLES_FUNCIONES (rf_rol_id, rf_func_id) VALUES (@p_id_rol, @p_id_functionality)
 END
 GO
 
@@ -1578,7 +1539,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_rol_functionality_remove](
 )
 AS
 BEGIN
-	DELETE FROM PUNTO_ZIP.Rol_Funcionalidad WHERE Id_Rol = @p_id_rol AND Id_Funcionalidad = @p_id_functionality
+	DELETE FROM PUNTO_ZIP.ROLES_FUNCIONES WHERE rf_rol_id = @p_id_rol AND rf_func_id = @p_id_functionality
 END
 GO
 
@@ -1591,37 +1552,18 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_client_search](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-				
-		c.Id_Cliente 'Id Cliente',
-		c.Nombre 'Nombre',
-		c.Apellido 'Apellido',
-		ti.Id_Tipo_Identificacion 'Id Tipo Documento',
-		ti.Descripcion 'Tipo Documento',
-		c.Nro_Identificacion 'Nro Documento',
-		c.Mail 'Mail',
-		c.Telefono 'Telefono',
-		c.Calle_Direccion 'Direccion',
-		c.Calle_Nro 'Nro',
-		c.Calle_Piso 'Piso',
-		c.Calle_Depto 'Departamento',
-		na.Id_Nacionalidad 'Id Nacionalidad',
-		na.Descripcion 'Nacionalidad',
-		c.Fecha_Nacimiento 'Nacimiento',
-		c.Habilitado 'Habilitado'
-		
-		FROM PUNTO_ZIP.Clientes c
-			INNER JOIN PUNTO_ZIP.Tipo_Identificacion ti
-				ON c.Tipo_Identificacion = ti.Id_Tipo_Identificacion
-			INNER JOIN PUNTO_ZIP.Nacionalidad na
-				ON c.Nacionalidad = na.Id_Nacionalidad
-
-		WHERE
-		( (@p_client_name IS NULL) OR (UPPER(c.Nombre) like UPPER(@p_client_name) + '%'))
-		AND ((@p_client_lastname IS NULL) OR (UPPER(c.Apellido) like UPPER(@p_client_lastname) + '%'))
-		AND ((@p_id_type_document IS NULL) OR (c.Tipo_Identificacion = @p_id_type_document))
-		AND ((@p_client_document_number IS NULL) OR (LTRIM(RTRIM(STR(c.Nro_Identificacion))) like @p_client_document_number + '%'))
-		AND ((@p_client_mail IS NULL) OR (UPPER(c.Mail) like UPPER(@p_client_mail) + '%'))
+	SELECT DISTINCT	c.clie_id 'Cliente ID', c.clie_nombre 'Nombre', c.clie_apellido 'Apellido', ti.td_id 'Tipo Documento ID', ti.td_descripcion 'Tipo Documento', 
+		c.clie_nro_identificacion 'Nro Documento', c.clie_mail 'Mail', c.clie_telefono 'Telefono', c.clie_calle 'Direccion', c.clie_nro_calle 'Nro', 
+		c.clie_piso 'Piso', c.clie_depto 'Departamento', na.nac_id 'Nacionalidad ID', na.nac_descripcion 'Nacionalidad', c.clie_fecha_nacimiento 'Nacimiento', 
+		c.clie_habilitado 'Habilitado'
+		FROM PUNTO_ZIP.CLIENTES c
+			INNER JOIN PUNTO_ZIP.TIPOS_DOCUMENTOS ti ON c.clie_tipo_documento_id = ti.td_id
+			INNER JOIN PUNTO_ZIP.NACIONALIDAD na ON c.clie_nacionalidad_id = na.nac_id
+		WHERE ((@p_client_name IS NULL) OR (UPPER(c.clie_nombre) like '%' + UPPER(@p_client_name) + '%'))
+		AND ((@p_client_lastname IS NULL) OR (UPPER(c.clie_apellido) like '%' + UPPER(@p_client_lastname) + '%'))
+		AND ((@p_id_type_document IS NULL) OR (c.clie_tipo_documento_id = @p_id_type_document))
+		AND ((@p_client_document_number IS NULL) OR (LTRIM(RTRIM(STR(c.clie_nro_identificacion))) like '%' + @p_client_document_number + '%'))
+		AND ((@p_client_mail IS NULL) OR (UPPER(c.clie_mail) like '%' + UPPER(@p_client_mail) + '%'))
 END
 GO
 
@@ -1631,8 +1573,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_client_enable_disable](
 )
 AS
 BEGIN
-	UPDATE PUNTO_ZIP.Clientes SET Habilitado = @p_enable_disable
-		WHERE Id_Cliente = @p_client_id
+	UPDATE PUNTO_ZIP.CLIENTES SET clie_habilitado = @p_enable_disable WHERE clie_id = @p_client_id
 END
 GO
 
@@ -1641,30 +1582,14 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_client_data_get_by_id_client](
 )
 AS
 BEGIN
-	SELECT 
-		c.Id_Cliente 'Id_Cliente',
-		c.Nombre 'Nombre',
-		c.Apellido 'Apellido',
-		c.Tipo_Identificacion 'Tipo_Identificacion',
-		ti.Descripcion 'Identificacion_Descripcion',
-		c.Nro_Identificacion 'Nro_Identificacion',
-		c.Mail 'Mail',
-		c.Telefono 'Telefono',
-		c.Calle_Direccion 'Calle_Direccion',
-		c.Calle_Nro 'Calle_Nro',
-		c.Calle_Piso 'Calle_Piso',
-		c.Calle_Depto 'Calle_Depto',
-		c.Nacionalidad 'Nacionalidad',
-		n.Descripcion 'Nacionalidad_Descripcion',
-		c.Fecha_Nacimiento 'Fecha_Nacimiento',
-		c.Habilitado 'Habilitado'
-
-	 FROM PUNTO_ZIP.Clientes c
-		INNER JOIN PUNTO_ZIP.Tipo_Identificacion ti
-			ON ti.Id_Tipo_Identificacion = c.Tipo_Identificacion
-		INNER JOIN PUNTO_ZIP.Nacionalidad n
-			ON n.Id_Nacionalidad = c.Nacionalidad
-		WHERE c.Id_Cliente = @p_id_client
+	SELECT c.clie_id 'Cliente ID', c.clie_nombre 'Nombre', c.clie_apellido 'Apellido', ti.td_id 'Tipo Documento ID', ti.td_descripcion 'Tipo Documento', 
+		c.clie_nro_identificacion 'Nro Documento', c.clie_mail 'Mail', c.clie_telefono 'Telefono', c.clie_calle 'Direccion', c.clie_nro_calle 'Nro', 
+		c.clie_piso 'Piso', c.clie_depto 'Departamento', na.nac_id 'Nacionalidad ID', na.nac_descripcion 'Nacionalidad', c.clie_fecha_nacimiento 'Nacimiento', 
+		c.clie_habilitado 'Habilitado'
+		FROM PUNTO_ZIP.CLIENTES c
+			INNER JOIN PUNTO_ZIP.TIPOS_DOCUMENTOS ti ON c.clie_tipo_documento_id = ti.td_id
+			INNER JOIN PUNTO_ZIP.NACIONALIDAD na ON c.clie_nacionalidad_id = na.nac_id
+			WHERE c.clie_id = @p_id_client
 END
 GO
 
@@ -1685,20 +1610,20 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_client_save_update](
 )
 AS
 BEGIN
-	Declare @p_client_type_document_id int
-	Declare @p_client_nationality_id int
+	DECLARE @p_client_type_document_id int
+	DECLARE @p_client_nationality_id int
 
-	SELECT @p_client_nationality_id = Id_Nacionalidad FROM PUNTO_ZIP.Nacionalidad
-		WHERE UPPER(LTRIM(RTRIM(Descripcion))) = UPPER(LTRIM(RTRIM(@p_client_nationality)))
+	SELECT @p_client_nationality_id = nac_id FROM PUNTO_ZIP.NACIONALIDAD
+		WHERE UPPER(LTRIM(RTRIM(nac_descripcion))) = UPPER(LTRIM(RTRIM(@p_client_nationality)))
 
-	SELECT @p_client_type_document_id = Id_Tipo_Identificacion FROM PUNTO_ZIP.Tipo_Identificacion
-		WHERE UPPER(LTRIM(RTRIM(Descripcion))) = UPPER(LTRIM(RTRIM(@p_client_type_document)))
+	SELECT @p_client_type_document_id = td_id FROM PUNTO_ZIP.TIPOS_DOCUMENTOS
+		WHERE UPPER(LTRIM(RTRIM(td_descripcion))) = UPPER(LTRIM(RTRIM(@p_client_type_document)))
 
 	BEGIN TRANSACTION
 		IF ( @p_client_id = 0)
 		BEGIN
-			INSERT INTO PUNTO_ZIP.Clientes (Nombre, Apellido, Tipo_Identificacion, Nro_Identificacion, Mail, Telefono, Calle_Direccion,
-				Calle_Nro, Calle_Piso, Calle_Depto, Nacionalidad, Fecha_Nacimiento, Habilitado)
+			INSERT INTO PUNTO_ZIP.CLIENTES (clie_nombre, clie_apellido, clie_tipo_documento_id, clie_nro_identificacion, clie_mail, clie_telefono, clie_calle,
+				clie_nro_calle, clie_piso, clie_depto, clie_nacionalidad_id, clie_fecha_nacimiento, clie_habilitado)
 			VALUES (@p_client_name, @p_client_lastname, @p_client_type_document_id, @p_client_document_number, @p_client_mail,
 				@p_client_telephone, @p_client_address_name, @p_client_address_number, @p_client_address_floor, @p_client_address_dept,
 				@p_client_nationality_id, @p_client_birthdate, 1)
@@ -1707,12 +1632,11 @@ BEGIN
 		END
 		ELSE
 		BEGIN
-			UPDATE PUNTO_ZIP.Clientes SET Nombre = @p_client_name, Apellido = @p_client_lastname, 
-			Tipo_Identificacion = @p_client_type_document_id, Nro_Identificacion = @p_client_document_number,
-			Mail = @p_client_mail, Telefono = @p_client_telephone, Calle_Direccion = @p_client_address_name,
-			Calle_Nro = @p_client_address_number, Calle_Piso = @p_client_address_floor, Calle_Depto = @p_client_address_dept,
-			Nacionalidad = @p_client_nationality_id, Fecha_Nacimiento = @p_client_birthdate
-			WHERE Id_Cliente = @p_client_id
+			UPDATE PUNTO_ZIP.CLIENTES SET clie_nombre = @p_client_name, clie_apellido = @p_client_lastname, clie_tipo_documento_id = @p_client_type_document_id, 
+			clie_nro_identificacion = @p_client_document_number, clie_mail = @p_client_mail, clie_telefono = @p_client_telephone, clie_calle = @p_client_address_name,
+			clie_nro_calle = @p_client_address_number, clie_piso = @p_client_address_floor, clie_depto = @p_client_address_dept, clie_nacionalidad_id = @p_client_nationality_id, 
+			clie_fecha_nacimiento = @p_client_birthdate
+			WHERE clie_id = @p_client_id
 		END
 	COMMIT TRANSACTION
 END
@@ -1726,15 +1650,12 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_client_check_exist_document](
 )
 AS
 BEGIN
-	Declare @p_client_type_document_id int
+	DECLARE @p_client_type_document_id int
 
-	SELECT @p_client_type_document_id = Id_Tipo_Identificacion FROM PUNTO_ZIP.Tipo_Identificacion
-		WHERE UPPER(LTRIM(RTRIM(Descripcion))) = UPPER(LTRIM(RTRIM(@p_client_type_document)))
+	SELECT @p_client_type_document_id = td_id FROM PUNTO_ZIP.TIPOS_DOCUMENTOS
+		WHERE UPPER(LTRIM(RTRIM(td_descripcion))) = UPPER(LTRIM(RTRIM(@p_client_type_document)))
 
-	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.Clientes
-		WHERE Tipo_Identificacion = @p_client_type_document_id
-			AND Nro_Identificacion = @p_client_document_number
-			AND Id_Cliente != @p_client_id)
+	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.CLIENTES WHERE clie_tipo_documento_id = @p_client_type_document_id AND clie_nro_identificacion = @p_client_document_number AND clie_id != @p_client_id)
 		SET @p_isValid = 1
 	ELSE
 		SET @p_isValid = 0
@@ -1748,9 +1669,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_client_check_exist_mail](
 )
 AS
 BEGIN
-	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.Clientes
-		WHERE Mail = @p_client_mail
-			AND Id_Cliente != @p_client_id)
+	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.CLIENTES WHERE clie_mail = @p_client_mail AND clie_id != @p_client_id)
 		SET @p_isValid = 1
 	ELSE
 		SET @p_isValid = 0
@@ -1766,30 +1685,16 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_search](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-				
-		h.Id_Hotel 'Id Hotel',
-		h.Nombre 'Nombre',
-		h.Mail 'Mail',
-		h.Telefono 'Telefono',
-		h.Calle_Direccion 'Direccion',
-		h.Calle_Nro 'Numero',
-		h.Ciudad 'Ciudad',
-		h.Pais 'Pais',
-		h.Fecha_Creacion 'Fecha Creacion',
-		he.Cantidad_Estrellas 'Estrellas'
-		
-		FROM PUNTO_ZIP.Hotel h
-		INNER JOIN PUNTO_ZIP.Hotel_Estrellas he
-			ON h.Id_Hotel = he.Id_Hotel
-		INNER JOIN PUNTO_ZIP.Usuario_Rol_Hotel urh
-			ON h.Id_Hotel = urh.Id_Hotel
-		WHERE
-		( (@p_hotel_name IS NULL) OR (UPPER(h.Nombre) like UPPER(@p_hotel_name) + '%'))
-		AND ((@p_hotel_city IS NULL) OR (UPPER(h.Ciudad) like UPPER(@p_hotel_city) + '%'))
-		AND ((@p_hotel_country IS NULL) OR (UPPER(h.Pais) like UPPER (@p_hotel_country + '%')))
-		AND ((@p_hotel_star IS NULL) OR (he.Cantidad_Estrellas = @p_hotel_star))
-		AND (LTRIM(RTRIM(urh.Id_Usuario)) = LTRIM(RTRIM(@p_hotel_user_id)))
+	SELECT DISTINCT h.hote_id 'Hotel ID', h.hote_nombre 'Nombre', h.hote_mail 'Mail', h.hote_telefono 'Telefono', h.hote_calle 'Direccion', h.hote_nro 'Numero',
+		h.hote_ciudad 'Ciudad', h.hote_pais 'Pais', h.hote_fecha_creacion 'Fecha Creacion', he.he_cantidad_estrellas 'Estrellas' 
+		FROM PUNTO_ZIP.HOTELES h
+		INNER JOIN PUNTO_ZIP.HOTELES_ESTRELLAS he ON h.hote_id = he.he_hotel_id
+		INNER JOIN PUNTO_ZIP.USUARIOS_ROLES_HOTELES urh ON h.hote_id = urh.urh_hotel_id
+		WHERE ((@p_hotel_name IS NULL) OR (UPPER(h.hote_nombre) like '%' + UPPER(@p_hotel_name) + '%'))
+		AND ((@p_hotel_city IS NULL) OR (UPPER(h.hote_ciudad) like '%' + UPPER(@p_hotel_city) + '%'))
+		AND ((@p_hotel_country IS NULL) OR (UPPER(h.hote_pais) like '%' + UPPER(@p_hotel_country + '%')))
+		AND ((@p_hotel_star IS NULL) OR (he.he_cantidad_estrellas = @p_hotel_star))
+		AND urh.urh_usuario_id = @p_hotel_user_id
 END
 GO
 
@@ -1798,14 +1703,9 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_regimen_available](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-		r.Id_Regimen 'Id Regimen',
-		r.Descripcion 'Descripcion'
-
-		FROM PUNTO_ZIP.Regimen r
-		WHERE NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.Regimen_Hotel rh
-			WHERE r.Id_Regimen = rh.Id_Regimen
-			AND rh.Id_Hotel = @p_hotel_id)
+	SELECT DISTINCT r.regi_id 'Regimen ID', r.regi_descripcion 'Descripcion'
+		FROM PUNTO_ZIP.REGIMENES r
+		WHERE NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.REGIMENES_HOTELES rh WHERE r.regi_id = rh.rh_regimen_id AND rh.rh_hotel_id = @p_hotel_id)
 END
 GO
 
@@ -1814,14 +1714,9 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_regimen_assign](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-		r.Id_Regimen 'Id Regimen',
-		r.Descripcion 'Descripcion'
-
-		FROM PUNTO_ZIP.Regimen r
-		WHERE EXISTS (SELECT 1 FROM PUNTO_ZIP.Regimen_Hotel rh
-			WHERE r.Id_Regimen = rh.Id_Regimen
-			AND rh.Id_Hotel = @p_hotel_id)
+	SELECT DISTINCT r.regi_id 'Regimen ID', r.regi_descripcion 'Descripcion'
+		FROM PUNTO_ZIP.REGIMENES r
+		WHERE EXISTS (SELECT 1 FROM PUNTO_ZIP.REGIMENES_HOTELES rh WHERE r.regi_id = rh.rh_regimen_id AND rh.rh_hotel_id = @p_hotel_id)
 END
 GO
 
@@ -1830,21 +1725,11 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_data_get_by_id](
 )
 AS
 BEGIN
-	SELECT 
-		h.Nombre 'Nombre',
-		h.Mail 'Mail',
-		h.Telefono 'Telefono',
-		he.Cantidad_Estrellas 'Estrellas',
-		h.Calle_Direccion 'Direccion',
-		h.Calle_Nro 'Direccion Nro',
-		h.Ciudad 'Ciudad',
-		h.Pais 'Pais',
-		h.Fecha_Creacion 'Creacion'
-
-		FROM PUNTO_ZIP.Hotel h
-		INNER JOIN PUNTO_ZIP.Hotel_Estrellas he
-			ON h.Id_Hotel = he.Id_Hotel
-		WHERE h.Id_Hotel = @p_hotel_id
+	SELECT h.hote_nombre 'Nombre', h.hote_mail 'Mail', h.hote_telefono 'Telefono', he.he_cantidad_estrellas 'ESTRELLAS', h.hote_calle 'Direccion', h.hote_nro 'Direccion Nro',
+		h.hote_ciudad 'Ciudad', h.hote_pais 'Pais', h.hote_fecha_creacion 'Creacion' 
+		FROM PUNTO_ZIP.HOTELES h
+		INNER JOIN PUNTO_ZIP.HOTELES_ESTRELLAS he ON h.hote_id = he.he_hotel_id
+		WHERE h.hote_id = @p_hotel_id
 END
 GO
 
@@ -1867,29 +1752,31 @@ BEGIN
 	BEGIN TRANSACTION
 		IF ( @p_hotel_id = 0)
 		BEGIN
-			INSERT INTO PUNTO_ZIP.Hotel (Nombre, Mail, Telefono, Calle_Direccion, Calle_Nro, Ciudad, Pais,
-				Fecha_Creacion)
+			INSERT INTO PUNTO_ZIP.HOTELES (hote_nombre, hote_mail, hote_telefono, hote_calle, hote_nro, hote_ciudad, hote_pais,
+				hote_fecha_creacion)
 			VALUES (@p_hotel_name, @p_hotel_mail, @p_hotel_telephone, @p_hotel_address, @p_hotel_address_number,
 				@p_hotel_city, @p_hotel_country, @p_hotel_creation)
 
 			SET @p_hotel_id = @@IDENTITY
 
-			INSERT INTO PUNTO_ZIP.Usuario_Rol_Hotel (Id_Usuario, Id_Rol, Id_Hotel)
-			VALUES (@p_user_id, @p_user_rol_id, @p_hotel_id)
+			DECLARE @user_id int
+			SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_user_id)
+		
+			INSERT INTO PUNTO_ZIP.USUARIOS_ROLES_HOTELES (urh_usuario_id, urh_rol_id, urh_hotel_id)
+			VALUES (@user_id, @p_user_rol_id, @p_hotel_id)
 
-			INSERT INTO PUNTO_ZIP.Hotel_Estrellas(Id_Hotel, Cantidad_Estrellas, recarga)
+			INSERT INTO PUNTO_ZIP.HOTELES_ESTRELLAS(he_hotel_id, he_cantidad_estrellas, he_recarga)
 			VALUES (@p_hotel_id, @p_hotel_star, 10)
 		END
 		ELSE
 		BEGIN
-			UPDATE PUNTO_ZIP.Hotel SET Nombre = @p_hotel_name, Mail = @p_hotel_mail, 
-			Telefono = @p_hotel_telephone, Calle_Direccion = @p_hotel_address,
-			Calle_Nro = @p_hotel_address_number, Ciudad = @p_hotel_city, Pais = @p_hotel_country,
-			Fecha_Creacion = @p_hotel_creation
-			WHERE Id_Hotel = @p_hotel_id
+			UPDATE PUNTO_ZIP.HOTELES SET hote_nombre = @p_hotel_name, hote_mail = @p_hotel_mail, 
+			hote_telefono = @p_hotel_telephone, hote_calle = @p_hotel_address,
+			hote_nro = @p_hotel_address_number, hote_ciudad = @p_hotel_city, hote_pais = @p_hotel_country,
+			hote_fecha_creacion = @p_hotel_creation
+			WHERE hote_id = @p_hotel_id
 
-			UPDATE PUNTO_ZIP.Hotel_Estrellas SET Cantidad_Estrellas = @p_hotel_star
-			WHERE Id_hotel = @p_hotel_id
+			UPDATE PUNTO_ZIP.HOTELES_ESTRELLAS SET he_cantidad_estrellas = @p_hotel_star WHERE he_hotel_id = @p_hotel_id
 		END
 	COMMIT TRANSACTION
 END
@@ -1901,8 +1788,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_regimen_add](
 )
 AS
 BEGIN
-	INSERT INTO PUNTO_ZIP.Regimen_Hotel (Id_Hotel, Id_Regimen)
-		VALUES (@p_hotel_id, @p_regimen_id)
+	INSERT INTO PUNTO_ZIP.REGIMENES_HOTELES (rh_hotel_id, rh_regimen_id) VALUES (@p_hotel_id, @p_regimen_id)
 END
 GO
 
@@ -1914,19 +1800,14 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_regimen_remove](
 AS
 BEGIN
 	IF NOT EXISTS (
-		SELECT 1 FROM PUNTO_ZIP.Reserva r
-			INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-				ON hr.Id_Reserva = r.Id_Reserva
-			WHERE hr.Id_Hotel = @p_hotel_id
-			AND r.Tipo_Regimen = @p_regimen_id 
-			AND	(
-				(CAST(GETDATE() AS DATE) BETWEEN r.Fecha_Inicio AND DATEADD(DAY, r.Estadia, r.Fecha_Inicio))
-				OR (r.Fecha_Inicio > CAST(GETDATE() AS DATE))
-			)
+		SELECT 1 FROM PUNTO_ZIP.RESERVA r
+			INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON hr.hr_reserva_id = r.rese_id
+			WHERE hr.hr_hotel_id = @p_hotel_id AND r.rese_regimen_id = @p_regimen_id 
+			AND	((CAST(GETDATE() AS DATE) BETWEEN r.rese_fecha_inicio AND DATEADD(DAY, r.rese_cantidad_noches, r.rese_fecha_inicio)) OR (r.rese_fecha_inicio > CAST(GETDATE() AS DATE)))
 		)
 	BEGIN
 		SET @p_remove_ok = 1
-		DELETE FROM PUNTO_ZIP.Regimen_Hotel WHERE Id_Hotel = @p_hotel_id AND Id_Regimen = @p_regimen_id
+		DELETE FROM PUNTO_ZIP.REGIMENES_HOTELES WHERE rh_hotel_id = @p_hotel_id AND rh_regimen_id = @p_regimen_id
 	END
 	ELSE
 		SET @p_remove_ok = 0
@@ -1934,9 +1815,9 @@ END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_close_period_valid](
-@p_user_id varchar(255),
+@p_user_id varchar(20),
 @p_hotel_id int,
-@p_hotel_close_period_from datetime,
+@p_hotel_close_period_FROM datetime,
 @p_hotel_close_period_to datetime,
 @p_hotel_close_period_motive varchar(255),
 @p_add_ok int = null OUTPUT
@@ -1944,23 +1825,24 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_close_period_valid](
 AS
 BEGIN
 	IF NOT EXISTS (
-		SELECT 1 FROM PUNTO_ZIP.Reserva r
-			INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-				ON hr.Id_Reserva = r.Id_Reserva
-			WHERE hr.Id_Hotel = @p_hotel_id
+		SELECT 1 FROM PUNTO_ZIP.RESERVA r
+			INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON hr.hr_reserva_id = r.rese_id
+			WHERE hr.hr_hotel_id = @p_hotel_id
 			AND	(
-				(CAST(@p_hotel_close_period_from AS DATE) BETWEEN r.Fecha_Inicio AND DATEADD(DAY, r.Estadia, r.Fecha_Inicio))
-				OR (r.Fecha_Inicio > CAST(@p_hotel_close_period_from AS DATE))
+				(CAST(@p_hotel_close_period_FROM AS DATE) BETWEEN rese_fecha_inicio AND DATEADD(DAY, r.rese_cantidad_noches, r.rese_fecha_inicio))
+				OR (r.rese_fecha_inicio > CAST(@p_hotel_close_period_FROM AS DATE))
 			)
 			AND	(
-				(CAST(@p_hotel_close_period_to AS DATE) BETWEEN r.Fecha_Inicio AND DATEADD(DAY, r.Estadia, r.Fecha_Inicio))
-				OR (r.Fecha_Inicio > CAST(@p_hotel_close_period_to AS DATE))
+				(CAST(@p_hotel_close_period_to AS DATE) BETWEEN r.rese_fecha_inicio AND DATEADD(DAY, r.rese_cantidad_noches, r.rese_fecha_inicio))
+				OR (r.rese_fecha_inicio > CAST(@p_hotel_close_period_to AS DATE))
 			) 
 		)
 	BEGIN
+		DECLARE @user_id int
+		SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_user_id)
 		SET @p_add_ok = 1
-		INSERT INTO PUNTO_ZIP.Historial_Baja_Hotel (Id_Hotel, Fecha_Inicio, Fecha_Fin, Motivo, Id_Usuario)
-		VALUES (@p_hotel_id, @p_hotel_close_period_from, @p_hotel_close_period_to, @p_hotel_close_period_motive, @p_user_id)
+		INSERT INTO PUNTO_ZIP.HISTORIAL_BAJA_HOTEL (hbh_hotel_id, hbh_fecha_inicio, hbh_fecha_fin, hbh_motivo, hbh_usuario_id)
+		VALUES (@p_hotel_id, @p_hotel_close_period_FROM, @p_hotel_close_period_to, @p_hotel_close_period_motive, @user_id)
 	END
 	ELSE
 		SET @p_add_ok = 0
@@ -1978,32 +1860,21 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_habitacion_search](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-				
-		h.Id_Hotel 'Hotel',
-		h.Piso 'Piso',
-		h.Nro 'Nro Habitacion',
-		f.Descripcion 'Frente',
-		th.Descripcion 'Tipo Habitacion',
-		h.Comodidades 'Comodidades'
-		
-		FROM PUNTO_ZIP.Habitacion h
-			INNER JOIN PUNTO_ZIP.Frente f
-				ON h.Frente = f.Id_Frente
-			INNER JOIN PUNTO_ZIP.Tipo_Habitacion th
-				ON h.Tipo_Habitacion = th.Id_Tipo_Habitacion
-			INNER JOIN PUNTO_ZIP.Usuario_Rol_Hotel urh
-				ON urh.Id_Usuario = @p_user_name
-				AND h.Id_Hotel = urh.Id_Hotel
-		
-		WHERE
-		((@p_habitacion_id IS NULL) OR ( h.Nro = @p_habitacion_id))
-		AND ((@p_habitacion_hotel_id IS NULL) OR (urh.Id_Hotel = @p_habitacion_hotel_id))
-		AND ((@p_habitacion_floor IS NULL) OR (h.Piso = @p_habitacion_floor))
-		AND ((@p_habitacion_type IS NULL) OR (th.Id_Tipo_Habitacion = @p_habitacion_type))
-		AND ((@p_habitacion_front IS NULL) OR (f.Id_Frente = @p_habitacion_front))
-		AND ((@p_habitacion_comodity IS NULL) OR (UPPER(h.Comodidades) like '%' + UPPER(@p_habitacion_comodity) + '%'))
-		AND (LTRIM(RTRIM(urh.Id_Usuario)) = LTRIM(RTRIM(@p_user_name)))
+	DECLARE @user_id int
+	SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_user_name)
+	SELECT DISTINCT h.habi_hotel_id 'Hotel', h.habi_piso 'Piso', h.habi_nro 'Nro Habitacion', f.fre_descripcion 'Frente', th.th_descripcion 'Tipo Habitacion', 
+					 h.habi_comodidades 'Comodidades'
+		FROM PUNTO_ZIP.HABITACION h
+			INNER JOIN PUNTO_ZIP.FRENTE f ON h.habi_frente_id = f.fre_id
+			INNER JOIN PUNTO_ZIP.TIPO_HABITACION th ON h.habi_tipo_habitacion_id = th.th_id
+			INNER JOIN PUNTO_ZIP.USUARIOS_ROLES_HOTELES urh ON urh.urh_usuario_id = @user_id AND h.habi_hotel_id = urh.urh_hotel_id
+		WHERE ((@p_habitacion_id IS NULL) OR ( h.habi_nro = @p_habitacion_id))
+		AND ((@p_habitacion_hotel_id IS NULL) OR (urh.urh_hotel_id = @p_habitacion_hotel_id))
+		AND ((@p_habitacion_floor IS NULL) OR (h.habi_piso = @p_habitacion_floor))
+		AND ((@p_habitacion_type IS NULL) OR (th.th_id = @p_habitacion_type))
+		AND ((@p_habitacion_front IS NULL) OR (f.fre_id = @p_habitacion_front))
+		AND ((@p_habitacion_comodity IS NULL) OR (UPPER(h.habi_comodidades) like '%' + UPPER(@p_habitacion_comodity) + '%'))
+		AND (urh.urh_usuario_id = @user_id)
 END
 GO
 
@@ -2012,7 +1883,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_habitacion_close_period_valid](
 @p_habitacion_id int,
 @p_habitacion_floor_id int,
 @p_habitacion_hotel_id int,
-@p_habitacion_close_period_from datetime,
+@p_habitacion_close_period_FROM datetime,
 @p_habitacion_close_period_to datetime,
 @p_habitacion_close_period_motive varchar(255),
 @p_add_ok int = 0 OUTPUT
@@ -2020,26 +1891,25 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_habitacion_close_period_valid](
 AS
 BEGIN
 	IF NOT EXISTS (
-		SELECT 1 FROM PUNTO_ZIP.Reserva r
-			INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-				ON hr.Id_Reserva = r.Id_Reserva
-			WHERE hr.Id_Hotel = @p_habitacion_hotel_id
-			AND hr.Habitacion_Nro = @p_habitacion_id
-			AND hr.Habitacion_Piso = @p_habitacion_floor_id
+		SELECT 1 FROM PUNTO_ZIP.RESERVA r
+			INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON hr.hr_reserva_id = r.rese_id
+			WHERE hr.hr_hotel_id = @p_habitacion_hotel_id AND hr.hr_habitacion_nro = @p_habitacion_id AND hr.hr_habitacion_piso = @p_habitacion_floor_id
 			AND	(
-				(CAST(@p_habitacion_close_period_from AS DATE) BETWEEN r.Fecha_Inicio AND DATEADD(DAY, r.Estadia, r.Fecha_Inicio))
-				OR (r.Fecha_Inicio > CAST(@p_habitacion_close_period_from AS DATE))
+				(CAST(@p_habitacion_close_period_FROM AS DATE) BETWEEN r.rese_fecha_inicio AND DATEADD(DAY, r.rese_cantidad_noches, r.rese_fecha_inicio))
+				OR (r.rese_fecha_inicio > CAST(@p_habitacion_close_period_FROM AS DATE))
 			)
 			AND	(
-				(CAST(@p_habitacion_close_period_to AS DATE) BETWEEN r.Fecha_Inicio AND DATEADD(DAY, r.Estadia, r.Fecha_Inicio))
-				OR (r.Fecha_Inicio > CAST(@p_habitacion_close_period_to AS DATE))
+				(CAST(@p_habitacion_close_period_to AS DATE) BETWEEN r.rese_fecha_inicio AND DATEADD(DAY, r.rese_cantidad_noches, r.rese_fecha_inicio))
+				OR (r.rese_fecha_inicio > CAST(@p_habitacion_close_period_to AS DATE))
 			) 
 		)
 	BEGIN
+		DECLARE @user_id int
+		SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_user_id)
 		SET @p_add_ok = 1
-		INSERT INTO PUNTO_ZIP.Historial_Baja_Habitacion (Id_Hotel, Habitacion_Nro, Habitacion_Piso, Fecha_Inicio, Fecha_Fin, Motivo, Id_Usuario)
-		VALUES (@p_habitacion_hotel_id, @p_habitacion_id, @p_habitacion_floor_id, @p_habitacion_close_period_from, @p_habitacion_close_period_to, 
-			@p_habitacion_close_period_motive, @p_user_id)
+		INSERT INTO PUNTO_ZIP.HISTORIAL_BAJA_HABITACION (hbha_hotel_id, hbha_habitacion_nro, hbha_habitacion_piso, hbha_fecha_inicio, hbha_fecha_fin, hbha_motivo, hbha_usuario_id)
+		VALUES (@p_habitacion_hotel_id, @p_habitacion_id, @p_habitacion_floor_id, @p_habitacion_close_period_FROM, @p_habitacion_close_period_to,  
+		@p_habitacion_close_period_motive, @user_id)
 	END
 	ELSE
 		SET @p_add_ok = 0
@@ -2053,25 +1923,12 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_habitacion_data_get_by_id](
 )
 AS
 BEGIN
-	SELECT 
-		h.Nro 'NroHabitacion',
-		h.Piso 'Piso',
-		h.Id_Hotel 'Hotel',
-		h.Id_Hotel 'HotelNombre',
-		h.Frente 'IdFrente',
-		f.Descripcion 'FrenteDescripcion',
-		h.Tipo_Habitacion 'IdTipoHabitacion',
-		th.Descripcion 'TipoHabitacion',
-		h.Comodidades 'Comodidades'
-
-		FROM PUNTO_ZIP.Habitacion h
-		INNER JOIN PUNTO_ZIP.Tipo_Habitacion th
-			ON h.Tipo_Habitacion = th.Id_Tipo_Habitacion
-		INNER JOIN PUNTO_ZIP.Frente f
-			ON h.frente = f.Id_Frente
-		WHERE h.Id_Hotel = @p_habitacion_hotel_id
-			AND h.Nro = @p_habitacion_id
-			AND h.Piso = @p_habitacion_floor_id
+	SELECT h.habi_nro 'NroHabitacion', h.habi_piso 'Piso', h.habi_hotel_id 'Hotel', h.habi_hotel_id 'HotelNombre', h.habi_frente_id 'IdFrente', f.fre_descripcion 'FrenteDescripcion', 
+		h.habi_tipo_habitacion_id 'IdTipoHabitacion', th.th_descripcion 'TipoHabitacion', h.habi_comodidades 'Comodidades'
+		FROM PUNTO_ZIP.HABITACION h
+		INNER JOIN PUNTO_ZIP.TIPO_HABITACION th ON h.habi_tipo_habitacion_id = th.th_id
+		INNER JOIN PUNTO_ZIP.Frente f ON h.habi_frente_id = f.fre_id
+		WHERE h.habi_hotel_id = @p_habitacion_hotel_id AND h.habi_nro = @p_habitacion_id AND h.habi_piso = @p_habitacion_floor_id
 END
 GO
 
@@ -2083,10 +1940,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_habitacion_exist_hotel_room](
 )
 AS
 BEGIN
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Habitacion
-		WHERE Id_Hotel = @p_habitacion_hotel_id
-			AND Nro = @p_habitacion_id
-			AND Piso = @p_habitacion_floor_id)
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.HABITACION WHERE habi_hotel_id = @p_habitacion_hotel_id AND habi_nro = @p_habitacion_id AND habi_piso = @p_habitacion_floor_id)
 		SET @p_exist = 1
 	ELSE
 		SET @p_exist = 0
@@ -2104,19 +1958,12 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_habitacion_save_update](
 AS
 BEGIN
 	BEGIN TRANSACTION
-		IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Habitacion
-		WHERE Id_Hotel = @p_habitacion_hotel_id
-			AND Nro = @p_habitacion_id
-			AND Piso = @p_habitacion_floor_id)
-			UPDATE PUNTO_ZIP.Habitacion SET Frente = @p_habitacion_front, 
-			Tipo_Habitacion = @p_habitacion_type, Comodidades = @p_habitacion_comodity
-				WHERE Id_Hotel = @p_habitacion_hotel_id
-					AND Nro = @p_habitacion_id
-					AND Piso = @p_habitacion_floor_id
+		IF EXISTS(SELECT 1 FROM PUNTO_ZIP.HABITACION WHERE habi_hotel_id = @p_habitacion_hotel_id AND habi_nro = @p_habitacion_id AND habi_piso = @p_habitacion_floor_id)
+			UPDATE PUNTO_ZIP.HABITACION SET habi_frente_id = @p_habitacion_front, habi_tipo_habitacion_id = @p_habitacion_type, habi_comodidades = @p_habitacion_comodity
+				WHERE habi_hotel_id = @p_habitacion_hotel_id AND habi_nro = @p_habitacion_id AND habi_piso = @p_habitacion_floor_id
 		ELSE
-			INSERT INTO PUNTO_ZIP.Habitacion (Id_Hotel, Nro, Piso, Frente, Tipo_Habitacion, Comodidades)
-				VALUES (@p_habitacion_hotel_id, @p_habitacion_id, @p_habitacion_floor_id,
-					@p_habitacion_front, @p_habitacion_type, @p_habitacion_comodity)
+			INSERT INTO PUNTO_ZIP.HABITACION (habi_hotel_id, habi_nro, habi_piso, habi_frente_id, habi_tipo_habitacion_id, habi_comodidades)
+				VALUES (@p_habitacion_hotel_id, @p_habitacion_id, @p_habitacion_floor_id, @p_habitacion_front, @p_habitacion_type, @p_habitacion_comodity)
 	COMMIT TRANSACTION
 END
 GO
@@ -2127,14 +1974,10 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_habitacion_person_per_room_by_booking_id](
 )
 AS
 BEGIN
-	SELECT @p_count_person = th.Cupo FROM PUNTO_ZIP.Habitacion_Reserva hr
-	INNER JOIN PUNTO_ZIP.Habitacion h
-		ON hr.Id_Hotel = h.Id_Hotel
-			AND hr.Habitacion_Nro = h.Nro 
-			AND hr.Habitacion_Piso = h.Piso
-	INNER JOIN PUNTO_ZIP.Tipo_Habitacion th
-		ON h.Tipo_Habitacion = th.Id_Tipo_Habitacion
-	WHERE hr.Id_Reserva = @p_habitacion_booking_id
+	SELECT @p_count_person = th.th_cupo FROM PUNTO_ZIP.HABITACION_RESERVA hr
+	INNER JOIN PUNTO_ZIP.HABITACION h ON hr.hr_hotel_id = h.habi_hotel_id AND hr.hr_habitacion_nro = h.habi_nro AND hr.hr_habitacion_piso = h.habi_piso
+	INNER JOIN PUNTO_ZIP.TIPO_HABITACION th ON h.habi_tipo_habitacion_id = th.th_id
+	WHERE hr.hr_reserva_id = @p_habitacion_booking_id
 END
 GO
 
@@ -2143,16 +1986,8 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_regimen_search](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-				
-		r.Descripcion 'Descripcion',
-		r.Precio 'Precio',
-		r.Habilitado 'Habilitado'
-		
-		FROM PUNTO_ZIP.Regimen r
-		
-		WHERE
-		((@p_regimen_description IS NULL) OR (UPPER(r.Descripcion) like '%' + UPPER(LTRIM(RTRIM(@p_regimen_description))) + '%'))
+	SELECT DISTINCT r.regi_descripcion 'Descripcion', r.regi_precio 'Precio', r.regi_habilitado 'Habilitado' FROM PUNTO_ZIP.REGIMENES r
+		WHERE ((@p_regimen_description IS NULL) OR (UPPER(r.regi_descripcion) like '%' + UPPER(LTRIM(RTRIM(@p_regimen_description))) + '%'))
 END
 GO
 
@@ -2163,37 +1998,19 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_cancelacion_reserva_search](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-		
-		r.Id_Reserva 'Reserva',
-		c.Nombre 'Nombre',
-		c.Apellido 'Apellido',
-		hr.Id_Hotel 'Hotel',
-		hr.Habitacion_Piso 'Piso',
-		hr.Habitacion_Nro 'Habitacion',
-		r.Fecha_Inicio 'Fecha Inicio',
-		r.Estadia 'Estadia',
-		er.Descripcion 'Estado'
-		
-		FROM PUNTO_ZIP.Reserva r 
-		INNER JOIN PUNTO_ZIP.Reserva_Cliente rc
-			ON r.Id_Reserva = rc.Id_Reserva
-		INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-			ON r.Id_Reserva = hr.Id_Reserva
-		INNER JOIN PUNTO_ZIP.Estado_Reserva er
-			ON r.Estado = er.Id_Estado
-		INNER JOIN PUNTO_ZIP.Clientes c
-			ON rc.Id_Cliente = c.Id_Cliente
-
-		WHERE
-
-		((@p_user_hotel_id IS NULL) OR (hr.Id_Hotel = @p_user_hotel_id))
-		AND ((@p_cancelacion_reserva_lastname IS NULL) OR (UPPER(LTRIM(RTRIM(c.Apellido))) 
-			like '%' + UPPER(LTRIM(RTRIM(@p_cancelacion_reserva_lastname))) + '%'))
-		AND ((@p_cancelacion_reserva_id IS NULL) OR (STR(r.Id_Reserva) like '%' + STR(@p_cancelacion_reserva_id) + '%'))
-		AND ( (UPPER(er.Descripcion) = UPPER('Reserva con ingreso')) OR (UPPER(er.Descripcion) = UPPER('Reserva Correcta'))
-			OR (UPPER(er.Descripcion) = UPPER('Reserva Modificada')) )
-		AND (DATEADD(DAY, 1,CAST(GETDATE() AS DATE)) <= r.Fecha_Inicio)
+	SELECT DISTINCT r.rese_id 'Reserva', c.clie_nombre 'Nombre', c.clie_apellido 'Apellido', hr.hr_hotel_id 'Hotel', hr.hr_habitacion_piso 'Piso', hr.hr_habitacion_nro 'Habitacion',
+		r.rese_fecha_inicio 'Fecha Inicio', r.rese_cantidad_noches 'Estadia', er.esre_descripcion 'Estado'	
+		FROM PUNTO_ZIP.RESERVA r 
+		INNER JOIN PUNTO_ZIP.RESERVA_CLIENTE rc ON r.rese_id = rc.rc_reserva_id
+		INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON r.rese_id = hr.hr_reserva_id
+		INNER JOIN PUNTO_ZIP.ESTADO_RESERVA er ON r.rese_estado_reserva_id = er.esre_id
+		INNER JOIN PUNTO_ZIP.CLIENTES c ON rc.rc_cliente_id = c.clie_id
+		WHERE ((@p_user_hotel_id IS NULL) OR (hr.hr_hotel_id = @p_user_hotel_id))
+		AND ((@p_cancelacion_reserva_lastname IS NULL) OR (UPPER(LTRIM(RTRIM(c.clie_apellido))) like '%' + UPPER(LTRIM(RTRIM(@p_cancelacion_reserva_lastname))) + '%'))
+		AND ((@p_cancelacion_reserva_id IS NULL) OR (STR(r.rese_id) like '%' + STR(@p_cancelacion_reserva_id) + '%'))
+		AND ((UPPER(er.esre_descripcion) = UPPER('Reserva con ingreso')) OR (UPPER(er.esre_descripcion) = UPPER('Reserva Correcta'))
+			OR (UPPER(er.esre_descripcion) = UPPER('Reserva Modificada')))
+		AND (DATEADD(DAY, 1,CAST(GETDATE() AS DATE)) <= r.rese_fecha_inicio)
 END
 GO
 
@@ -2205,21 +2022,18 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_cancelacion_reserva_cancel](
 AS
 BEGIN
 	BEGIN TRANSACTION
+		DECLARE @user_id int
+		SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_user_name)
+		INSERT INTO PUNTO_ZIP.HISTORIAL_CANCELACION_RESERVA (hcr_reserva_id, hcr_motivo, hcr_fecha_cancelacion, hcr_usuario_id)
+			VALUES (@p_cancelacion_reserva_id, @p_cancelacion_reserva_motive, GETDATE(), @user_id)
 
-		INSERT INTO PUNTO_ZIP.Historial_Cancelacion_Reserva (Id_Reserva, Motivo, Fecha_Cancelacion, Id_Usuario)
-			VALUES (@p_cancelacion_reserva_id, @p_cancelacion_reserva_motive, GETDATE(), @p_user_name)
-
-		Declare @bookingStatus int
+		DECLARE @bookingStatus int
 		IF (LTRIM(RTRIM(@p_user_name)) = 'guest')
-			SELECT @bookingStatus = Id_Estado FROM PUNTO_ZIP.Estado_Reserva
-				WHERE UPPER(LTRIM(RTRIM(Descripcion))) = UPPER('Reserva Cancelada Por Cliente')
+			SELECT @bookingStatus = esre_id FROM PUNTO_ZIP.ESTADO_RESERVA WHERE UPPER(LTRIM(RTRIM(esre_descripcion))) = UPPER('Reserva Cancelada Por Cliente')
 		ELSE
-			SELECT @bookingStatus = Id_Estado FROM PUNTO_ZIP.Estado_Reserva
-				WHERE UPPER(LTRIM(RTRIM(Descripcion))) = UPPER('Reserva Cancelada Por Recepcion')
+			SELECT @bookingStatus = esre_id FROM PUNTO_ZIP.ESTADO_RESERVA WHERE UPPER(LTRIM(RTRIM(esre_descripcion))) = UPPER('Reserva Cancelada Por Recepcion')
 
-		UPDATE PUNTO_ZIP.Reserva SET Estado = @bookingStatus
-			WHERE Id_Reserva = @p_cancelacion_reserva_id
-
+		UPDATE PUNTO_ZIP.RESERVA SET rese_estado_reserva_id = @bookingStatus WHERE rese_id = @p_cancelacion_reserva_id
 	COMMIT TRANSACTION
 END
 GO
@@ -2230,34 +2044,16 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_booking_search](
 )
 AS
 BEGIN
-	SELECT 
-		r.Id_Reserva 'Nro Reserva',
-		rc.Id_Cliente 'Nro Cliente',
-		c.Nombre 'Nombre',
-		c.Apellido 'Apellido',
-		CAST(r.Fecha_Inicio AS DATE) 'Fecha Inicio',
-		r.Estadia 'Estadia',
-		hr.Id_Hotel 'Hotel',
-		hr.Habitacion_Piso 'Piso',
-		hr.Habitacion_Nro 'Nro Habitacion'
-
-	FROM PUNTO_ZIP.Reserva r
-	INNER JOIN PUNTO_ZIP.Reserva_Cliente rc
-		ON r.Id_Reserva = rc.Id_Reserva
-	INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-		ON r.Id_Reserva = hr.Id_Reserva
-	INNER JOIN PUNTO_ZIP.Clientes c
-		ON rc.Id_Cliente = c.Id_Cliente
-	INNER JOIN PUNTO_ZIP.Estado_Reserva er
-		ON r.Estado = er.Id_Estado
-	WHERE r.Id_Reserva = @p_stay_booking_id
-		AND hr.Id_Hotel = @p_stay_hotel_id
-		AND CAST(r.Fecha_Inicio AS DATE) = CAST(GETDATE() AS DATE)
-		AND (
-			(UPPER(RTRIM(LTRIM(er.Descripcion))) = UPPER(RTRIM(LTRIM('Reserva Correcta'))))
-			OR (UPPER(RTRIM(LTRIM(er.Descripcion))) = UPPER(RTRIM(LTRIM('Reserva Modificada'))))
-		)
-		AND c.Habilitado = 1
+	SELECT r.rese_id 'Nro Reserva', rc.rc_cliente_id 'Nro Cliente', c.clie_nombre 'Nombre', c.clie_apellido 'Apellido', CAST(r.rese_fecha_inicio AS DATE) 'Fecha Inicio',
+		r.rese_cantidad_noches 'Estadia', hr.hr_hotel_id 'Hotel', hr.hr_habitacion_piso 'Piso', hr.hr_habitacion_nro 'Nro Habitacion'
+	FROM PUNTO_ZIP.RESERVA r
+	INNER JOIN PUNTO_ZIP.RESERVA_CLIENTE rc ON r.rese_id = rc.rc_reserva_id
+	INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON r.rese_id = hr.hr_reserva_id
+	INNER JOIN PUNTO_ZIP.CLIENTES c ON rc.rc_cliente_id = c.clie_id
+	INNER JOIN PUNTO_ZIP.ESTADO_RESERVA er ON r.rese_estado_reserva_id = er.esre_id
+	WHERE r.rese_id = @p_stay_booking_id AND hr.hr_hotel_id = @p_stay_hotel_id AND CAST(r.rese_fecha_inicio AS DATE) = CAST(GETDATE() AS DATE)
+		AND ((UPPER(RTRIM(LTRIM(er.esre_descripcion))) = UPPER(RTRIM(LTRIM('Reserva Correcta')))) 
+		OR (UPPER(RTRIM(LTRIM(er.esre_descripcion))) = UPPER(RTRIM(LTRIM('Reserva Modificada'))))) AND c.clie_habilitado = 1
 END
 GO
 
@@ -2269,9 +2065,8 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_booking_is_exist](
 AS
 BEGIN
 	SET @p_stay_booking_exist = 0
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
-		WHERE r.Id_Reserva = @p_stay_booking_id)
-		SET @p_stay_booking_exist = 1
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.RESERVA r WHERE r.rese_id = @p_stay_booking_id) 
+	SET @p_stay_booking_exist = 1
 END
 GO
 
@@ -2283,11 +2078,8 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_booking_is_cancel](
 AS
 BEGIN
 	SET @p_stay_booking_cancel = 0
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
-		INNER JOIN PUNTO_ZIP.Estado_Reserva er
-			ON r.Estado = er.Id_Estado
-	WHERE r.Id_Reserva = @p_stay_booking_id
-		AND UPPER(er.Descripcion) like '%' + 'CANCELADA' + '%')
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.RESERVA r INNER JOIN PUNTO_ZIP.ESTADO_RESERVA er ON r.rese_estado_reserva_id = er.esre_id 
+				WHERE r.rese_id = @p_stay_booking_id AND UPPER(er.esre_descripcion) like '%' + 'CANCELADA' + '%')
 		SET @p_stay_booking_cancel = 1
 END
 GO
@@ -2300,9 +2092,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_booking_is_before](
 AS
 BEGIN
 	SET @p_stay_booking_before = 0
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
-		WHERE r.Id_Reserva = @p_stay_booking_id
-			AND CAST(r.Fecha_Inicio AS DATE) < CAST(GETDATE() AS DATE))
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.RESERVA r WHERE r.rese_id = @p_stay_booking_id AND CAST(r.rese_fecha_inicio AS DATE) < CAST(GETDATE() AS DATE))
 		SET @p_stay_booking_before = 1
 END
 GO
@@ -2314,11 +2104,8 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_booking_is_hotel](
 )
 AS
 BEGIN
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
-		INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-			ON r.Id_Reserva = hr.Id_Reserva
-		WHERE r.Id_Reserva = @p_stay_booking_id
-			AND hr.Id_Hotel = @p_stay_hotel_id)
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.RESERVA r INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON r.rese_id = hr.hr_reserva_id 
+				WHERE r.rese_id = @p_stay_booking_id AND hr.hr_hotel_id = @p_stay_hotel_id)
 		SET @p_stay_booking_hotel = 1
 END
 GO
@@ -2331,8 +2118,10 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_generate_stay](
 AS
 BEGIN
 	BEGIN TRANSACTION
-		INSERT INTO PUNTO_ZIP.Estadia(Id_Reserva, Check_In, Id_Usuario_Check_In, Check_Out, Id_Usuario_Check_Out)
-		VALUES (@p_stay_booking_id, CAST(GETDATE() AS DATE), @p_stay_user_name, null, null)
+		DECLARE @user_id int
+		SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_stay_user_name)
+		INSERT INTO PUNTO_ZIP.ESTADIAS(esta_reserva_id, esta_check_in, esta_usuario_id_in, esta_check_out, esta_usuario_id_out)
+		VALUES (@p_stay_booking_id, CAST(GETDATE() AS DATE), @user_id, null, null)
 		SET @p_stay_id = @@IDENTITY
 	COMMIT TRANSACTION
 END
@@ -2345,24 +2134,15 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_cancel_is_after_date_check_in](
 AS
 BEGIN
 	SET @p_stay_change_to_cancel = 0
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
-		WHERE r.Id_Reserva = @p_stay_booking_id
-		AND CAST(r.Fecha_Inicio AS DATE) > CAST(GETDATE() AS DATE)
-		)
-	BEGIN
-		Declare @cancel_no_show int
-		SELECT @cancel_no_show = Id_Estado FROM PUNTO_ZIP.Estado_Reserva
-			WHERE Descripcion = 'Reserva Cancelada Por No-Show'
-
-		BEGIN TRANSACTION
-
-		UPDATE PUNTO_ZIP.Reserva SET Estado = @cancel_no_show
-			WHERE Id_Reserva = @p_stay_booking_id
-
-		SET @p_stay_change_to_cancel = 1
-
-		COMMIT TRANSACTION
-	END
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.RESERVA r WHERE r.rese_id = @p_stay_booking_id AND CAST(r.rese_fecha_inicio AS DATE) > CAST(GETDATE() AS DATE))
+		BEGIN
+			DECLARE @cancel_no_show int
+			SELECT @cancel_no_show = esre_id FROM PUNTO_ZIP.ESTADO_RESERVA WHERE esre_descripcion like '%Reserva Cancelada Por No-Show%'
+			BEGIN TRANSACTION
+				UPDATE PUNTO_ZIP.RESERVA SET rese_estado_reserva_id = @cancel_no_show WHERE rese_id = @p_stay_booking_id 
+				SET @p_stay_change_to_cancel = 1
+			COMMIT TRANSACTION
+		END
 END
 GO
 
@@ -2372,8 +2152,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_is_for_check_in](
 )
 AS
 BEGIN
-	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
-		WHERE e.Id_Reserva = @p_stay_booking_id)
+	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e WHERE e.esta_reserva_id = @p_stay_booking_id)
 		SET @p_stay_is_check_in = 0
 	ELSE
 		SET @p_stay_is_check_in = 1
@@ -2386,10 +2165,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_exist_full_stay](
 )
 AS
 BEGIN
-	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
-		WHERE e.Id_Reserva = @p_stay_booking_id
-		AND e.Check_In IS NOT NULL
-		AND e.Check_Out IS NOT NULL)
+	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e WHERE e.esta_reserva_id = @p_stay_booking_id AND e.esta_check_in IS NOT NULL AND e.esta_check_out IS NOT NULL)
 		SET @p_stay_exist_full_stay = 1
 	ELSE
 		SET @p_stay_exist_full_stay = 0
@@ -2402,13 +2178,11 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_generate_checkout](
 )
 AS
 BEGIN
-	Declare @stay_id int
-	SELECT @stay_id = e.Id_Estadia FROM PUNTO_ZIP.Estadia e
-		WHERE e.Id_Reserva = @p_stay_booking_id
+	DECLARE @stay_id int, @user_id int
+	SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_stay_user_name)
+	SELECT @stay_id = e.esta_id FROM PUNTO_ZIP.ESTADIAS e WHERE e.esta_reserva_id = @p_stay_booking_id
 	BEGIN TRANSACTION
-		UPDATE PUNTO_ZIP.Estadia SET Check_Out = CAST(GETDATE() AS DATE),
-			Id_Usuario_Check_Out = @p_stay_user_name
-		WHERE Id_Estadia = @stay_id
+		UPDATE PUNTO_ZIP.ESTADIAS SET esta_check_out = CAST(GETDATE() AS DATE), esta_usuario_id_out = @user_id WHERE esta_id = @stay_id
 	COMMIT TRANSACTION
 END
 GO
@@ -2420,20 +2194,12 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_check_client_search](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-				
-		c.Id_Cliente 'Id Cliente',
-		c.Nombre 'Nombre',
-		c.Apellido 'Apellido',
-		c.Nro_Identificacion 'Nro Documento',
-		c.Mail 'Mail'
-		
-		FROM PUNTO_ZIP.Clientes c
-		WHERE
-		( (@p_check_client_name IS NULL) OR (UPPER(c.Nombre) like UPPER(@p_check_client_name) + '%'))
-		AND ((@p_check_client_lastname IS NULL) OR (UPPER(c.Apellido) like UPPER(@p_check_client_lastname) + '%'))
-		AND ((@p_check_client_document_number IS NULL) OR (LTRIM(RTRIM(STR(c.Nro_Identificacion))) like @p_check_client_document_number + '%'))
-		AND (c.Habilitado = 1)
+	SELECT DISTINCT c.clie_id 'Id Cliente', c.clie_nombre 'Nombre', c.clie_apellido 'Apellido', c.clie_nro_identificacion 'Nro Documento', c.clie_mail 'Mail'
+		FROM PUNTO_ZIP.CLIENTES c
+		WHERE ((@p_check_client_name IS NULL) OR (UPPER(c.clie_nombre) like UPPER(@p_check_client_name) + '%'))
+		AND ((@p_check_client_lastname IS NULL) OR (UPPER(c.clie_apellido) like UPPER(@p_check_client_lastname) + '%'))
+		AND ((@p_check_client_document_number IS NULL) OR (LTRIM(RTRIM(STR(c.clie_nro_identificacion))) like @p_check_client_document_number + '%'))
+		AND (c.clie_habilitado = 1)
 END
 GO
 
@@ -2443,72 +2209,42 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_save_stay_client](
 )
 AS
 BEGIN
-	INSERT INTO PUNTO_ZIP.Estadia_Cliente (Id_Estadia, Id_Cliente)
-	VALUES (@p_stay_id, @p_stay_client_id)
+	INSERT INTO PUNTO_ZIP.ESTADIAS_CLIENTES (escl_estadia_id, escl_cliente_id) VALUES (@p_stay_id, @p_stay_client_id)
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_consumibles_estadias_search](
-
 @p_id_hotel int,
 @p_id_reserva int
 )
 AS
 BEGIN
-	SELECT DISTINCT
-		e.Id_Estadia as 'Estadia'
-		, e.Check_In
-		, e.Check_Out  
-
-	FROM PUNTO_ZIP.Estadia e
-	INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-		ON e.Id_Reserva = hr.Id_Reserva
-	
-	WHERE hr.Id_Hotel = @p_id_hotel
-	AND e.Id_Reserva = @p_id_reserva
-	AND e.Check_Out IS NULL
+	SELECT DISTINCT e.esta_id as 'Estadia', e.esta_check_in, e.esta_check_out FROM PUNTO_ZIP.ESTADIAS e
+		INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON e.esta_reserva_id = hr.hr_reserva_id
+		WHERE hr.hr_hotel_id = @p_id_hotel AND e.esta_reserva_id = @p_id_reserva AND e.esta_check_out IS NULL
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_consumible_filter](
-
 @p_d_filter varchar(255) = ''
 )
 AS
 BEGIN
-	SELECT 
-		c.Id_Codigo as 'id'
-		, c.descripcion
-		, c.precio 
-
-	FROM PUNTO_ZIP.Consumible c
-
-	WHERE c.descripcion like ('%' + @p_d_filter + '%') order by 1 asc
+	SELECT c.cons_codigo as 'id', c.cons_descripcion, c.cons_precio FROM PUNTO_ZIP.CONSUMIBLES c WHERE c.cons_descripcion like ('%' + @p_d_filter + '%') ORDER BY 1 asc
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_consumible_by_estadia_search](
-
 @p_id_estadia int
 )
 AS
 BEGIN
-	SELECT 
-		c.Id_Codigo as 'id'
-		, c.descripcion
-		, cr.Cantidad
-		, CAST(cr.Fecha AS DATE)
-
-	FROM PUNTO_ZIP.Consumible_Reserva cr
-
-	INNER JOIN PUNTO_ZIP.Consumible c
-		ON cr.Id_Codigo = c.Id_Codigo
-	INNER JOIN PUNTO_ZIP.Estadia e
-		ON cr.Id_Estadia = e.Id_Estadia
-
-	WHERE e.Id_Estadia = @p_id_estadia 
-
-	ORDER BY 1 ASC
+	SELECT c.cons_codigo as 'id', c.cons_descripcion, cr.core_cantidad, CAST(cr.core_fecha AS DATE)
+		FROM PUNTO_ZIP.CONSUMIBLES_RESERVA cr
+		INNER JOIN PUNTO_ZIP.CONSUMIBLES c ON cr.core_consumible_codigo = c.cons_codigo
+		INNER JOIN PUNTO_ZIP.ESTADIAS e ON cr.core_estadia_id = e.esta_id
+		WHERE e.esta_id = @p_id_estadia 
+		ORDER BY 1 ASC
 END
 GO
 
@@ -2517,30 +2253,24 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_consumible_add](
 @p_id_estadia int,
 @p_id_consumible int,
 @p_cantidad int
-
 )
 AS
 BEGIN
 	BEGIN TRANSACTION
-		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Consumible_Reserva cr
-					WHERE 	cr.Id_Estadia = @p_id_estadia
-						AND cr.Id_Codigo = @p_id_consumible
-						AND CAST(cr.Fecha AS DATE) = CAST(GETDATE() AS DATE)
-					)
+		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.CONSUMIBLES_RESERVA cr WHERE cr.core_estadia_id = @p_id_estadia AND cr.core_consumible_codigo = @p_id_consumible
+						AND CAST(cr.core_fecha AS DATE) = CAST(GETDATE() AS DATE))
 		)
-		BEGIN
-			
-				UPDATE PUNTO_ZIP.Consumible_Reserva SET Cantidad = Cantidad + @p_cantidad
-				WHERE 	Id_Estadia = @p_id_estadia
-					AND Id_Codigo = @p_id_consumible
-					AND CAST(Fecha AS DATE) = CAST(GETDATE() AS DATE)
-		END
+			BEGIN
+				UPDATE PUNTO_ZIP.CONSUMIBLES_RESERVA SET core_cantidad = core_cantidad + @p_cantidad
+				WHERE core_estadia_id = @p_id_estadia AND core_consumible_codigo = @p_id_consumible AND CAST(core_fecha AS DATE) = CAST(GETDATE() AS DATE)
+			END
 		ELSE
-		BEGIN
-			INSERT INTO PUNTO_ZIP.Consumible_Reserva (Id_Estadia, Id_Codigo, Cantidad, Fecha, Id_Usuario)
-			VALUES (@p_id_estadia, @p_id_consumible,@p_cantidad, GETDATE(), @p_id_usuario)
-		END
-
+			BEGIN
+				DECLARE @user_id int
+				SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_id_usuario)
+				INSERT INTO PUNTO_ZIP.CONSUMIBLES_RESERVA (core_estadia_id, core_consumible_codigo, core_cantidad, core_fecha, core_usuario_id)
+				VALUES (@p_id_estadia, @p_id_consumible, @p_cantidad, GETDATE(), @user_id)
+			END
 	COMMIT TRANSACTION
 END
 GO
@@ -2548,24 +2278,16 @@ GO
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_consumible_remove](
 @p_id_estadia int,
 @p_id_consumible int
-
 )
 AS
 BEGIN
 	BEGIN TRANSACTION
-		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Consumible_Reserva cr
-					WHERE cr.Id_Estadia = @p_id_estadia
-						AND cr.Id_Codigo = @p_id_consumible
-						AND CAST(cr.Fecha AS DATE) = CAST(GETDATE() AS DATE)
-					)
+		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.CONSUMIBLES_RESERVA cr WHERE cr.core_estadia_id = @p_id_estadia AND cr.core_consumible_codigo = @p_id_consumible
+						AND CAST(cr.core_fecha AS DATE) = CAST(GETDATE() AS DATE))
 		)
 		BEGIN
-		
-			DELETE 
-			FROM PUNTO_ZIP.Consumible_Reserva
-			WHERE Id_Estadia = @p_id_estadia
-				AND Id_Codigo = @p_id_consumible
-				AND CAST(Fecha AS DATE) = CAST(GETDATE() AS DATE)
+			DELETE FROM PUNTO_ZIP.CONSUMIBLES_RESERVA WHERE core_estadia_id = @p_id_estadia AND core_consumible_codigo = @p_id_consumible AND 
+				CAST(core_fecha AS DATE) = CAST(GETDATE() AS DATE)
 		END
 	COMMIT TRANSACTION
 END
@@ -2577,30 +2299,15 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_facturar_estadia_booking_search](
 )
 AS
 BEGIN
-	SELECT DISTINCT
-		e.Id_Reserva 'Nro Reserva',
-		e.Id_Estadia 'Id Estadia',
-		e.Check_In 'Check In',
-		e.Check_Out 'Check Out',
-		r.Estadia 'Estadia',
-		c.Id_Cliente 'Id Cliente',
-		c.Nombre 'Nombre',
-		c.Apellido 'Apellido'
-
-	FROM PUNTO_ZIP.Estadia e
-	INNER JOIN PUNTO_ZIP.Reserva r
-		ON r.Id_Reserva = e.Id_Reserva
-	INNER JOIN PUNTO_ZIP.Reserva_Cliente rc
-		ON r.Id_Reserva = rc.Id_Reserva
-	INNER JOIN PUNTO_ZIP.Clientes c
-		ON rc.Id_Cliente = c.Id_Cliente
-	INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-		ON hr.Id_Reserva = e.Id_Reserva
-	WHERE e.Check_In IS NOT NULL
-		AND e.Check_Out IS NOT NULL
-		AND e.Id_Reserva = @p_charge_stay_booking_id
-		AND hr.Id_Hotel = @p_charge_stay_hotel_id
-		AND NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.Facturacion f WHERE f.Id_Estadia = e.Id_Estadia)
+	SELECT DISTINCT e.esta_reserva_id 'Nro Reserva', e.esta_id 'Id Estadia', e.esta_check_in 'Check In', e.esta_check_out 'Check Out', r.rese_cantidad_noches 'Estadia',
+		c.clie_id 'Id Cliente', c.clie_nombre 'Nombre', c.clie_apellido 'Apellido'
+		FROM PUNTO_ZIP.ESTADIAS e
+		INNER JOIN PUNTO_ZIP.RESERVA r ON r.rese_id = e.esta_reserva_id
+		INNER JOIN PUNTO_ZIP.RESERVA_CLIENTE rc ON r.rese_id = rc.rc_reserva_id
+		INNER JOIN PUNTO_ZIP.CLIENTES c ON rc.rc_cliente_id = c.clie_id
+		INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON hr.hr_reserva_id = e.esta_reserva_id
+		WHERE e.esta_check_in IS NOT NULL AND e.esta_check_out IS NOT NULL AND e.esta_reserva_id = @p_charge_stay_booking_id
+			AND hr.hr_hotel_id = @p_charge_stay_hotel_id AND NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.FACTURAS f WHERE f.fact_estadia_id = e.esta_id)
 END
 GO
 
@@ -2610,10 +2317,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_facturar_estadia_is_check_in](
 )
 AS
 BEGIN
-	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
-		WHERE e.Id_Reserva = @p_charge_stay_booking_id
-		AND e.Check_In IS NOT NULL
-		AND e.Check_Out IS NULL)
+	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e WHERE e.esta_reserva_id = @p_charge_stay_booking_id AND e.esta_check_in IS NOT NULL AND e.esta_check_out IS NULL)
 		SET @p_charge_stay_is_check_in = 1
 	ELSE
 		SET @p_charge_stay_is_check_in = 0
@@ -2626,9 +2330,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_facturar_estadia_is_exist](
 )
 AS
 BEGIN
-	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
-		WHERE e.Id_Reserva = @p_charge_stay_booking_id
-	)
+	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e WHERE e.esta_reserva_id = @p_charge_stay_booking_id)
 		SET @p_charge_stay_is_exist = 1
 	ELSE
 		SET @p_charge_stay_is_exist = 0
@@ -2641,11 +2343,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_facturar_estadia_was_charged](
 )
 AS
 BEGIN
-	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
-		INNER JOIN PUNTO_ZIP.Facturacion f
-			ON e.Id_Estadia = f.Id_Estadia
-		WHERE e.Id_Reserva = @p_charge_stay_booking_id
-	)
+	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e INNER JOIN PUNTO_ZIP.FACTURAS f ON e.esta_id = f.fact_estadia_id WHERE e.esta_reserva_id = @p_charge_stay_booking_id)
 		SET @p_charge_stay_was_charged = 1
 	ELSE
 		SET @p_charge_stay_was_charged = 0
@@ -2657,64 +2355,36 @@ CREATE PROCEDURE PUNTO_ZIP.[sp_facturar_estadia_get_charge](
 )
 AS
 BEGIN
-	SELECT 
-		c.Descripcion, 
-		cr.Cantidad, 
-		c.Precio 
-		FROM PUNTO_ZIP.Estadia e 
-		INNER JOIN PUNTO_ZIP.Consumible_Reserva cr 
-			ON e.Id_Estadia = cr.Id_Estadia
-		INNER JOIN PUNTO_ZIP.Consumible c
-			ON c.Id_Codigo = cr.Id_Codigo
-		WHERE e.Id_Estadia = @p_charge_stay_stay_id
+		SELECT c.cons_descripcion, cr.core_cantidad, c.cons_precio FROM PUNTO_ZIP.ESTADIAS e 
+			INNER JOIN PUNTO_ZIP.CONSUMIBLES_RESERVA cr ON e.esta_id = cr.core_estadia_id
+			INNER JOIN PUNTO_ZIP.CONSUMIBLES c ON c.cons_codigo = cr.core_consumible_codigo
+			WHERE e.esta_id = @p_charge_stay_stay_id
 	UNION
-	SELECT 
-		'Estadia por: ' + RTRIM(LTRIM(STR(DATEDIFF(DAY, e.Check_In, e.Check_Out) + 1))) + ' dias. Regimen ' + re.Descripcion,
-		1,
-		(re.Precio * th.Cupo) + (he.Cantidad_Estrellas * he.recarga)
-		FROM PUNTO_ZIP.Estadia e 
-		INNER JOIN PUNTO_ZIP.Reserva r
-			ON e.Id_Reserva = r.Id_Reserva 
-		INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-			ON e.Id_Reserva = hr.Id_Reserva
-		INNER JOIN PUNTO_ZIP.Habitacion h
-			ON h.Id_Hotel = hr.Id_Hotel
-				AND h.Piso = hr.Habitacion_Piso
-				AND h.Nro = hr.Habitacion_Nro
-		INNER JOIN PUNTO_ZIP.Tipo_Habitacion th
-			ON h.Tipo_Habitacion = th.Id_Tipo_Habitacion
-		INNER JOIN PUNTO_ZIP.Hotel_Estrellas he
-			ON he.Id_Hotel = h.Id_Hotel
-		INNER JOIN PUNTO_ZIP.Regimen re
-			ON re.Id_Regimen = r.Tipo_Regimen
-		WHERE e.Id_Estadia = @p_charge_stay_stay_id
+		SELECT 'Estadia por: ' + RTRIM(LTRIM(STR(DATEDIFF(DAY, e.esta_check_in, e.esta_check_out) + 1))) + ' dias. Regimen ' + re.regi_descripcion, 1,
+			(re.regi_precio * th.th_cupo) + (he.he_cantidad_estrellas * he.he_recarga)
+			FROM PUNTO_ZIP.ESTADIAS e 
+			INNER JOIN PUNTO_ZIP.RESERVA r ON e.esta_reserva_id = r.rese_id 
+			INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON e.esta_reserva_id = hr.hr_reserva_id
+			INNER JOIN PUNTO_ZIP.HABITACION h ON h.habi_hotel_id = hr.hr_hotel_id AND h.habi_piso = hr.hr_habitacion_piso AND h.habi_nro = hr.hr_habitacion_nro
+			INNER JOIN PUNTO_ZIP.TIPO_HABITACION th ON h.habi_tipo_habitacion_id = th.th_id
+			INNER JOIN PUNTO_ZIP.HOTELES_ESTRELLAS he ON he.he_hotel_id = h.habi_hotel_id
+			INNER JOIN PUNTO_ZIP.REGIMENES re ON re.regi_id = r.rese_regimen_id
+			WHERE e.esta_id = @p_charge_stay_stay_id
+	UNION
+		SELECT 'Descuento por regimen: ' + re.regi_descripcion, 1, (0 - SUM(cr.core_cantidad * c.cons_precio))
+			FROM PUNTO_ZIP.ESTADIAS e
+			INNER JOIN PUNTO_ZIP.RESERVA r ON r.rese_id = e.esta_reserva_id
+			INNER JOIN PUNTO_ZIP.REGIMENES re ON r.rese_regimen_id = re.regi_id
+			INNER JOIN PUNTO_ZIP.CONSUMIBLES_RESERVA cr ON cr.core_estadia_id = e.esta_id
+			INNER JOIN PUNTO_ZIP.CONSUMIBLES c ON cr.core_consumible_codigo = c.cons_codigo
+			WHERE UPPER(LTRIM(RTRIM(re.regi_descripcion))) like '%' + 'ALL INCLUSIVE' + '%' AND e.esta_id = @p_charge_stay_stay_id
+			GROUP BY re.regi_descripcion
 	UNION
 	SELECT
-		'Descuento por regimen: ' + re.Descripcion,
-		1,
-		(0 - SUM(cr.Cantidad * c.precio))
-		FROM PUNTO_ZIP.Estadia e
-		INNER JOIN PUNTO_ZIP.Reserva r
-			ON r.Id_Reserva = e.Id_Reserva
-		INNER JOIN PUNTO_ZIP.Regimen re
-			ON r.Tipo_Regimen = re.Id_Regimen
-		INNER JOIN PUNTO_ZIP.Consumible_Reserva cr
-			ON cr.Id_Estadia = e.Id_Estadia
-		INNER JOIN PUNTO_ZIP.Consumible c
-			ON cr.Id_Codigo = c.Id_Codigo
-		WHERE UPPER(LTRIM(RTRIM(re.Descripcion))) like '%' + 'ALL INCLUSIVE' + '%'
-			AND e.Id_Estadia = @p_charge_stay_stay_id
-	GROUP BY re.Descripcion
-	UNION
-	SELECT
-		'Recargo por retirarse: ' + LTRIM(STR(r.Estadia  - (DATEDIFF(DAY, e.Check_In, e.Check_Out) + 1))) + ' dias antes',
-		1,
-		0
-		FROM PUNTO_ZIP.Estadia e
-		INNER JOIN PUNTO_ZIP.Reserva r
-			ON e.Id_Reserva = r.Id_Reserva
-		WHERE r.Estadia  - (DATEDIFF(DAY, e.Check_In, e.Check_Out) + 1) > 0
-		AND e.Id_Estadia = @p_charge_stay_stay_id
+		'Recargo por retirarse: ' + LTRIM(STR(r.rese_cantidad_noches  - (DATEDIFF(DAY, e.esta_check_in, e.esta_check_out) + 1))) + ' dias antes', 1, 0
+		FROM PUNTO_ZIP.ESTADIAS e
+		INNER JOIN PUNTO_ZIP.RESERVA r ON e.esta_reserva_id = r.rese_id
+		WHERE r.rese_cantidad_noches  - (DATEDIFF(DAY, e.esta_check_in, e.esta_check_out) + 1) > 0 AND e.esta_id = @p_charge_stay_stay_id
 	ORDER BY 3 DESC
 END
 GO
@@ -2727,249 +2397,182 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_facturar_estadia_charge](
 )
 AS
 BEGIN
-	Declare @charge_stay int
-	SELECT @charge_stay = (re.Precio * th.Cupo) + (he.Cantidad_Estrellas * he.recarga)
-		FROM PUNTO_ZIP.Estadia e 
-		INNER JOIN PUNTO_ZIP.Reserva r
-			ON e.Id_Reserva = r.Id_Reserva 
-		INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-			ON e.Id_Reserva = hr.Id_Reserva
-		INNER JOIN PUNTO_ZIP.Habitacion h
-			ON h.Id_Hotel = hr.Id_Hotel
-				AND h.Piso = hr.Habitacion_Piso
-				AND h.Nro = hr.Habitacion_Nro
-		INNER JOIN PUNTO_ZIP.Tipo_Habitacion th
-			ON h.Tipo_Habitacion = th.Id_Tipo_Habitacion
-		INNER JOIN PUNTO_ZIP.Hotel_Estrellas he
-			ON he.Id_Hotel = h.Id_Hotel
-		INNER JOIN PUNTO_ZIP.Regimen re
-			ON re.Id_Regimen = r.Tipo_Regimen
-		WHERE e.Id_Estadia = @p_charge_stay_stay_id
+	DECLARE @charge_stay int
+	SELECT @charge_stay = (re.regi_precio * th.th_cupo) + (he.he_cantidad_estrellas * he.he_recarga)
+		FROM PUNTO_ZIP.ESTADIAS e 
+		INNER JOIN PUNTO_ZIP.RESERVA r ON e.esta_reserva_id = r.rese_id 
+		INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON e.esta_reserva_id = hr.hr_reserva_id
+		INNER JOIN PUNTO_ZIP.HABITACION h ON h.habi_hotel_id = hr.hr_hotel_id AND h.habi_piso = hr.hr_habitacion_piso AND h.habi_nro = hr.hr_habitacion_nro
+		INNER JOIN PUNTO_ZIP.TIPO_HABITACION th ON h.habi_tipo_habitacion_id = th.th_id
+		INNER JOIN PUNTO_ZIP.HOTELES_ESTRELLAS he ON he.he_hotel_id = h.habi_hotel_id
+		INNER JOIN PUNTO_ZIP.REGIMENES re ON re.regi_id = r.rese_regimen_id
+		WHERE e.esta_id = @p_charge_stay_stay_id
 
-	Declare @consumable int = 0
-	SELECT @consumable = SUM(cr.Cantidad * c.precio)
-		FROM PUNTO_ZIP.Estadia e
-		INNER JOIN PUNTO_ZIP.Consumible_Reserva cr
-			ON cr.Id_Estadia = e.Id_Estadia
-		INNER JOIN PUNTO_ZIP.Consumible c
-			ON cr.Id_Codigo = c.Id_Codigo
-		WHERE e.Id_Estadia = @p_charge_stay_stay_id
+	DECLARE @consumable int = 0
+	SELECT @consumable = SUM(cr.core_cantidad * c.cons_precio) FROM PUNTO_ZIP.ESTADIAS e
+		INNER JOIN PUNTO_ZIP.CONSUMIBLES_RESERVA cr ON cr.core_estadia_id = e.esta_id
+		INNER JOIN PUNTO_ZIP.CONSUMIBLES c ON cr.core_consumible_codigo = c.cons_codigo
+		WHERE e.esta_id = @p_charge_stay_stay_id
 
-	Declare @allInclusiveConsumable int
-	IF EXISTS (SELECT 1 FROM
-		PUNTO_ZIP.Estadia e
-		INNER JOIN PUNTO_ZIP.Reserva r
-			ON r.Id_Reserva = e.Id_Reserva
-		INNER JOIN PUNTO_ZIP.Regimen re
-			ON r.Tipo_Regimen = re.Id_Regimen
-		WHERE UPPER(LTRIM(RTRIM(re.Descripcion))) like '%' + 'ALL INCLUSIVE' + '%'
-			AND e.Id_Estadia = @p_charge_stay_stay_id)
+	DECLARE @allInclusiveConsumable int
+	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e
+		INNER JOIN PUNTO_ZIP.RESERVA r ON r.rese_id = e.esta_reserva_id
+		INNER JOIN PUNTO_ZIP.REGIMENES re ON r.rese_regimen_id = re.regi_id
+		WHERE UPPER(LTRIM(RTRIM(re.regi_descripcion))) like '%' + 'ALL INCLUSIVE' + '%' AND e.esta_id = @p_charge_stay_stay_id)
 		SET @allInclusiveConsumable = 0 - @consumable
 	ELSE
 		SET @allInclusiveConsumable = 0
 
-	Declare @day_diff_stop_stay int
-
-	SELECT @day_diff_stop_stay = (r.Estadia  - (DATEDIFF(DAY, e.Check_In, e.Check_Out) + 1))
-		FROM PUNTO_ZIP.Estadia e
-		INNER JOIN PUNTO_ZIP.Reserva r
-			ON e.Id_Reserva = r.Id_Reserva
-		WHERE e.Id_Estadia = @p_charge_stay_stay_id
+	DECLARE @day_diff_stop_stay int
+	SELECT @day_diff_stop_stay = (r.rese_cantidad_noches  - (DATEDIFF(DAY, e.esta_check_in, e.esta_check_out) + 1))
+		FROM PUNTO_ZIP.ESTADIAS e
+		INNER JOIN PUNTO_ZIP.RESERVA r ON e.esta_reserva_id = r.rese_id
+		WHERE e.esta_id = @p_charge_stay_stay_id
 
 	BEGIN TRANSACTION
-		Declare @invoice int
-		INSERT INTO PUNTO_ZIP.Facturacion(Id_Estadia, Id_Cliente, Total_Factura, Total_Estadia, Total_Consumibles, Fecha_Facturacion)
-		VALUES (@p_charge_stay_stay_id, @p_charge_stay_client_id, @charge_stay + @consumable + @allInclusiveConsumable,
-			@charge_stay, @consumable + @allInclusiveConsumable, CAST(GETDATE() AS DATE))
+		DECLARE @invoice int
+		INSERT INTO PUNTO_ZIP.FACTURAS(fact_estadia_id, fact_cliente_id, fact_total, fact_total_estadias, fact_total_consumibles, fact_fecha)
+		VALUES (@p_charge_stay_stay_id, @p_charge_stay_client_id, @charge_stay + @consumable + @allInclusiveConsumable, @charge_stay, 
+				@consumable + @allInclusiveConsumable, CAST(GETDATE() AS DATE))
 		SET @invoice = @@IDENTITY
-
 		--Estadia
-		INSERT INTO PUNTO_ZIP.Facturacion_Detalle(Id_Factura, Id_Estadia, Descripcion, Precio, Cantidad)
+		INSERT INTO PUNTO_ZIP.FACTURAS_DETALLE(fd_factura_id, fd_estadia_id, fd_descripcion, fd_precio, fd_cantidad)
 		VALUES (@invoice, @p_charge_stay_stay_id, 'estadia', @charge_stay, 1)
-
 		--Recargo retirarse antes
 		IF (@day_diff_stop_stay != 0)
-			INSERT INTO PUNTO_ZIP.Facturacion_Detalle (Id_Factura, Id_Estadia, Descripcion, Precio, Cantidad)
-			VALUES (@invoice, @p_charge_stay_stay_id, 
-				'Recargo por retirarse: ' + LTRIM(STR(@day_diff_stop_stay)) + ' dias antes', 0, 1)
-
+			INSERT INTO PUNTO_ZIP.FACTURAS_DETALLE(fd_factura_id, fd_estadia_id, fd_descripcion, fd_precio, fd_cantidad)
+			VALUES (@invoice, @p_charge_stay_stay_id, 'Recargo por retirarse: ' + LTRIM(STR(@day_diff_stop_stay)) + ' dias antes', 0, 1)
 		--Consumibles
-		INSERT INTO PUNTO_ZIP.Facturacion_Detalle (Id_Factura, Id_Estadia, Descripcion, Precio, Cantidad)
-		SELECT @invoice, @p_charge_stay_stay_id, c.Descripcion, c.Precio, cr.Cantidad
-		FROM PUNTO_ZIP.Estadia e 
-		INNER JOIN PUNTO_ZIP.Consumible_Reserva cr 
-			ON e.Id_Estadia = cr.Id_Estadia
-		INNER JOIN PUNTO_ZIP.Consumible c
-			ON c.Id_Codigo = cr.Id_Codigo
-		WHERE e.Id_Estadia = @p_charge_stay_stay_id
-
+		INSERT INTO PUNTO_ZIP.FACTURAS_DETALLE(fd_factura_id, fd_estadia_id, fd_descripcion, fd_precio, fd_cantidad)
+		SELECT @invoice, @p_charge_stay_stay_id, c.cons_descripcion, c.cons_precio, cr.core_cantidad
+		FROM PUNTO_ZIP.ESTADIAS e 
+		INNER JOIN PUNTO_ZIP.CONSUMIBLES_RESERVA cr ON e.esta_id = cr.core_estadia_id
+		INNER JOIN PUNTO_ZIP.CONSUMIBLES c ON c.cons_codigo = cr.core_consumible_codigo
+		WHERE e.esta_id = @p_charge_stay_stay_id
 		--Descuento all inclusive
 		IF (@allInclusiveConsumable < 0)
-			INSERT INTO PUNTO_ZIP.Facturacion_Detalle (Id_Factura, Id_Estadia, Descripcion, Precio, Cantidad)
-			VALUES (@invoice, @p_charge_stay_stay_id, 
-				'Descuento por regimen', @allInclusiveConsumable, 1)
+			INSERT INTO PUNTO_ZIP.FACTURAS_DETALLE(fd_factura_id, fd_estadia_id, fd_descripcion, fd_precio, fd_cantidad)
+			VALUES (@invoice, @p_charge_stay_stay_id, 'Descuento por regimen', @allInclusiveConsumable, 1)
 
 		IF (UPPER(LTRIM(RTRIM(@p_charge_stay_type_pay))) = 'EFECTIVO')
-		BEGIN
-			Declare @typePay int
-			SELECT @typePay = Id_Tipo_Pago FROM PUNTO_ZIP.Tipo_Pago WHERE UPPER(Descripcion) = UPPER(LTRIM(RTRIM(@p_charge_stay_type_pay)))
-			INSERT INTO PUNTO_ZIP.Forma_Pago(Id_Factura, Id_Tipo_Pago, Tarjeta_Numero)
-			VALUES (@invoice, @typePay, null)
-		END
+			BEGIN
+				DECLARE @typePay int
+				SELECT @typePay = tipa_id FROM PUNTO_ZIP.TIPO_PAGO WHERE UPPER(tipa_descripcion) = UPPER(LTRIM(RTRIM(@p_charge_stay_type_pay)))
+				INSERT INTO PUNTO_ZIP.FORMA_PAGO(fp_factura_id, fp_tipo_pago_id, fp_tarjeta_numero) VALUES (@invoice, @typePay, null)
+			END
 		ELSE
-		BEGIN
-			Declare @creditCardTypeID int
-			SELECT @creditCardTypeID = Id_Tipo_Pago FROM PUNTO_ZIP.Tipo_Pago WHERE UPPER(Descripcion) = UPPER('Tarjeta Credito')
-			INSERT INTO PUNTO_ZIP.Forma_Pago(Id_Factura, Id_Tipo_Pago, Tarjeta_Numero)
-			VALUES (@invoice, @creditCardTypeID, @p_charge_stay_number_card)
-		END
-
+			BEGIN
+				DECLARE @creditCardTypeID int
+				SELECT @creditCardTypeID = tipa_id FROM PUNTO_ZIP.TIPO_PAGO WHERE UPPER(tipa_descripcion) = UPPER('Tarjeta Credito')
+				INSERT INTO PUNTO_ZIP.FORMA_PAGO(fp_factura_id, fp_tipo_pago_id, fp_tarjeta_numero)
+				VALUES (@invoice, @creditCardTypeID, @p_charge_stay_number_card)
+			END
 	COMMIT TRANSACTION
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadistic_top_5_hotel_canceled](
-@p_estadistic_from datetime,
+@p_estadistic_FROM datetime,
 @p_estadistic_to datetime
 )
 AS
 BEGIN
-	Declare @truncateFrom datetime = CAST(@p_estadistic_from AS DATE)
-	Declare @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
-	
-	SELECT TOP 5 
-		hr.Id_Hotel 'Id Hotel',
-		COUNT(*)  'Reservas Canceladas'
-	FROM PUNTO_ZIP.Reserva r
-	INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-		ON r.Id_Reserva = hr.Id_Reserva
-	INNER JOIN PUNTO_ZIP.Estado_Reserva er
-		ON r.Estado = er.Id_Estado
-	WHERE UPPER(er.Descripcion) LIKE '%' + 'CANCELADA' + '%'
-	AND r.Fecha_Inicio BETWEEN @truncateFrom AND @truncateTo
-	GROUP BY hr.Id_Hotel
+	DECLARE @truncateFROM datetime = CAST(@p_estadistic_FROM AS DATE)
+	DECLARE @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
+	SELECT TOP 5 hr.hr_hotel_id 'Id Hotel', COUNT(*) 'Reservas Canceladas'
+	FROM PUNTO_ZIP.RESERVA r
+	INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON r.rese_id = hr.hr_reserva_id
+	INNER JOIN PUNTO_ZIP.ESTADO_RESERVA er ON r.rese_estado_reserva_id = er.esre_id
+	WHERE UPPER(er.esre_descripcion) LIKE '%' + 'CANCELADA' + '%' AND r.rese_fecha_inicio BETWEEN @truncateFROM AND @truncateTo
+	GROUP BY hr.hr_hotel_id
 	ORDER BY 2 DESC
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadistic_top_5_hotel_consumable_charge](
-@p_estadistic_from datetime,
+@p_estadistic_FROM datetime,
 @p_estadistic_to datetime
 )
 AS
 BEGIN
-	Declare @truncateFrom datetime = CAST(@p_estadistic_from AS DATE)
-	Declare @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
-
-	SELECT TOP 5 
-		hr.Id_Hotel 'Id Hotel',
-		SUM(c.Precio) 'Consumibles Facturados'
-	FROM PUNTO_ZIP.Consumible_Reserva cr
-	INNER JOIN PUNTO_ZIP.Consumible c
-		ON cr.Id_Codigo = c.Id_Codigo
-	INNER JOIN PUNTO_ZIP.Estadia e
-		ON e.Id_Estadia = cr.Id_Estadia
-	INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-		ON e.Id_Reserva = hr.Id_Reserva
-	INNER JOIN PUNTO_ZIP.Facturacion f 
-		ON f.Id_Estadia = e.Id_Estadia
-	WHERE f.Fecha_Facturacion BETWEEN @truncateFrom AND @truncateTo
-	GROUP BY hr.Id_Hotel
+	DECLARE @truncateFROM datetime = CAST(@p_estadistic_FROM AS DATE)
+	DECLARE @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
+	SELECT TOP 5 hr.hr_hotel_id 'Id Hotel', SUM(c.cons_precio) 'Consumibles Facturados'
+	FROM PUNTO_ZIP.CONSUMIBLES_RESERVA cr
+	INNER JOIN PUNTO_ZIP.CONSUMIBLES c ON cr.core_consumible_codigo = c.cons_codigo
+	INNER JOIN PUNTO_ZIP.ESTADIAS e ON e.esta_id = cr.core_estadia_id
+	INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON e.esta_reserva_id = hr.hr_reserva_id
+	INNER JOIN PUNTO_ZIP.FACTURAS f ON f.fact_estadia_id = e.esta_id
+	WHERE f.fact_fecha BETWEEN @truncateFROM AND @truncateTo
+	GROUP BY hr.hr_hotel_id
 	ORDER BY 2 DESC
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadistic_top_5_hotel_more_days_out](
-@p_estadistic_from datetime,
+@p_estadistic_FROM datetime,
 @p_estadistic_to datetime
 )
 AS
 BEGIN
-	Declare @truncateFrom datetime = CAST(@p_estadistic_from AS DATE)
-	Declare @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
-
-	SELECT TOP 5
-		hbh.Id_Hotel 'Id Hotel',
-		SUM(DATEDIFF(DAY, hbh.Fecha_Inicio, hbh.Fecha_Fin)) 'Días'
+	DECLARE @truncateFROM datetime = CAST(@p_estadistic_FROM AS DATE)
+	DECLARE @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
+	SELECT TOP 5 hbh.hbh_hotel_id 'Id Hotel', SUM(DATEDIFF(DAY, hbh.hbh_fecha_inicio, hbh.hbh_fecha_fin)) 'Días'
 	FROM PUNTO_ZIP.Historial_Baja_Hotel hbh
-	WHERE ( 
-		(hbh.Fecha_Inicio BETWEEN @truncateFrom AND @truncateTo) 
-		OR (hbh.Fecha_Fin BETWEEN @truncateFrom AND @truncateTo)
-	)
-	GROUP BY hbh.Id_Hotel
+	WHERE ((hbh.hbh_fecha_inicio BETWEEN @truncateFROM AND @truncateTo) OR (hbh.hbh_fecha_fin BETWEEN @truncateFROM AND @truncateTo))
+	GROUP BY hbh.hbh_hotel_id
 	ORDER BY 2 DESC
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadistic_top_5_room_hotel_most_occupied](
-@p_estadistic_from datetime,
+@p_estadistic_FROM datetime,
 @p_estadistic_to datetime
 )
 AS
 BEGIN
-	Declare @truncateFrom datetime = CAST(@p_estadistic_from AS DATE)
-	Declare @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
-
-	SELECT TOP 5
-		hr.Habitacion_Nro 'Habitacion',
-		hr.Habitacion_Piso 'Piso',
-		hr.Id_Hotel 'Id Hotel',
-		SUM(DATEDIFF(DAY, e.Check_In, e.Check_Out)) 'Días',
+	DECLARE @truncateFROM datetime = CAST(@p_estadistic_FROM AS DATE)
+	DECLARE @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
+	SELECT TOP 5 hr.hr_habitacion_nro 'Habitacion', hr.hr_habitacion_piso 'Piso', hr.hr_hotel_id 'Id Hotel', SUM(DATEDIFF(DAY, e.esta_check_in, e.esta_check_out)) 'Días',
 		COUNT(1) 'Veces'
-	FROM PUNTO_ZIP.Estadia e
-	INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-		ON e.Id_Reserva = hr.Id_Reserva
-	WHERE ( 
-		(e.Check_In BETWEEN @truncateFrom AND @truncateTo) 
-		OR (e.Check_Out BETWEEN @truncateFrom AND @truncateTo)
-	)
-	GROUP BY hr.Id_Hotel, hr.Habitacion_Piso, hr.Habitacion_Nro
+	FROM PUNTO_ZIP.ESTADIAS e
+	INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON e.esta_reserva_id = hr.hr_reserva_id
+	WHERE ((e.esta_check_in BETWEEN @truncateFROM AND @truncateTo) OR (e.esta_check_out BETWEEN @truncateFROM AND @truncateTo))
+	GROUP BY hr.hr_hotel_id, hr.hr_habitacion_piso, hr.hr_habitacion_nro
 	ORDER BY 4 DESC, 5 DESC
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadistic_top_5_client_more_points](
-@p_estadistic_from datetime,
+@p_estadistic_FROM datetime,
 @p_estadistic_to datetime
 )
 AS
 BEGIN
-	Declare @truncateFrom datetime = CAST(@p_estadistic_from AS DATE)
-	Declare @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
-
-	SELECT TOP 5
-		c.Id_Cliente 'Id Cliente',
-		c.Nombre 'Nombre',
-		c.Apellido 'Apellido',
-		CONVERT(INT,SUM((f.Total_Estadia / 10) +  (f.Total_Consumibles / 5))) 'Puntos'
-	FROM PUNTO_ZIP.Facturacion f
-	INNER JOIN PUNTO_ZIP.Clientes c
-		ON f.Id_Cliente = c.Id_Cliente
-	WHERE f.Fecha_Facturacion BETWEEN @truncateFrom AND @truncateTo
-	GROUP BY c.Id_Cliente, c.Nombre, c.Apellido
+	DECLARE @truncateFROM datetime = CAST(@p_estadistic_FROM AS DATE)
+	DECLARE @truncateTo datetime = CAST(@p_estadistic_to AS DATE)
+	SELECT TOP 5 c.clie_id 'Id Cliente', c.clie_nombre 'Nombre', c.clie_apellido 'Apellido', CONVERT(INT,SUM((f.fact_total_estadias / 10) +  (f.fact_total_consumibles / 5))) 'Puntos'
+	FROM PUNTO_ZIP.FACTURAS f
+	INNER JOIN PUNTO_ZIP.CLIENTES c ON f.fact_cliente_id = c.clie_id
+	WHERE f.fact_fecha BETWEEN @truncateFROM AND @truncateTo
+	GROUP BY c.clie_id, c.clie_nombre, c.clie_apellido
 	ORDER BY 4 DESC
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_reserva_listar](
 @p_hotel_id int,
-@p_nombre varchar(255)=null,
-@p_apellido varchar(255)=null--,
+@p_nombre varchar(255) = null,
+@p_apellido varchar(255) = null--,
 --@p_res_id int = 0
 )
 AS
 BEGIN
-	select res.Id_Reserva, cli.Nombre,cli.Apellido, res.Fecha_Inicio
-	from PUNTO_ZIP.Habitacion_Reserva Hres, PUNTO_ZIP.Reserva res, PUNTO_ZIP.Reserva_Cliente resc,
-		PUNTO_ZIP.Clientes cli
-	where Hres.Id_Reserva=res.Id_Reserva
-	and		res.Id_Reserva=resc.Id_Reserva
-	and		cli.Id_Cliente=resc.Id_Cliente
-	and		((@p_nombre is null) or (cli.Nombre=@p_nombre))
-	and		((@p_apellido is null) or (cli.Apellido=@p_apellido))
-	--and		((@p_res_id=0) or (res.Id_Reserva=@p_res_id))
-	and		Id_Hotel=@p_hotel_id
-	order by res.Id_Reserva	
+	SELECT res.rese_id, cli.clie_nombre, cli.clie_apellido, res.rese_fecha_inicio
+		FROM PUNTO_ZIP.HABITACION_RESERVA hres, PUNTO_ZIP.RESERVA res, PUNTO_ZIP.RESERVA_CLIENTE resc, PUNTO_ZIP.CLIENTES cli
+		WHERE hres.hr_reserva_id = res.rese_id AND res.rese_id = resc.rc_reserva_id AND cli.clie_id = resc.rc_cliente_id AND ((@p_nombre is null) or (cli.clie_nombre = @p_nombre))
+		AND	((@p_apellido is null) or (cli.clie_apellido = @p_apellido)) AND hres.hr_hotel_id = @p_hotel_id
+		ORDER BY res.rese_id	
 END
 GO
 
@@ -2978,79 +2581,52 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_regimen_retrieve](
 )
 AS
 BEGIN
-	SELECT distinct r.Descripcion,r.Precio
-	from PUNTO_ZIP.Regimen_Hotel rh, PUNTO_ZIP.Regimen r
-	where	rh.Id_Regimen=r.Id_Regimen
-	and		rh.Id_Hotel=@p_hotel_id
+	SELECT DISTINCT r.regi_descripcion, r.regi_precio
+	FROM PUNTO_ZIP.REGIMENES_HOTELES rh, PUNTO_ZIP.REGIMENES r
+	WHERE rh.rh_regimen_id = r.regi_id AND rh.rh_hotel_id = @p_hotel_id
 END
 GO
 
-create procedure [PUNTO_ZIP].[sp_tipo_habitacion_available](
+CREATE PROCEDURE [PUNTO_ZIP].[sp_tipo_habitacion_available](
 @p_hotel_id int
 )
+AS
+BEGIN
+SELECT DISTINCT thab.th_descripcion, thab.th_cupo
+	FROM PUNTO_ZIP.HABITACION hab, PUNTO_ZIP.TIPO_HABITACION thab
+	WHERE hab.habi_hotel_id = @p_hotel_id AND hab.habi_tipo_habitacion_id = thab.th_id
+END
+GO
 
-as
-begin
-select distinct thab.Descripcion,thab.Cupo
-from PUNTO_ZIP.Habitacion hab,
-	PUNTO_ZIP.Tipo_Habitacion thab
-
-where	hab.Id_Hotel=@p_hotel_id
-and		hab.Tipo_Habitacion=thab.Id_Tipo_Habitacion
-end
-go
-
-create procedure [PUNTO_ZIP].[sp_reserva_occupied](
+CREATE PROCEDURE [PUNTO_ZIP].[sp_reserva_occupied](
 @p_hotel_id int,
 @p_tipo_hab varchar(255),
 @p_fecha_desde date,
 @p_fecha_hasta date,
 @p_total int output)
+AS 
+BEGIN
+SET @p_total = ( SELECT COUNT(*) FROM PUNTO_ZIP.RESERVA res, PUNTO_ZIP.HABITACION_RESERVA hres, PUNTO_ZIP.HABITACION hab, PUNTO_ZIP.ESTADIAS est, PUNTO_ZIP.TIPO_HABITACION thab
+				WHERE res.rese_id = hres.hr_reserva_id AND hres.hr_habitacion_nro = hab.habi_nro AND hres.hr_habitacion_piso = hab.habi_piso AND est.esta_reserva_id = res.rese_id
+				AND hres.hr_hotel_id = hab.habi_hotel_id AND hab.habi_tipo_habitacion_id = thab.th_id AND thab.th_descripcion = @p_tipo_hab AND hres.hr_hotel_id = @p_hotel_id
+				AND est.esta_check_in = @p_fecha_desde AND est.esta_check_out = @p_fecha_hasta)
+END
+GO
 
-as 
-begin
-
-set @p_total=( select COUNT(*)
-				from PUNTO_ZIP.Reserva res,
-				PUNTO_ZIP.Habitacion_Reserva hres,
-				PUNTO_ZIP.Habitacion hab,
-				PUNTO_ZIP.Estadia est,
-				PUNTO_ZIP.Tipo_Habitacion thab
-
-				where	res.Id_Reserva=hres.Id_Reserva
-				and		hres.Habitacion_Nro=hab.Nro
-				and		hres.Habitacion_Piso=hab.Piso
-				and		est.Id_Reserva=res.Id_Reserva
-				and		hres.Id_Hotel=hab.Id_Hotel
-				and		hab.Tipo_Habitacion=thab.Id_Tipo_Habitacion
-				and		thab.Descripcion=@p_tipo_hab
-				and		hres.Id_Hotel=@p_hotel_id
-				and		est.Check_In=@p_fecha_desde
-				and		est.Check_Out=@p_fecha_hasta)
-end
-go
-
-create procedure [PUNTO_ZIP].[sp_room_type_total](
+CREATE PROCEDURE [PUNTO_ZIP].[sp_room_type_total](
 @p_hotel_id int,
 @p_tipo_habitacion varchar(255),
 @p_total int output
 )
-as
-begin
-
-set @p_total = (select distinct COUNT(thab.Id_Tipo_Habitacion)
-					from PUNTO_ZIP.Habitacion hab,
-						PUNTO_ZIP.Tipo_Habitacion thab
-
-					where	hab.Id_Hotel=@p_hotel_id
-					and		hab.Tipo_Habitacion=thab.Id_Tipo_Habitacion
-					and		thab.Descripcion=@p_tipo_habitacion
-					group by thab.Descripcion)
-end
-go
+AS
+BEGIN
+SET @p_total = (SELECT DISTINCT COUNT(thab.th_id) FROM PUNTO_ZIP.HABITACION hab, PUNTO_ZIP.TIPO_HABITACION thab
+					WHERE hab.habi_hotel_id = @p_hotel_id AND hab.habi_tipo_habitacion_id = thab.th_id AND thab.th_descripcion = @p_tipo_habitacion 
+					GROUP BY thab.th_descripcion)
+END
+GO
 
 create procedure [PUNTO_ZIP].[sp_get_reserva](
-
 @p_id_reserva int,
 @p_regimen varchar(255)output,
 @p_fecha_desde datetime output,
@@ -3060,68 +2636,39 @@ create procedure [PUNTO_ZIP].[sp_get_reserva](
 @p_piso_hab int output,
 @p_tipo_hab varchar (255) output
 )
-
-as
-begin
-
-declare @p_id_reserva_aux int
-declare @p_regimen_aux varchar(255)
-declare @p_fecha_desde_aux datetime
-declare @p_estadia_aux int
-declare @p_estado_aux as varchar (255)
-declare @p_nro_hab_aux int
-declare @p_piso_hab_aux int
-declare @p_tipo_hab_aux varchar (255)
-
-
-declare reserva cursor for
-		
-		(select res.Id_Reserva,reg.Descripcion,res.Fecha_Inicio,res.estadia,
-		estr.Descripcion as estado,hres.Habitacion_Nro,hres.Habitacion_Piso,thab.Descripcion
-
-
-
-		from PUNTO_ZIP.Reserva res,
-			PUNTO_ZIP.Habitacion_Reserva hres,
-			PUNTO_ZIP.Estadia est,
-			PUNTO_ZIP.Regimen reg,
-			PUNTO_ZIP.Estado_Reserva estr,
-			PUNTO_ZIP.Habitacion hab,
-			PUNTO_ZIP.Tipo_Habitacion thab
-			
-			
-		where res.Id_Reserva=hres.Id_Reserva
-		and res.Id_Reserva=@p_id_reserva
-		and est.Id_Reserva=res.Id_Reserva
-		and reg.Id_Regimen=res.Tipo_Regimen
-		and estr.Id_Estado=res.Estado
-		and hres.Id_Reserva=res.Id_Reserva
-		and hres.Id_Hotel=hab.Id_Hotel
-		and hres.Habitacion_Nro=hab.Nro
-		and hres.Habitacion_Piso=hab.Piso
-		and hab.Tipo_Habitacion=thab.Id_Tipo_Habitacion)
-
-open reserva
-
-fetch reserva into @p_id_reserva_aux,@p_regimen_aux,@p_fecha_desde_aux,@p_estadia_aux,@p_estado_aux,
-					@p_nro_hab_aux,@p_piso_hab_aux,@p_tipo_hab_aux
-					
-
-		set @p_id_reserva=@p_id_reserva_aux
-		set	@p_regimen=@p_regimen_aux
-		set @p_fecha_desde=@p_fecha_desde_aux
-		set @p_estadia=@p_estadia_aux
-		set @p_estado=@p_estado_aux
-		set @p_nro_hab=@p_nro_hab_aux
-		set @p_piso_hab=@p_piso_hab_aux
-		set @p_tipo_hab=@p_tipo_hab_aux
-
-end
-
-close reserva
-
-deallocate reserva
-go
+AS
+BEGIN
+DECLARE @p_id_reserva_aux int, @p_regimen_aux varchar(255), @p_fecha_desde_aux datetime, @p_estadia_aux int, @p_estado_aux as varchar (255), @p_nro_hab_aux int
+DECLARE @p_tipo_hab_aux varchar(255), @p_piso_hab_aux int
+DECLARE reserva CURSOR FOR
+(SELECT res.rese_id,reg.regi_descripcion,res.rese_fecha_inicio,res.rese_cantidad_noches,estr.esre_descripcion as estado,hres.hr_habitacion_nro,hres.hr_habitacion_piso,thab.th_descripcion
+	FROM PUNTO_ZIP.RESERVA res, PUNTO_ZIP.HABITACION_RESERVA hres, PUNTO_ZIP.ESTADIAS est, PUNTO_ZIP.REGIMENES reg, PUNTO_ZIP.ESTADO_RESERVA estr,
+		PUNTO_ZIP.HABITACION hab, PUNTO_ZIP.TIPO_HABITACION thab
+	WHERE res.rese_id = hres.hr_reserva_id
+	AND res.rese_id = @p_id_reserva
+	AND est.esta_reserva_id = res.rese_id
+	AND reg.regi_id = res.rese_regimen_id
+	AND estr.esre_id = res.rese_estado_reserva_id
+	AND hres.hr_reserva_id = res.rese_id
+	AND hres.hr_hotel_id = hab.habi_hotel_id
+	AND hres.hr_habitacion_nro = hab.habi_nro
+	AND hres.hr_habitacion_piso = hab.habi_piso
+	AND hab.habi_tipo_habitacion_id = thab.th_id
+)
+OPEN reserva
+FETCH reserva INTO @p_id_reserva_aux,@p_regimen_aux,@p_fecha_desde_aux,@p_estadia_aux,@p_estado_aux,@p_nro_hab_aux,@p_piso_hab_aux,@p_tipo_hab_aux	
+		SET @p_id_reserva = @p_id_reserva_aux
+		SET	@p_regimen = @p_regimen_aux
+		SET @p_fecha_desde = @p_fecha_desde_aux
+		SET @p_estadia = @p_estadia_aux
+		SET @p_estado = @p_estado_aux
+		SET @p_nro_hab = @p_nro_hab_aux
+		SET @p_piso_hab = @p_piso_hab_aux
+		SET @p_tipo_hab = @p_tipo_hab_aux
+END
+CLOSE reserva
+DEALLOCATE reserva
+GO
 
 CREATE FUNCTION PUNTO_ZIP.check_availability(
 @p_hotel_id as int,
@@ -3130,79 +2677,68 @@ CREATE FUNCTION PUNTO_ZIP.check_availability(
 @p_checkin as datetime,
 @p_stay as int
 )
-
 RETURNS INT
 BEGIN
-	Declare @p_availability int
-	
+	DECLARE @p_availability int
 	SET @p_availability = 1
-	Declare @checkin datetime = CAST(@p_checkin AS DATE) 
-	Declare @possible_check_out datetime = CAST(DATEADD(DAY,@p_stay,@checkin) AS DATE)
-	
+	DECLARE @checkin datetime = CAST(@p_checkin AS DATE) 
+	DECLARE @possible_check_out datetime = CAST(DATEADD(DAY,@p_stay,@checkin) AS DATE)
 	--CHEQUEO SI EL HOTEL ESTE NO DISPONIBLE EN ESAS FECHAS
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Historial_Baja_Hotel hbh
-		WHERE hbh.Id_Hotel = @p_hotel_id
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.HISTORIAL_BAJA_HOTEL hbh WHERE hbh.hbh_hotel_id = @p_hotel_id 
 		AND (
-			(hbh.Fecha_Inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
-			OR (hbh.Fecha_Fin BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
+			(hbh.hbh_fecha_inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
+			OR (hbh.hbh_fecha_fin BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
 		)
 	)
 	BEGIN
 		SET @p_availability = 0
 		return @p_availability
 	END
-	
 	--CHEQUEO SI LA HABITACION ESTE NO DISPONIBLE EN ESAS FECHAS
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Historial_Baja_Habitacion hbha
-		WHERE hbha.Id_Hotel = @p_hotel_id
-			AND hbha.Habitacion_Piso = @p_floor_id
-			AND hbha.Habitacion_Nro = @p_room_id
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.HISTORIAL_BAJA_HABITACION hbha WHERE hbha.hbha_hotel_id = @p_hotel_id AND hbha.hbha_habitacion_piso = @p_floor_id
+			AND hbha_habitacion_nro = @p_room_id
 			AND (
-				(hbha.Fecha_Inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
-				OR (hbha.Fecha_Fin BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
+				(hbha.hbha_fecha_inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
+				OR (hbha.hbha_fecha_fin BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
 			)
 	)
 	BEGIN
 		SET @p_availability = 0
 		return @p_availability
 	END
-	
 	--CHEQUEO QUE NO HAYA UNA RESERVA PARA LA HABITACION EN ESOS DIAS Y NO HAYA HECHO CHECKIN
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
-		INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-			ON hr.Id_Reserva = r.Id_Reserva
-		WHERE hr.Id_Hotel = @p_hotel_id
-			AND hr.Habitacion_Piso = @p_floor_id
-			AND hr.Habitacion_Nro = @p_room_id
-			AND NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
-				WHERE e.Id_Reserva = r.Id_Reserva)
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.RESERVA r
+		INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr
+			ON hr.hr_reserva_id = r.rese_id
+		WHERE hr.hr_hotel_id = @p_hotel_id
+			AND hr.hr_habitacion_piso = @p_floor_id
+			AND hr.hr_habitacion_nro = @p_room_id
+			AND NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e
+				WHERE e.esta_reserva_id = r.rese_id)
 			AND (
-				(r.Fecha_Inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
-				OR (CAST(DATEADD(DAY, r.Estadia, r.Fecha_Inicio) AS DATE) BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
+				(r.rese_fecha_inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
+				OR (CAST(DATEADD(DAY, r.rese_cantidad_noches, r.rese_fecha_inicio) AS DATE) BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
 			)
 	)
 	BEGIN
 		SET @p_availability = 0
 		return @p_availability
 	END
-	
 	--CHEQUEO QUE NO HAYA UNA RESERVA PARA LA HABITACION EN ESOS DIAS Y YA HAYA HECHO CHECKIN
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
-		INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-			ON hr.Id_Reserva = r.Id_Reserva
-		WHERE hr.Id_Hotel = @p_hotel_id
-			AND hr.Habitacion_Piso = @p_floor_id
-			AND hr.Habitacion_Nro = @p_room_id
-			AND EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
-				WHERE e.Id_Reserva = r.Id_Reserva
-				 AND e.Check_In BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out
-				 AND (e.Check_Out IS NOT NULL AND e.Check_Out BETWEEN @checkin AND DATEADD(DAY, 1,@possible_check_out)))
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.RESERVA r
+		INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr
+			ON hr.hr_reserva_id = r.rese_id
+		WHERE hr.hr_hotel_id = @p_hotel_id
+			AND hr.hr_habitacion_piso = @p_floor_id
+			AND hr.hr_habitacion_nro = @p_room_id
+			AND EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e WHERE e.esta_reserva_id = r.rese_id
+				 AND e.esta_check_in BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out
+				 AND (e.esta_check_out IS NOT NULL AND e.esta_check_out BETWEEN @checkin AND DATEADD(DAY, 1,@possible_check_out)))
 	)
 	BEGIN
 		SET @p_availability = 0
 		return @p_availability
 	END
-	
 	RETURN @p_availability
 END
 GO
@@ -3216,64 +2752,50 @@ CREATE PROCEDURE PUNTO_ZIP.sp_check_hotel_availability(
 AS
 BEGIN
 	SET @p_availability = 1
-	Declare @checkin datetime = CAST(@p_checkin AS DATE) 
-	Declare @possible_check_out datetime = CAST(DATEADD(DAY,@p_stay,@checkin) AS DATE)
-	
+	DECLARE @checkin datetime = CAST(@p_checkin AS DATE) 
+	DECLARE @possible_check_out datetime = CAST(DATEADD(DAY,@p_stay,@checkin) AS DATE)
 	--CHEQUEO SI EL HOTEL ESTE NO DISPONIBLE EN ESAS FECHAS
-	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Historial_Baja_Hotel hbh
-		WHERE hbh.Id_Hotel = @p_hotel_id
+	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.HISTORIAL_BAJA_HOTEL hbh
+		WHERE hbh.hbh_hotel_id = @p_hotel_id
 		AND (
-			(hbh.Fecha_Inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
-			OR (hbh.Fecha_Fin BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
+			(hbh.hbh_fecha_inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
+			OR (hbh.hbh_fecha_fin BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
 		)
 	)
 	BEGIN
 		SET @p_availability = 0
 		return;
 	END
-	
-	
-	IF NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.Habitacion h
-		WHERE h.Id_Hotel = @p_hotel_id
-		AND
-		(
-			--CHEQUEO SI LA HABITACION ESTE NO DISPONIBLE EN ESAS FECHAS
-			NOT EXISTS(SELECT 1 FROM PUNTO_ZIP.Historial_Baja_Habitacion hbha
-				WHERE hbha.Id_Hotel = h.Id_Hotel
-				AND hbha.Habitacion_Piso = h.Piso
-				AND hbha.Habitacion_Nro = h.Nro
+	IF NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.HABITACION h WHERE h.habi_hotel_id = @p_hotel_id AND
+		(--CHEQUEO SI LA HABITACION ESTE NO DISPONIBLE EN ESAS FECHAS
+			NOT EXISTS(SELECT 1 FROM PUNTO_ZIP.HISTORIAL_BAJA_HABITACION hbha
+				WHERE hbha.hbha_hotel_id = h.habi_hotel_id
+				AND hbha.hbha_habitacion_piso = h.habi_piso
+				AND hbha.hbha_habitacion_nro = h.habi_nro
 				AND (
-					(hbha.Fecha_Inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
-				OR (hbha.Fecha_Fin BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
+					(hbha.hbha_fecha_inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
+				OR (hbha.hbha_fecha_fin BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
 				)
 			) 
 		) OR (
 			--CHEQUEO QUE NO HAYA UNA RESERVA PARA LA HABITACION EN ESOS DIAS Y NO HAYA HECHO CHECKIN
-			NOT EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
-				INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-					ON hr.Id_Reserva = r.Id_Reserva
-				WHERE hr.Id_Hotel = h.Id_Hotel
-				AND hr.Habitacion_Piso = h.Piso
-				AND hr.Habitacion_Nro = h.Nro
-				AND NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
-					WHERE e.Id_Reserva = r.Id_Reserva)
+			NOT EXISTS(SELECT 1 FROM PUNTO_ZIP.RESERVA r INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON hr.hr_reserva_id = r.rese_id
+				WHERE hr.hr_hotel_id = h.habi_hotel_id
+				AND hr.hr_habitacion_piso = h.habi_piso
+				AND hr.hr_habitacion_nro = h.habi_nro
+				AND NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e WHERE e.esta_reserva_id = r.rese_id)
 				AND (
-					(r.Fecha_Inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
-					OR (CAST(DATEADD(DAY, r.Estadia, r.Fecha_Inicio) AS DATE) BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
+					(r.rese_fecha_inicio BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out)
+					OR (CAST(DATEADD(DAY, r.rese_cantidad_noches, r.rese_fecha_inicio) AS DATE) BETWEEN @checkin AND DATEADD(DAY, 1, @possible_check_out))
 				)
 			)
 		) OR (
 			--CHEQUEO QUE NO HAYA UNA RESERVA PARA LA HABITACION EN ESOS DIAS Y YA HAYA HECHO CHECKIN
-			NOT EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
-				INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
-					ON hr.Id_Reserva = r.Id_Reserva
-				WHERE hr.Id_Hotel = h.Id_Hotel
-				AND hr.Habitacion_Piso = h.Piso
-				AND hr.Habitacion_Nro = h.Nro
-				AND EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
-					WHERE e.Id_Reserva = r.Id_Reserva
-					AND e.Check_In BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out
-					AND (e.Check_Out IS NOT NULL AND e.Check_Out BETWEEN @checkin AND DATEADD(DAY, 1,@possible_check_out)))
+			NOT EXISTS(SELECT 1 FROM PUNTO_ZIP.RESERVA r INNER JOIN PUNTO_ZIP.HABITACION_RESERVA hr ON hr.hr_reserva_id = r.rese_id
+				WHERE hr.hr_hotel_id = h.habi_hotel_id AND hr.hr_habitacion_piso = h.habi_piso AND hr.hr_habitacion_nro = h.habi_nro
+				AND EXISTS (SELECT 1 FROM PUNTO_ZIP.ESTADIAS e WHERE e.esta_reserva_id = r.rese_id
+					AND e.esta_check_in BETWEEN DATEADD(DAY, -1, @checkin) AND @possible_check_out
+					AND (e.esta_check_out IS NOT NULL AND e.esta_check_out BETWEEN @checkin AND DATEADD(DAY, 1,@possible_check_out)))
 			)
 		)
 	)
@@ -3281,7 +2803,7 @@ BEGIN
 END
 GO
  		
-create procedure [PUNTO_ZIP].[sp_assign_room](
+CREATE PROCEDURE [PUNTO_ZIP].[sp_assign_room](
 @p_hotel_id as int,
 @p_id_usuario as varchar (20),
 @p_client_id as int,
@@ -3292,67 +2814,47 @@ create procedure [PUNTO_ZIP].[sp_assign_room](
 @p_regimen as varchar (255),
 @p_update as bit
 )
-
-as
-begin
-
-Declare @nroHabitacion int = null
-Declare @nroPiso int = null
-Declare @nroHotel int = null
-Declare @idTipoHabitacion int --PARAMETRO DE ENTRADA
-
-SELECT TOP 1 @nroHabitacion = h.Nro, @nroPiso = h.Piso, @nroHotel = h.Id_Hotel 
-	FROM PUNTO_ZIP.Habitacion h
-	INNER JOIN PUNTO_ZIP.Tipo_Habitacion tp
-		ON h.Tipo_Habitacion = tp.Id_Tipo_Habitacion
-	WHERE h.Id_Hotel = @p_hotel_id
-	AND tp.Id_Tipo_Habitacion = (select thab.Id_Tipo_Habitacion
-									from PUNTO_ZIP.Tipo_Habitacion thab
-									where @p_tipo_habitacion=thab.Descripcion)
-	AND PUNTO_ZIP.check_availability (h.Id_Hotel ,h.Piso,h.Nro ,
-			@p_checkin,@p_stay) = 1
-			
+AS
+BEGIN
+DECLARE @nroHabitacion int = null
+DECLARE @nroPiso int = null
+DECLARE @nroHotel int = null
+DECLARE @idTipoHabitacion int --PARAMETRO DE ENTRADA
+DECLARE @user_id int
+SET @user_id = (SELECT usu_id FROM PUNTO_ZIP.USUARIOS WHERE usu_username = @p_id_usuario)
+SELECT TOP 1 @nroHabitacion = h.habi_nro, @nroPiso = h.habi_piso, @nroHotel = h.habi_hotel_id 
+	FROM PUNTO_ZIP.HABITACION h
+	INNER JOIN PUNTO_ZIP.TIPO_HABITACION tp
+		ON h.habi_tipo_habitacion_id = tp.th_id
+	WHERE h.habi_hotel_id = @p_hotel_id
+	AND tp.th_id = (SELECT thab.th_id FROM PUNTO_ZIP.TIPO_HABITACION thab WHERE @p_tipo_habitacion = thab.th_descripcion)
+	AND PUNTO_ZIP.check_availability (h.habi_hotel_id ,h.habi_piso,h.habi_nro , @p_checkin,@p_stay) = 1	
 	BEGIN TRANSACTION
 	IF (@nroHabitacion IS NOT NULL)
 	BEGIN
-		Declare @estado int
-		Declare @idReserva int
-		SELECT @estado = Id_Estado FROM PUNTO_ZIP.Estado_Reserva
-			WHERE UPPER(Descripcion) = UPPER('Reserva Correcta')
-		if (@p_update=0)
-		begin
-			INSERT INTO PUNTO_ZIP.Reserva (Fecha_Inicio, Estadia, Tipo_Regimen, Estado, Id_Usuario)
-			VALUES (@p_checkin, @p_stay, (select reg.Id_Regimen
-											from PUNTO_ZIP.Regimen reg
-											where @p_regimen=reg.Descripcion)
-					, @estado, @p_id_usuario)
-			SET @idReserva = @@IDENTITY --EL NUMERO DE RESERVA QUE GENERA
-			
-			INSERT INTO PUNTO_ZIP.Habitacion_Reserva (Id_Hotel, Id_Reserva, Habitacion_Nro, Habitacion_Piso)
-			VALUES (@nroHotel, @idReserva, @nroHabitacion, @nroPiso)
-		end
-		
-		else
-		begin
-			update PUNTO_ZIP.Reserva
-			set Fecha_Inicio=@p_checkin,Estadia=@p_stay,
-			Tipo_Regimen=(select reg.Id_Regimen	from PUNTO_ZIP.Regimen reg
-					where reg.Descripcion=@p_regimen),
-					Estado=(select est.Id_Estado
-							from PUNTO_ZIP.Estado_Reserva est
-							where UPPER(est.Descripcion)=UPPER('Reserva Modificada')),
-							Id_Usuario = @p_id_usuario
-			where PUNTO_ZIP.Reserva.Id_Reserva=@p_id_reserva
-			
-			update PUNTO_ZIP.Habitacion_Reserva
-			set Id_Hotel=@p_hotel_id,
-				Habitacion_Nro=@nroHabitacion,
-				Habitacion_Piso=@nroPiso
-			where Id_Reserva=@p_id_reserva
-		end
-			
+		DECLARE @estado int
+		DECLARE @idReserva int
+		SELECT @estado = esre_id FROM PUNTO_ZIP.ESTADO_RESERVA WHERE UPPER(esre_descripcion) = UPPER('Reserva Correcta')
+		IF (@p_update = 0)
+			BEGIN
+				INSERT INTO PUNTO_ZIP.RESERVA (rese_fecha_inicio, rese_cantidad_noches, rese_regimen_id, rese_estado_reserva_id, rese_usuario_id)
+				VALUES (@p_checkin, @p_stay, (SELECT reg.regi_id FROM PUNTO_ZIP.REGIMENES reg WHERE @p_regimen = reg.regi_descripcion), @estado, @user_id)
+				SET @idReserva = @@IDENTITY --EL NUMERO DE RESERVA QUE GENERA
+				INSERT INTO PUNTO_ZIP.HABITACION_RESERVA (hr_hotel_id, hr_reserva_id, hr_habitacion_nro, hr_habitacion_piso)
+				VALUES (@nroHotel, @idReserva, @nroHabitacion, @nroPiso)
+			END
+		ELSE
+			BEGIN
+				UPDATE PUNTO_ZIP.RESERVA set rese_fecha_inicio = @p_checkin, rese_cantidad_noches = @p_stay, 
+				rese_regimen_id =(SELECT reg.regi_id FROM PUNTO_ZIP.REGIMENES reg WHERE reg.regi_descripcion = @p_regimen),
+				rese_estado_reserva_id = (SELECT est.esre_id FROM PUNTO_ZIP.ESTADO_RESERVA est WHERE UPPER(est.esre_descripcion) = UPPER('Reserva Modificada')), 
+				rese_usuario_id = @user_id
+				WHERE PUNTO_ZIP.RESERVA.rese_id = @p_id_reserva
+				
+				UPDATE PUNTO_ZIP.HABITACION_RESERVA SET hr_hotel_id = @p_hotel_id, hr_habitacion_nro = @nroHabitacion, hr_habitacion_piso = @nroPiso 
+				WHERE hr_reserva_id = @p_id_reserva
+			END
 	END
-	
 	COMMIT TRANSACTION
-end
+END
 GO
