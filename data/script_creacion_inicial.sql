@@ -1934,7 +1934,7 @@ END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_close_period_valid](
-@p_user_id int,
+@p_user_id varchar(255),
 @p_hotel_id int,
 @p_hotel_close_period_from datetime,
 @p_hotel_close_period_to datetime,
