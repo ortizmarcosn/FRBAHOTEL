@@ -114,6 +114,8 @@ namespace WindowsFormsApplication2.Facturar_Estadias
             command.Parameters.AddWithValue("@p_charge_stay_client_id", clientId);
             command.Parameters.AddWithValue("@p_charge_stay_number_card", numberCard);
             command.Parameters.AddWithValue("@p_charge_stay_type_pay", typePay);
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
 
             ProcedureHelper.execute(command, "set charge", false);
         }

@@ -54,6 +54,8 @@ namespace WindowsFormsApplication2.ABM_de_Hotel
             command.Parameters["@p_hotel_id"].Value = hotelId;
             command.Parameters.Add(new SqlParameter("@p_regimen_id", SqlDbType.Int));
             command.Parameters["@p_regimen_id"].Value = regimenId;
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
             var returnParameterRemoveOk = command.Parameters.Add(new SqlParameter("@p_remove_ok", SqlDbType.Int));
             returnParameterRemoveOk.Direction = ParameterDirection.InputOutput;
 

@@ -24,6 +24,9 @@ namespace WindowsFormsApplication2.Cancelar_Reserva
             command.Parameters.Add(new SqlParameter("@p_cancelacion_reserva_lastname", SqlDbType.VarChar, 255));
             command.Parameters["@p_cancelacion_reserva_lastname"].Value = lastname;
 
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
+
             if (VarGlobal.usuario.hotel != 0)
             {
                 Int32 hotelId = VarGlobal.usuario.hotel;
@@ -48,6 +51,9 @@ namespace WindowsFormsApplication2.Cancelar_Reserva
             command.Parameters.Add(new SqlParameter("@p_user_name", SqlDbType.VarChar, 255));
             String user = VarGlobal.usuario.id;
             command.Parameters["@p_user_name"].Value = user;
+
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
 
             ProcedureHelper.execute(command, "Se dio de baja la reserva n°: "+ bookingId, true);
         }
