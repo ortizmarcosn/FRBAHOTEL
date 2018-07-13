@@ -2835,7 +2835,7 @@ BEGIN
 		WHERE e.Id_Estadia = @p_charge_stay_stay_id
 
 	Declare @consumable int = 0
-	SELECT @consumable = SUM(cr.Cantidad * c.precio)
+	SELECT @consumable = ISNULL(SUM(cr.Cantidad * c.precio),0)
 		FROM PUNTO_ZIP.Estadia e
 		INNER JOIN PUNTO_ZIP.Consumible_Reserva cr
 			ON cr.Id_Estadia = e.Id_Estadia
