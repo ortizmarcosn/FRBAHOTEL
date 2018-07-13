@@ -64,6 +64,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             DataGridViewHelper.fill(command, dgvReserva);
         }
 
+
         public static int search_occupied(Reserva reserva)
         {
             SqlCommand command = new SqlCommand();
@@ -115,6 +116,20 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             returnParameter_availability.Direction = ParameterDirection.Output;
             ProcedureHelper.execute(command, "chequear total habitaciones de un tipo", false);
             int availability = Convert.ToInt16(returnParameter_availability.Value);
+            return availability;
+        }
+
+        public static int search_hotel_by_reserva(int nroReserva)
+        {
+            SqlCommand command = new SqlCommand();
+            command.CommandText = "PUNTO_ZIP.sp_get_hotel_by_booking";
+
+            command.Parameters.Add(new SqlParameter("@p_reserva", SqlDbType.Int));
+            command.Parameters["@p_reserva"].Value = nroReserva;
+            var returnParameter_hotel = command.Parameters.Add(new SqlParameter("@p_hotel_id", SqlDbType.Int));
+            returnParameter_hotel.Direction = ParameterDirection.Output;
+            ProcedureHelper.execute(command, "obtener hotel por la reserva", false);
+            int availability = Convert.ToInt16(returnParameter_hotel.Value);
             return availability;
         }
 

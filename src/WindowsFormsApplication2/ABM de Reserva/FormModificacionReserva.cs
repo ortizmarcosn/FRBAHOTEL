@@ -23,6 +23,17 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
+            Boolean isValid = Validaciones.validAndRequiredInt32(txtIdReserva.Text, "El numero de la reserva es obligatorio y numerico");
+            if (!isValid)
+            {
+                return;
+            }
+
+            if (VarGlobal.usuario.hotel == 0)
+            {
+                VarGlobal.usuario.hotel = ReservaHelper.search_hotel_by_reserva(Convert.ToInt32(txtIdReserva.Text));
+            }
+
             ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
             ReservaHelper.search_tipo_hab(VarGlobal.usuario.hotel, dgvTipoHabitacion);
 
