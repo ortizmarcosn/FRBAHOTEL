@@ -242,6 +242,10 @@ DROP PROCEDURE PUNTO_ZIP.sp_check_hotel_availability
 IF OBJECT_ID('PUNTO_ZIP.sp_assign_room') IS NOT NULL
 DROP PROCEDURE PUNTO_ZIP.sp_assign_room
 
+IF OBJECT_ID('PUNTO_ZIP.sp_get_hotel_by_booking') IS NOT NULL
+DROP PROCEDURE PUNTO_ZIP.sp_get_hotel_by_booking
+
+
 -- TABLAS
 IF OBJECT_ID('PUNTO_ZIP.Datos_Usuario') IS NOT NULL
 DROP TABLE PUNTO_ZIP.Datos_Usuario
@@ -3449,3 +3453,15 @@ SELECT TOP 1 @nroHabitacion = h.Nro, @nroPiso = h.Piso, @nroHotel = h.Id_Hotel
 	COMMIT TRANSACTION
 end
 GO
+
+create procedure [PUNTO_ZIP].[sp_get_hotel_by_booking](
+@p_reserva int,
+@p_hotel_id int output
+)
+as
+begin
+
+set @p_reserva = (SELECT Id_Hotel FROM PUNTO_ZIP.Habitacion_Reserva WHERE Id_Reserva = @p_reserva)
+
+end
+go
