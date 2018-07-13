@@ -178,7 +178,16 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
             ProcedureHelper.execute(command, "buscar reserva", false);
             reserva.tipo_regimen = Convert.ToString(command.Parameters["@p_regimen"].Value);
-            reserva.fecha_inicio = Convert.ToDateTime(command.Parameters["@p_fecha_desde"].Value);
+            if (command.Parameters["@p_fecha_desde"].Value == DBNull.Value)
+            {
+                MessageBox.Show("No se encontraron los datos de la reserva seleccionada");
+                return;
+            }
+            else
+            {
+                reserva.fecha_inicio = Convert.ToDateTime(command.Parameters["@p_fecha_desde"].Value);
+            }
+            
             reserva.estadia = Convert.ToInt16(command.Parameters["@p_estadia"].Value);
             reserva.estado = Convert.ToString(command.Parameters["@p_estado"].Value);
             reserva.piso_hab  = Convert.ToInt16(command.Parameters["@p_piso_hab"].Value);
@@ -215,11 +224,11 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             var retorno = ProcedureHelper.execute(command, "update reserva", false);
             if (retorno == -1)
             {
-                MessageBox.Show("Los cambios no se pudieron almacenar.");
+                MessageBox.Show("No se pudo actualizar la reserva para las fechas seleccionadas y habitacion seleccionada");
             }
             else
             {
-                MessageBox.Show("Los cambios fueron guardados.");
+                MessageBox.Show("La reserva fue actualizada con exito");
             }
             
 

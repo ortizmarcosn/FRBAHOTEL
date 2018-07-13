@@ -26,6 +26,10 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             buttonGuardar.Enabled = false;
             dtFechaDesde.Enabled = false;
             dtFechaHasta.Enabled = false;
+            dgvRegimen.DataSource = null;
+            dgvRegimen.Refresh();
+            dgvTipoHabitacion.DataSource = null;
+            dgvTipoHabitacion.Refresh();
 
             Boolean isValid = Validaciones.validAndRequiredInt32(txtIdReserva.Text, "El numero de la reserva es obligatorio y numerico");
             if (!isValid)
@@ -52,21 +56,31 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 return;
             }
             
-                
+
+            Reserva reserva = this.getDataToSearch();
+            ReservaHelper.search_reserva(reserva);
+
+            if (reserva.fecha_inicio <= VarGlobal.FechaHoraSistema)
+            {
+
+                MessageBox.Show("Ya paso el plazo para modificar esta reserva con fecha de inicio: " + reserva.fecha_inicio.Date.ToShortDateString() + ". Hoy es: " + VarGlobal.FechaHoraSistema.Date.ToShortDateString());
+                return;
+
+            }
 
             ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
             ReservaHelper.search_tipo_hab(VarGlobal.usuario.hotel, dgvTipoHabitacion);
 
-            Reserva reserva = this.getDataToSearch();
-            ReservaHelper.search_reserva(reserva);
             dtFechaDesde.Value = reserva.fecha_inicio;
             dtFechaHasta.Value = dtFechaDesde.Value.AddDays(reserva.estadia);
+
 
             for (int i = 0; i < dgvRegimen.RowCount; i++)
             {
                 if (dgvRegimen.Rows[i].Cells[0].Value.ToString() == reserva.tipo_regimen)
                 {
                     dgvRegimen.Rows[i].Selected = true;
+                    this.dgvRegimen.CurrentCell = this.dgvRegimen.Rows[i].Cells[0];
 
                 }
                 else
@@ -82,6 +96,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 if (dgvTipoHabitacion.Rows[i].Cells[0].Value.ToString() == reserva.tipo_habitacion)
                 {
                     dgvTipoHabitacion.Rows[i].Selected = true;
+                    this.dgvTipoHabitacion.CurrentCell = this.dgvTipoHabitacion.Rows[i].Cells[0];
 
                 }
                 else
@@ -92,6 +107,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                     }
                 }
             }
+
 
             buttonGuardar.Enabled = true;
             dtFechaDesde.Enabled = true;
@@ -111,6 +127,17 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
             Reserva reserva = this.getDataFromForm();
+            if (dtFechaDesde.Value >= dtFechaHasta.Value)
+            {
+                MessageBox.Show("La fecha de ingreso debe ser menor a la de salida");
+                return;
+            }
+            if (dtFechaDesde.Value < VarGlobal.FechaHoraSistema)
+            {
+                MessageBox.Show("La fecha de ingreso no puede ser menor a HOY: " + VarGlobal.FechaHoraSistema.Date.ToShortDateString());
+                return;
+            }
+
             ReservaHelper.update_reserva(reserva);
         }
 
@@ -137,6 +164,10 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             buttonGuardar.Enabled = false;
             dtFechaDesde.Enabled = false;
             dtFechaHasta.Enabled = false;
+            dgvRegimen.Rows.Clear();
+            dgvRegimen.Refresh();
+            dgvTipoHabitacion.Rows.Clear();
+            dgvTipoHabitacion.Refresh();
         }
     }
 }

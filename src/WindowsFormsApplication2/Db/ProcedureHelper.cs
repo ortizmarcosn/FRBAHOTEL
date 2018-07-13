@@ -46,6 +46,8 @@ namespace WindowsFormsApplication2
                 {
                     if (!(cmdIdentity.ExecuteScalar() is DBNull))
                         identity = Convert.ToInt32(cmdIdentity.ExecuteScalar());
+                    else
+                        identity = 1;
                 }
             }
 
