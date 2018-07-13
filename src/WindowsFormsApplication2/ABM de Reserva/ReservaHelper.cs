@@ -129,8 +129,11 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             var returnParameter_hotel = command.Parameters.Add(new SqlParameter("@p_hotel_id", SqlDbType.Int));
             returnParameter_hotel.Direction = ParameterDirection.Output;
             ProcedureHelper.execute(command, "obtener hotel por la reserva", false);
-            int availability = Convert.ToInt16(returnParameter_hotel.Value);
-            return availability;
+
+            if (returnParameter_hotel.Value != DBNull.Value)
+                return Convert.ToInt16(returnParameter_hotel.Value);
+            else
+                return 0;
         }
 
         public static void search_reserva(Reserva reserva)

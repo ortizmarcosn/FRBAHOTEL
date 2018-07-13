@@ -23,16 +23,26 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
+            buttonGuardar.Enabled = false;
+            dtFechaDesde.Enabled = false;
+            dtFechaHasta.Enabled = false;
+
             Boolean isValid = Validaciones.validAndRequiredInt32(txtIdReserva.Text, "El numero de la reserva es obligatorio y numerico");
             if (!isValid)
             {
                 return;
             }
 
-            if (VarGlobal.usuario.hotel == 0)
+            if (VarGlobal.usuario.id == "guest")
             {
                 VarGlobal.usuario.hotel = ReservaHelper.search_hotel_by_reserva(Convert.ToInt32(txtIdReserva.Text));
             }
+            if (VarGlobal.usuario.hotel == 0)
+            {
+                MessageBox.Show("El numero de reserva no existe");
+                return;
+            }
+                
 
             ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
             ReservaHelper.search_tipo_hab(VarGlobal.usuario.hotel, dgvTipoHabitacion);
@@ -73,6 +83,10 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 }
             }
 
+            buttonGuardar.Enabled = true;
+            dtFechaDesde.Enabled = true;
+            dtFechaHasta.Enabled = true;
+
         }
 
         private Reserva getDataToSearch()
@@ -109,7 +123,9 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
         private void FormModificacionReserva_Load(object sender, EventArgs e)
         {
-
+            buttonGuardar.Enabled = false;
+            dtFechaDesde.Enabled = false;
+            dtFechaHasta.Enabled = false;
         }
     }
 }
