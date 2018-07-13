@@ -37,11 +37,21 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             {
                 VarGlobal.usuario.hotel = reservaHotel;
             }
+            else
+            {
+                if (reservaHotel != VarGlobal.usuario.hotel)
+                {
+                    MessageBox.Show("El numero de reserva no pertenece a este hotel");
+                    return;
+                }
+            }
+
             if (reservaHotel == 0)
             {
                 MessageBox.Show("El numero de reserva no existe");
                 return;
             }
+            
                 
 
             ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);

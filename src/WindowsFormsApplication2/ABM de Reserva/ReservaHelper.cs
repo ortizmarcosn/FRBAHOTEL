@@ -212,9 +212,16 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             command.Parameters.Add(new SqlParameter("@p_update", SqlDbType.Bit));
             command.Parameters["@p_update"].Value = 1;
 
-            ProcedureHelper.execute(command, "update reserva", false);
-
-            MessageBox.Show("Los cambios fueron guardados");
+            var retorno = ProcedureHelper.execute(command, "update reserva", false);
+            if (retorno == -1)
+            {
+                MessageBox.Show("Los cambios no se pudieron almacenar.");
+            }
+            else
+            {
+                MessageBox.Show("Los cambios fueron guardados.");
+            }
+            
 
         }
 
