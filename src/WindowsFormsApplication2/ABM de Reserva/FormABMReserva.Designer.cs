@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormABMReserva));
             this.buttonModify = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonCreate = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
             this.dgvReserva = new System.Windows.Forms.DataGridView();
@@ -41,34 +41,26 @@
             this.lblNroreserva = new System.Windows.Forms.Label();
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.imgHotelReserva = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReserva)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgHotelReserva)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonModify
             // 
             this.buttonModify.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonModify.Location = new System.Drawing.Point(306, 331);
+            this.buttonModify.Location = new System.Drawing.Point(293, 331);
             this.buttonModify.Name = "buttonModify";
-            this.buttonModify.Size = new System.Drawing.Size(114, 46);
+            this.buttonModify.Size = new System.Drawing.Size(131, 46);
             this.buttonModify.TabIndex = 30;
-            this.buttonModify.Text = "Modificar Reserva";
+            this.buttonModify.Text = "Modificar una Reserva";
             this.buttonModify.UseVisualStyleBackColor = true;
             this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDelete.Location = new System.Drawing.Point(473, 331);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(97, 46);
-            this.buttonDelete.TabIndex = 29;
-            this.buttonDelete.Text = "Baja Reserva";
-            this.buttonDelete.UseVisualStyleBackColor = true;
             // 
             // buttonCreate
             // 
             this.buttonCreate.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCreate.Location = new System.Drawing.Point(137, 331);
+            this.buttonCreate.Location = new System.Drawing.Point(442, 331);
             this.buttonCreate.Name = "buttonCreate";
             this.buttonCreate.Size = new System.Drawing.Size(128, 46);
             this.buttonCreate.TabIndex = 28;
@@ -79,9 +71,9 @@
             // buttonBack
             // 
             this.buttonBack.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBack.Location = new System.Drawing.Point(475, 123);
+            this.buttonBack.Location = new System.Drawing.Point(49, 331);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(95, 34);
+            this.buttonBack.Size = new System.Drawing.Size(95, 46);
             this.buttonBack.TabIndex = 27;
             this.buttonBack.Text = "Volver";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -99,7 +91,7 @@
             // buttonSearch
             // 
             this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSearch.Location = new System.Drawing.Point(137, 120);
+            this.buttonSearch.Location = new System.Drawing.Point(471, 123);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(99, 37);
             this.buttonSearch.TabIndex = 25;
@@ -110,9 +102,9 @@
             // buttonClean
             // 
             this.buttonClean.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClean.Location = new System.Drawing.Point(306, 127);
+            this.buttonClean.Location = new System.Drawing.Point(350, 123);
             this.buttonClean.Name = "buttonClean";
-            this.buttonClean.Size = new System.Drawing.Size(95, 30);
+            this.buttonClean.Size = new System.Drawing.Size(103, 37);
             this.buttonClean.TabIndex = 24;
             this.buttonClean.Text = "Limpiar";
             this.buttonClean.UseVisualStyleBackColor = true;
@@ -169,18 +161,29 @@
             this.label1.TabIndex = 34;
             this.label1.Text = "Apellido";
             // 
+            // imgHotelReserva
+            // 
+            this.imgHotelReserva.Image = ((System.Drawing.Image)(resources.GetObject("imgHotelReserva.Image")));
+            this.imgHotelReserva.Location = new System.Drawing.Point(49, 20);
+            this.imgHotelReserva.Name = "imgHotelReserva";
+            this.imgHotelReserva.Size = new System.Drawing.Size(521, 292);
+            this.imgHotelReserva.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgHotelReserva.TabIndex = 35;
+            this.imgHotelReserva.TabStop = false;
+            this.imgHotelReserva.Visible = false;
+            // 
             // FormABMReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(615, 395);
+            this.Controls.Add(this.imgHotelReserva);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtApellido);
             this.Controls.Add(this.TxtNroReserva);
             this.Controls.Add(this.lblNroreserva);
             this.Controls.Add(this.buttonModify);
-            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonCreate);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.dgvReserva);
@@ -189,9 +192,10 @@
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblCliente);
             this.Name = "FormABMReserva";
-            this.Text = "Form1";
+            this.Text = "Generar o Modificar Reservas";
             this.Load += new System.EventHandler(this.FormABMReserva_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReserva)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgHotelReserva)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,7 +204,6 @@
         #endregion
 
         private System.Windows.Forms.Button buttonModify;
-        private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonCreate;
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.DataGridView dgvReserva;
@@ -212,5 +215,6 @@
         private System.Windows.Forms.Label lblNroreserva;
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox imgHotelReserva;
     }
 }

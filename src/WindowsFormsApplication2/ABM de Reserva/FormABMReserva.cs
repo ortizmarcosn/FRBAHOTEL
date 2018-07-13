@@ -21,8 +21,18 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             this.ControlBox = false;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
-            Reserva reserva = this.getDataToSearch();
-            ReservaHelper.search(reserva, dgvReserva);
+            //Reserva reserva = this.getDataToSearch();
+            //ReservaHelper.search(reserva, dgvReserva);
+            if (VarGlobal.usuario.id == "guest")
+            {
+                imgHotelReserva.Visible = true;
+                buttonSearch.Enabled = false;
+            }
+            else
+            {
+                imgHotelReserva.Visible = false;
+                buttonSearch.Enabled = true;
+            }
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -40,7 +50,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
         }
 
         private Reserva getDataToSearch()
-        {
+        {   
             Reserva reserva = new Reserva();
             reserva.nombre = txtNombre.Text;
             reserva.apellido = txtApellido.Text;
