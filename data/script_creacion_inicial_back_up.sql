@@ -245,6 +245,8 @@ DROP PROCEDURE PUNTO_ZIP.sp_assign_room
 IF OBJECT_ID('PUNTO_ZIP.sp_get_hotel_by_booking') IS NOT NULL
 DROP PROCEDURE PUNTO_ZIP.sp_get_hotel_by_booking
 
+IF OBJECT_ID('PUNTO_ZIP.sp_get_cliente_by_booking') IS NOT NULL
+DROP PROCEDURE PUNTO_ZIP.sp_get_cliente_by_booking
 
 -- TABLAS
 IF OBJECT_ID('PUNTO_ZIP.Datos_Usuario') IS NOT NULL
@@ -3471,6 +3473,18 @@ as
 begin
 
 set @p_hotel_id = (SELECT Id_Hotel FROM PUNTO_ZIP.Habitacion_Reserva WHERE Id_Reserva = @p_reserva)
+
+end
+go
+
+create procedure [PUNTO_ZIP].[sp_get_cliente_by_booking](
+@p_reserva int,
+@p_cliente_id int output
+)
+as
+begin
+
+set @p_cliente_id = (SELECT Id_Cliente FROM PUNTO_ZIP.Reserva_Cliente WHERE Id_Reserva = @p_reserva)
 
 end
 go

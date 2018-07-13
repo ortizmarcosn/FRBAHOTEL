@@ -136,6 +136,23 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 return 0;
         }
 
+        public static int search_cliente_by_reserva(int nroReserva)
+        {
+            SqlCommand command = new SqlCommand();
+            command.CommandText = "PUNTO_ZIP.sp_get_hotel_by_booking";
+
+            command.Parameters.Add(new SqlParameter("@p_reserva", SqlDbType.Int));
+            command.Parameters["@p_reserva"].Value = nroReserva;
+            var returnParameter_cliente = command.Parameters.Add(new SqlParameter("@p_cliente_id", SqlDbType.Int));
+            returnParameter_cliente.Direction = ParameterDirection.Output;
+            ProcedureHelper.execute(command, "obtener cliente por la reserva", false);
+
+            if (returnParameter_cliente.Value != DBNull.Value)
+                return Convert.ToInt16(returnParameter_cliente.Value);
+            else
+                return -1;
+        }
+
         public static void search_reserva(Reserva reserva)
         {
             SqlCommand command = new SqlCommand();
@@ -176,6 +193,8 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
             command.Parameters.Add(new SqlParameter("@p_hotel_id", SqlDbType.Int));
             command.Parameters["@p_hotel_id"].Value = reserva.id_hotel;
+            command.Parameters.Add(new SqlParameter("@p_client_id", SqlDbType.Int));
+            command.Parameters["@p_client_id"].Value = reserva.clienteId;
             command.Parameters.Add(new SqlParameter("@p_id_usuario", SqlDbType.VarChar,20));
             command.Parameters["@p_id_usuario"].Value = VarGlobal.usuario.id;
             //command.Parameters.Add(new SqlParameter("@p_checkin", SqlDbType.DateTime));

@@ -109,6 +109,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
             Reserva reserva = new Reserva();
             reserva.id_hotel = VarGlobal.usuario.hotel;
+            reserva.clienteId = ReservaHelper.search_hotel_by_reserva(Convert.ToInt32(txtIdReserva.Text));
             reserva.id = Convert.ToInt32(txtIdReserva.Text);
             if (reserva.tipo_habitacion!= Convert.ToString(dgvTipoHabitacion.CurrentRow.Cells[0].Value)){
             reserva.tipo_habitacion = Convert.ToString(dgvTipoHabitacion.CurrentRow.Cells[0].Value);}
