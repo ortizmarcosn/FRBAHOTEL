@@ -19,6 +19,9 @@ namespace WindowsFormsApplication2.Registrar_Estadia
 
             command.Parameters.AddWithValue("@p_stay_hotel_id", VarGlobal.usuario.hotel);
 
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
+
             DataGridViewHelper.fill(command, dgvRegisterStay);
         }
 
@@ -83,6 +86,8 @@ namespace WindowsFormsApplication2.Registrar_Estadia
 
             command.Parameters.AddWithValue("@p_stay_booking_id", bookingId);
             command.Parameters.AddWithValue("@p_stay_hotel_id", VarGlobal.usuario.hotel);
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
 
             var returnParameterBefore = command.Parameters.Add(new SqlParameter("@p_stay_booking_before", SqlDbType.Bit));
             returnParameterBefore.Direction = ParameterDirection.InputOutput;
@@ -125,6 +130,8 @@ namespace WindowsFormsApplication2.Registrar_Estadia
 
             command.Parameters.AddWithValue("@p_stay_booking_id", bookingId);
             command.Parameters.AddWithValue("@p_stay_user_name", VarGlobal.usuario.id);
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
 
             var returnParameterStayId = command.Parameters.Add(new SqlParameter("@p_stay_id", SqlDbType.Int));
             returnParameterStayId.Direction = ParameterDirection.InputOutput;
@@ -140,6 +147,8 @@ namespace WindowsFormsApplication2.Registrar_Estadia
             command.CommandText = "PUNTO_ZIP.sp_estadia_cancel_is_after_date_check_in";
 
             command.Parameters.AddWithValue("@p_stay_booking_id", bookingId);
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
 
             var returnParameterHotel = command.Parameters.Add(new SqlParameter("@p_stay_change_to_cancel", SqlDbType.Bit));
             returnParameterHotel.Direction = ParameterDirection.InputOutput;
@@ -227,6 +236,8 @@ namespace WindowsFormsApplication2.Registrar_Estadia
 
             command.Parameters.AddWithValue("@p_stay_booking_id", bookingId);
             command.Parameters.AddWithValue("@p_stay_user_name", VarGlobal.usuario.id);
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
 
             ProcedureHelper.execute(command, "generate checkout for booking", false);
         }

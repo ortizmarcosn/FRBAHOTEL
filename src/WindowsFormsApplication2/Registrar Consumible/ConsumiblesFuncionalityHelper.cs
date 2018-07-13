@@ -47,6 +47,8 @@ namespace WindowsFormsApplication2.Registrar_Consumible
             command.Parameters["@p_id_consumible"].Value = c.id;
             command.Parameters.Add(new SqlParameter("@p_cantidad", SqlDbType.Int));
             command.Parameters["@p_cantidad"].Value = c.cantidad;
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
 
             ProcedureHelper.execute(command, "agregar consumible a estadia", false);
         }
@@ -60,6 +62,8 @@ namespace WindowsFormsApplication2.Registrar_Consumible
             command.Parameters["@p_id_estadia"].Value = idEstadia;
             command.Parameters.Add(new SqlParameter("@p_id_consumible", SqlDbType.Int));
             command.Parameters["@p_id_consumible"].Value = idConsumible;
+            command.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            command.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
 
             ProcedureHelper.execute(command, "quitar consumible a estadia", false);
         }

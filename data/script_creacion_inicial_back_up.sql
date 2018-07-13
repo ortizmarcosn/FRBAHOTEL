@@ -1986,6 +1986,7 @@ GO
 CREATE PROCEDURE [PUNTO_ZIP].[sp_hotel_regimen_remove](
 @p_hotel_id int = null,
 @p_regimen_id int = null,
+@p_system_date datetime,
 @p_remove_ok int = null OUTPUT
 )
 AS
@@ -1997,8 +1998,8 @@ BEGIN
 			WHERE hr.Id_Hotel = @p_hotel_id
 			AND r.Tipo_Regimen = @p_regimen_id 
 			AND	(
-				(CAST(GETDATE() AS DATE) BETWEEN r.Fecha_Inicio AND DATEADD(DAY, r.Estadia, r.Fecha_Inicio))
-				OR (r.Fecha_Inicio > CAST(GETDATE() AS DATE))
+				(CAST(@p_system_date AS DATE) BETWEEN r.Fecha_Inicio AND DATEADD(DAY, r.Estadia, r.Fecha_Inicio))
+				OR (r.Fecha_Inicio > CAST(@p_system_date AS DATE))
 			)
 		)
 	BEGIN
@@ -2236,6 +2237,7 @@ GO
 CREATE PROCEDURE [PUNTO_ZIP].[sp_cancelacion_reserva_search](
 @p_cancelacion_reserva_id int = null,
 @p_cancelacion_reserva_lastname varchar(255) = null,
+@p_system_date datetime,
 @p_user_hotel_id int = null
 )
 AS
@@ -2270,21 +2272,22 @@ BEGIN
 		AND ((@p_cancelacion_reserva_id IS NULL) OR (STR(r.Id_Reserva) like '%' + STR(@p_cancelacion_reserva_id) + '%'))
 		AND ( (UPPER(er.Descripcion) = UPPER('Reserva con ingreso')) OR (UPPER(er.Descripcion) = UPPER('Reserva Correcta'))
 			OR (UPPER(er.Descripcion) = UPPER('Reserva Modificada')) )
-		AND (DATEADD(DAY, 1,CAST(GETDATE() AS DATE)) <= r.Fecha_Inicio)
+		AND (DATEADD(DAY, 1,CAST(@p_system_date AS DATE)) <= r.Fecha_Inicio)
 END
 GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_cancelacion_reserva_cancel](
 @p_cancelacion_reserva_id int,
 @p_cancelacion_reserva_motive varchar(255),
-@p_user_name varchar(20)
+@p_user_name varchar(20),
+@p_system_date datetime
 )
 AS
 BEGIN
 	BEGIN TRANSACTION
 
 		INSERT INTO PUNTO_ZIP.Historial_Cancelacion_Reserva (Id_Reserva, Motivo, Fecha_Cancelacion, Id_Usuario)
-			VALUES (@p_cancelacion_reserva_id, @p_cancelacion_reserva_motive, GETDATE(), @p_user_name)
+			VALUES (@p_cancelacion_reserva_id, @p_cancelacion_reserva_motive, @p_system_date, @p_user_name)
 
 		Declare @bookingStatus int
 		IF (LTRIM(RTRIM(@p_user_name)) = 'guest')
@@ -2303,7 +2306,8 @@ GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_booking_search](
 @p_stay_booking_id int,
-@p_stay_hotel_id int
+@p_stay_hotel_id int,
+@p_system_date datetime
 )
 AS
 BEGIN
@@ -2329,7 +2333,7 @@ BEGIN
 		ON r.Estado = er.Id_Estado
 	WHERE r.Id_Reserva = @p_stay_booking_id
 		AND hr.Id_Hotel = @p_stay_hotel_id
-		AND CAST(r.Fecha_Inicio AS DATE) = CAST(GETDATE() AS DATE)
+		AND CAST(r.Fecha_Inicio AS DATE) = CAST(@p_system_date AS DATE)
 		AND (
 			(UPPER(RTRIM(LTRIM(er.Descripcion))) = UPPER(RTRIM(LTRIM('Reserva Correcta'))))
 			OR (UPPER(RTRIM(LTRIM(er.Descripcion))) = UPPER(RTRIM(LTRIM('Reserva Modificada'))))
@@ -2372,6 +2376,7 @@ GO
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_booking_is_before](
 @p_stay_booking_id int,
 @p_stay_hotel_id int,
+@p_system_date datetime,
 @p_stay_booking_before int = 0 OUTPUT
 )
 AS
@@ -2379,7 +2384,7 @@ BEGIN
 	SET @p_stay_booking_before = 0
 	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
 		WHERE r.Id_Reserva = @p_stay_booking_id
-			AND CAST(r.Fecha_Inicio AS DATE) < CAST(GETDATE() AS DATE))
+			AND CAST(r.Fecha_Inicio AS DATE) < CAST(@p_system_date AS DATE))
 		SET @p_stay_booking_before = 1
 END
 GO
@@ -2403,13 +2408,14 @@ GO
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_generate_stay](
 @p_stay_booking_id int,
 @p_stay_user_name varchar(20),
+@p_system_date datetime,
 @p_stay_id int = 0 OUTPUT
 )
 AS
 BEGIN
 	BEGIN TRANSACTION
 		INSERT INTO PUNTO_ZIP.Estadia(Id_Reserva, Check_In, Id_Usuario_Check_In, Check_Out, Id_Usuario_Check_Out)
-		VALUES (@p_stay_booking_id, CAST(GETDATE() AS DATE), @p_stay_user_name, null, null)
+		VALUES (@p_stay_booking_id, CAST(@p_system_date AS DATE), @p_stay_user_name, null, null)
 		SET @p_stay_id = @@IDENTITY
 	COMMIT TRANSACTION
 END
@@ -2417,6 +2423,7 @@ GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_cancel_is_after_date_check_in](
 @p_stay_booking_id int,
+@p_system_date datetime,
 @p_stay_change_to_cancel int = 0 OUTPUT
 )
 AS
@@ -2424,7 +2431,7 @@ BEGIN
 	SET @p_stay_change_to_cancel = 0
 	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
 		WHERE r.Id_Reserva = @p_stay_booking_id
-		AND CAST(r.Fecha_Inicio AS DATE) > CAST(GETDATE() AS DATE)
+		AND CAST(r.Fecha_Inicio AS DATE) > CAST(@p_system_date AS DATE)
 		)
 	BEGIN
 		Declare @cancel_no_show int
@@ -2475,7 +2482,8 @@ GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_generate_checkout](
 @p_stay_booking_id int,
-@p_stay_user_name varchar(20)
+@p_stay_user_name varchar(20),
+@p_system_date datetime
 )
 AS
 BEGIN
@@ -2483,7 +2491,7 @@ BEGIN
 	SELECT @stay_id = e.Id_Estadia FROM PUNTO_ZIP.Estadia e
 		WHERE e.Id_Reserva = @p_stay_booking_id
 	BEGIN TRANSACTION
-		UPDATE PUNTO_ZIP.Estadia SET Check_Out = CAST(GETDATE() AS DATE),
+		UPDATE PUNTO_ZIP.Estadia SET Check_Out = CAST(@p_system_date AS DATE),
 			Id_Usuario_Check_Out = @p_stay_user_name
 		WHERE Id_Estadia = @stay_id
 	COMMIT TRANSACTION
@@ -2593,8 +2601,8 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_consumible_add](
 @p_id_usuario varchar(255),
 @p_id_estadia int,
 @p_id_consumible int,
-@p_cantidad int
-
+@p_cantidad int,
+@p_system_date datetime
 )
 AS
 BEGIN
@@ -2602,7 +2610,7 @@ BEGIN
 		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Consumible_Reserva cr
 					WHERE 	cr.Id_Estadia = @p_id_estadia
 						AND cr.Id_Codigo = @p_id_consumible
-						AND CAST(cr.Fecha AS DATE) = CAST(GETDATE() AS DATE)
+						AND CAST(cr.Fecha AS DATE) = CAST(@p_system_date AS DATE)
 					)
 		)
 		BEGIN
@@ -2610,12 +2618,12 @@ BEGIN
 				UPDATE PUNTO_ZIP.Consumible_Reserva SET Cantidad = Cantidad + @p_cantidad
 				WHERE 	Id_Estadia = @p_id_estadia
 					AND Id_Codigo = @p_id_consumible
-					AND CAST(Fecha AS DATE) = CAST(GETDATE() AS DATE)
+					AND CAST(Fecha AS DATE) = CAST(@p_system_date AS DATE)
 		END
 		ELSE
 		BEGIN
 			INSERT INTO PUNTO_ZIP.Consumible_Reserva (Id_Estadia, Id_Codigo, Cantidad, Fecha, Id_Usuario)
-			VALUES (@p_id_estadia, @p_id_consumible,@p_cantidad, GETDATE(), @p_id_usuario)
+			VALUES (@p_id_estadia, @p_id_consumible,@p_cantidad, @p_system_date, @p_id_usuario)
 		END
 
 	COMMIT TRANSACTION
@@ -2624,8 +2632,8 @@ GO
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_estadia_consumible_remove](
 @p_id_estadia int,
-@p_id_consumible int
-
+@p_id_consumible int,
+@p_system_date datetime
 )
 AS
 BEGIN
@@ -2633,7 +2641,7 @@ BEGIN
 		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Consumible_Reserva cr
 					WHERE cr.Id_Estadia = @p_id_estadia
 						AND cr.Id_Codigo = @p_id_consumible
-						AND CAST(cr.Fecha AS DATE) = CAST(GETDATE() AS DATE)
+						AND CAST(cr.Fecha AS DATE) = CAST(@p_system_date AS DATE)
 					)
 		)
 		BEGIN
@@ -2642,7 +2650,7 @@ BEGIN
 			FROM PUNTO_ZIP.Consumible_Reserva
 			WHERE Id_Estadia = @p_id_estadia
 				AND Id_Codigo = @p_id_consumible
-				AND CAST(Fecha AS DATE) = CAST(GETDATE() AS DATE)
+				AND CAST(Fecha AS DATE) = CAST(@p_system_date AS DATE)
 		END
 	COMMIT TRANSACTION
 END
@@ -2800,7 +2808,8 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_facturar_estadia_charge](
 @p_charge_stay_stay_id int,
 @p_charge_stay_client_id int,
 @p_charge_stay_number_card int,
-@p_charge_stay_type_pay varchar(20)
+@p_charge_stay_type_pay varchar(20),
+@p_system_date datetime
 )
 AS
 BEGIN
@@ -2857,7 +2866,7 @@ BEGIN
 		Declare @invoice int
 		INSERT INTO PUNTO_ZIP.Facturacion(Id_Estadia, Id_Cliente, Total_Factura, Total_Estadia, Total_Consumibles, Fecha_Facturacion)
 		VALUES (@p_charge_stay_stay_id, @p_charge_stay_client_id, @charge_stay + @consumable + @allInclusiveConsumable,
-			@charge_stay, @consumable + @allInclusiveConsumable, CAST(GETDATE() AS DATE))
+			@charge_stay, @consumable + @allInclusiveConsumable, CAST(@p_system_date AS DATE))
 		SET @invoice = @@IDENTITY
 
 		--Estadia
