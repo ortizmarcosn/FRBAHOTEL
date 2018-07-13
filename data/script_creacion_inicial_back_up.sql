@@ -3461,7 +3461,7 @@ create procedure [PUNTO_ZIP].[sp_get_hotel_by_booking](
 as
 begin
 
-set @p_reserva = (SELECT Id_Hotel FROM PUNTO_ZIP.Habitacion_Reserva WHERE Id_Reserva = @p_reserva)
+set @p_hotel_id = (SELECT Id_Hotel FROM PUNTO_ZIP.Habitacion_Reserva WHERE Id_Reserva = @p_reserva)
 
 end
 go
