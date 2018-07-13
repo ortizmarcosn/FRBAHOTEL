@@ -32,12 +32,12 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             {
                 return;
             }
-
+            int reservaHotel = ReservaHelper.search_hotel_by_reserva(Convert.ToInt32(txtIdReserva.Text));
             if (VarGlobal.usuario.id == "guest")
             {
-                VarGlobal.usuario.hotel = ReservaHelper.search_hotel_by_reserva(Convert.ToInt32(txtIdReserva.Text));
+                VarGlobal.usuario.hotel = reservaHotel;
             }
-            if (VarGlobal.usuario.hotel == 0)
+            if (reservaHotel == 0)
             {
                 MessageBox.Show("El numero de reserva no existe");
                 return;
