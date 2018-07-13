@@ -494,11 +494,11 @@ CREATE TABLE [PUNTO_ZIP].[Tipo_Identificacion](
 )
 
 INSERT INTO PUNTO_ZIP.Tipo_Identificacion (Descripcion)
-VALUES ('DNI'),('PASAPORTE'), ('Otro') 
+VALUES ('DNI'),('PASAPORTE'),('OTRO') 
 
 --TABLA DATOS_USUARIO
 /*
-	Tabla con los datos personales de los usuarios(administrador, recepcionista)
+	Tabla con los datos personales de los usuarios
 */
 CREATE TABLE [PUNTO_ZIP].[Datos_Usuario](
 	[Id_Usuario][varchar](20) NOT NULL,
@@ -514,11 +514,11 @@ CREATE TABLE [PUNTO_ZIP].[Datos_Usuario](
 		REFERENCES [PUNTO_ZIP].[Usuario](Id_Usuario)
 )
 
---Ingreso datos del usuario administrador
+--Ingreso datos del usuario administrador y guest
 INSERT INTO PUNTO_ZIP.Datos_Usuario (Id_Usuario, Nombre_Apellido, Mail, Tipo_DNI, Nro_DNI, Telefono,
 	Direccion, Fecha_Nacimiento)
-VALUES ('admin', 'admin', 'admin@gmail.com' ,1, 1, '12345678','Calle Falsa 123, Algun Pais', getdate()),
-	   ('guest', 'guest', 'guest@gmail.com' ,1, 1, '87654321','Calle Verdadera 456, Otro Pais', getdate())
+VALUES ('admin', 'admin', 'admin@gmail.com' ,1, 1, '12345678','Calle Falsa 123, Algun Pais', GETDATE()),
+	   ('guest', 'guest', 'guest@gmail.com' ,1, 1, '87654321','Calle Verdadera 456, Otro Pais', GETDATE())
 
 --TABLA HOTEL
 /*
@@ -540,7 +540,7 @@ CREATE TABLE [PUNTO_ZIP].[Hotel](
 )
 
 INSERT INTO PUNTO_ZIP.Hotel (Calle_Direccion, Calle_Nro, Ciudad, Pais, Fecha_Creacion)
-SELECT Hotel_Calle,Hotel_Nro_Calle,Hotel_Ciudad,'Argentina',getdate() FROM gd_esquema.Maestra
+SELECT Hotel_Calle,Hotel_Nro_Calle,Hotel_Ciudad,'Argentina',GETDATE() FROM gd_esquema.Maestra
 	GROUP BY Hotel_Calle,Hotel_Nro_Calle,Hotel_Ciudad
 
 CREATE TABLE [PUNTO_ZIP].[Estrellas](
@@ -1302,13 +1302,14 @@ GO
 CREATE PROCEDURE [PUNTO_ZIP].[sp_login_check_password](
 @p_id varchar(255) = null,
 @p_pass varchar(255) = null,
+@p_system_date datetime,
 @p_intentos int = 0 OUTPUT
 )
 AS
 BEGIN
 	IF EXISTS (SELECT 1 FROM PUNTO_ZIP.Usuario WHERE Id_Usuario = @p_id AND Password = @p_pass AND Habilitado = 1)
 	BEGIN
-		UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = 0, Ultima_Fecha = getDate()
+		UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = 0, Ultima_Fecha = @p_system_date WHERE Id_Usuario = @p_id
 		SET @p_intentos = 0
 	END
 	ELSE
@@ -1318,9 +1319,9 @@ BEGIN
 		SET @p_intentos = @p_intentos_base + 1
 
 		IF ( @p_intentos >= 3 )
-			UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = @p_intentos, Ultima_Fecha = getDate(), Habilitado = 0
+			UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = @p_intentos, Ultima_Fecha = @p_system_date, Habilitado = 0
 		ELSE
-			UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = @p_intentos, Ultima_Fecha = getDate()
+			UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = @p_intentos, Ultima_Fecha = @p_system_date
 
 	END
 END

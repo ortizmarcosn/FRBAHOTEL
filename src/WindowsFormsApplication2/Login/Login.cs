@@ -22,6 +22,9 @@ namespace WindowsFormsApplication2.Login
             sp_check_password.Parameters["@p_id"].Value = user.id;
             sp_check_password.Parameters.Add(new SqlParameter("@p_pass", SqlDbType.VarChar));
             sp_check_password.Parameters["@p_pass"].Value = Encrypt.Sha256(password);
+            sp_check_password.Parameters.Add(new SqlParameter("@p_system_date", SqlDbType.DateTime));
+            sp_check_password.Parameters["@p_system_date"].Value = VarGlobal.FechaHoraSistema;
+
 
             var returnParameterIsValid = sp_check_password.Parameters.Add(new SqlParameter("@p_intentos", SqlDbType.Int));
             returnParameterIsValid.Direction = ParameterDirection.InputOutput;
