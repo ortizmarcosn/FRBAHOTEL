@@ -2434,7 +2434,7 @@ BEGIN
 	SET @p_stay_change_to_cancel = 0
 	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
 		WHERE r.Id_Reserva = @p_stay_booking_id
-		AND CAST(r.Fecha_Inicio AS DATE) > CAST(@p_system_date AS DATE)
+		AND CAST(r.Fecha_Inicio AS DATE) < CAST(@p_system_date AS DATE)
 		)
 	BEGIN
 		Declare @cancel_no_show int
