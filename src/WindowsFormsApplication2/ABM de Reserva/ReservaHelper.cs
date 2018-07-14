@@ -240,7 +240,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 "h.Id_Hotel", "h.Id_Hotel", null, null);
         }
 
-        public static void reservar(Reserva reserva)
+        public static bool reservar(Reserva reserva)
         {
            
             
@@ -272,7 +272,17 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
 
             ProcedureHelper.execute(command, "update reserva", false);
 
-            MessageBox.Show("Los cambios fueron guardados. Nro de reserva: " + returnParameter_reserva_id.Value.ToString());
+            if (returnParameter_reserva_id.Value == DBNull.Value)
+            {
+                MessageBox.Show("No se pudo almacenar la reserva. Verifique disponibilidad.");
+                return false;
+            }
+            else
+            {
+                MessageBox.Show("Los cambios fueron guardados. Nro de reserva: " + returnParameter_reserva_id.Value.ToString());
+                return true;
+            }
+            
 
         }
       

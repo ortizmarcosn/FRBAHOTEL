@@ -74,10 +74,7 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                     {
                         int disponible = ReservaHelper.check_hotel_availability(reserva);
                         if (disponible == 1)
-
                             MessageBox.Show("Hay disponibilidad de Habitacion");
-
-
                         else
                             MessageBox.Show("No hay disponibilidad de Habitacion. Elija otro rango de fechas u otro tipo de habitacion");
                     }
@@ -263,8 +260,11 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             if (estaTodoOk)
             {
                 Reserva reserva = this.getdataConsulta();
-                ReservaHelper.reservar(reserva);
-                this.Close();
+                if (ReservaHelper.reservar(reserva))
+                {
+                    this.Close();
+                }
+                
             }
 
         }
