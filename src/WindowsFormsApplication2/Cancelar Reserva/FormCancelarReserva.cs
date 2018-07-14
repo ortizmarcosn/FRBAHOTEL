@@ -24,7 +24,7 @@ namespace WindowsFormsApplication2.Cancelar_Reserva
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             Boolean isValid = true;
-            if (VarGlobal.usuario.hotel == 0)
+            if (VarGlobal.usuario.hotel == 0 || VarGlobal.usuario.id=="guest")
             {
                 isValid = Validaciones.validAndRequiredInt32(textBoxBookingId.Text, "El numero de reserva debe ser numerico");
             }
