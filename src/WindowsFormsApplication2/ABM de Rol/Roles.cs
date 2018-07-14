@@ -50,5 +50,11 @@ namespace WindowsFormsApplication2.ABM_de_Rol
             ComboBoxHelper.fill(comboBox, "PUNTO_ZIP.Rol r",
                 "r.Id_Rol", "r.Descripcion", "r.Habilitado = 1 AND r.Descripcion != 'guest'", null);
         }
+
+        public static void fillCheckedListBox(CheckedListBox list)
+        {
+            ComboBoxHelper.fillCheckedListBox(list, "PUNTO_ZIP.Rol r",
+                "r.Id_Rol", "r.Descripcion", "r.Habilitado = 1 AND r.Descripcion != 'guest'", null);
+        }
     }
 }

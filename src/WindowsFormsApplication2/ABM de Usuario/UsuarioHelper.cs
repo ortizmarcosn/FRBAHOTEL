@@ -37,10 +37,8 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             DataGridViewHelper.fill(command, dgvUser);
         }
 
-        public static Rol getRolByUserHotel(string user, int hotel)
+        public static List<string> getRolByUserHotel(string user, int hotel)
         {
-            Rol rol = new Rol();
-
             SqlConnection conn = Connection.getConnection();
             SqlCommand command = new SqlCommand();
             command.Connection = conn;
@@ -58,16 +56,15 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
 
             SqlDataReader reader = command.ExecuteReader();
 
-            if (reader.HasRows)
+            List<string> roles = new List<string>();
+            while (reader.HasRows && reader.Read())
             {
-                reader.Read();
-                rol.id = Convert.ToInt32(reader["IdRol"]);
-                rol.description = Convert.ToString(reader["Descripcion"]);
+                roles.Add(Convert.ToString(reader["Descripcion"]));
             }
 
             Connection.close(conn);
 
-            return rol;
+            return roles;
         }
 
         public static void enable(string username, Int32 idHotel, Boolean enable)
@@ -92,6 +89,20 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             }
 
             ProcedureHelper.execute(command, "Habilitar o deshabilitar usuario", false);
+        }
+
+        public static void disableAll(string username, Int32 idHotel)
+        {
+            SqlCommand command = new SqlCommand();
+            command.CommandText = "PUNTO_ZIP.sp_user_roles_disable_all";
+
+            command.Parameters.Add(new SqlParameter("@p_user_name", SqlDbType.VarChar, 255));
+            command.Parameters["@p_user_name"].Value = username;
+
+            command.Parameters.Add(new SqlParameter("@p_id_hotel", SqlDbType.Int));
+            command.Parameters["@p_id_hotel"].Value = idHotel;
+
+            ProcedureHelper.execute(command, "Deshabilitar roles usuario por hotel", false);
         }
 
         public static void cleanLogin(string username)

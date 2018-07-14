@@ -40,6 +40,19 @@ namespace WindowsFormsApplication2
             Connection.close(conn);
         }
 
+        public static void fillCheckedListBox(CheckedListBox list, String dataSource, String valueMember, String displayMember, String whereMember, String orderMember)
+        {
+            SqlConnection conn = Connection.getConnection();
+            DataSet dataSet = new DataSet();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(String.Format("SELECT {0} AS 'Value',{1} AS 'Display' FROM {2} {3} {4}", valueMember, displayMember, dataSource, String.IsNullOrEmpty(whereMember) ? "" : "WHERE " + whereMember, String.IsNullOrEmpty(orderMember) ? "" : "ORDER BY " + orderMember), conn);
+            dataAdapter.Fill(dataSet, dataSource);
+            list.DataSource = dataSet.Tables[0].DefaultView;
+            list.ValueMember = "Value";
+            list.DisplayMember = "Display";
+
+            Connection.close(conn);
+        }
+
         public static void fillFromProcedure(ComboBox comboBox, String dataSource, String valueMember, String displayMember, String whereMember, String orderMember)
         {
             SqlConnection conn = Connection.getConnection();

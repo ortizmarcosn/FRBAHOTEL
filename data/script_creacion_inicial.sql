@@ -29,6 +29,9 @@ DROP PROCEDURE PUNTO_ZIP.sp_user_search
 IF OBJECT_ID('PUNTO_ZIP.sp_user_enable_disable') IS NOT NULL
 DROP PROCEDURE PUNTO_ZIP.sp_user_enable_disable
 
+IF OBJECT_ID('PUNTO_ZIP.sp_user_roles_disable_all') IS NOT NULL
+DROP PROCEDURE PUNTO_ZIP.sp_user_roles_disable_all
+
 IF OBJECT_ID('PUNTO_ZIP.sp_user_clean_login') IS NOT NULL
 DROP PROCEDURE PUNTO_ZIP.sp_user_clean_login
 
@@ -1319,9 +1322,9 @@ BEGIN
 		SET @p_intentos = @p_intentos_base + 1
 
 		IF ( @p_intentos >= 3 )
-			UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = @p_intentos, Ultima_Fecha = @p_system_date, Habilitado = 0
+			UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = @p_intentos, Ultima_Fecha = @p_system_date, Habilitado = 0 WHERE Id_Usuario = @p_id
 		ELSE
-			UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = @p_intentos, Ultima_Fecha = @p_system_date
+			UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = @p_intentos, Ultima_Fecha = @p_system_date WHERE Id_Usuario = @p_id
 
 	END
 END
@@ -1421,7 +1424,6 @@ BEGIN
 		ud.Telefono 'Telefono',
 		ud.Direccion 'Direccion',
 		ud.Fecha_Nacimiento 'Nacimiento',
-		r.Descripcion 'Rol',
 		urh.Id_Hotel 'Hotel',
 		u.Habilitado 'Habilitado'
 		
@@ -1430,8 +1432,6 @@ BEGIN
 				ON u.Id_Usuario = ud.Id_Usuario
 			INNER JOIN PUNTO_ZIP.Usuario_Rol_Hotel urh
 				ON u.Id_Usuario = urh.Id_Usuario
-			INNER JOIN PUNTO_ZIP.Rol r
-				ON urh.Id_Rol = r.Id_Rol
 
 		WHERE
 		((@p_id_rol IS NULL) OR ( urh.Id_Rol = @p_id_rol))
@@ -1447,9 +1447,20 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_user_enable_disable](
 )
 AS
 BEGIN
-	UPDATE PUNTO_ZIP.Usuario_Rol_Hotel SET Habilitado = @p_enable_disable
-		WHERE Id_Usuario = @p_user_name
-		AND Id_Hotel = @p_id_hotel
+	BEGIN TRANSACTION
+		UPDATE PUNTO_ZIP.Usuario SET Habilitado = @p_enable_disable WHERE Id_Usuario = @p_user_name
+		UPDATE PUNTO_ZIP.Usuario_Rol_Hotel SET Habilitado = @p_enable_disable WHERE Id_Usuario = @p_user_name AND Id_Hotel = @p_id_hotel
+	COMMIT TRANSACTION
+END
+GO
+
+CREATE PROCEDURE [PUNTO_ZIP].[sp_user_roles_disable_all](
+@p_user_name varchar(255),
+@p_id_hotel int
+)
+AS
+BEGIN
+	UPDATE PUNTO_ZIP.Usuario_Rol_Hotel SET Habilitado = 0 WHERE Id_Usuario = @p_user_name AND Id_Hotel = @p_id_hotel
 END
 GO
 
@@ -1458,7 +1469,7 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_user_clean_login](
 )
 AS
 BEGIN
-	UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = 0
+	UPDATE PUNTO_ZIP.Usuario SET Cantidad_Login = 0 WHERE Id_Usuario = @p_user_name
 END
 GO
 
@@ -1506,58 +1517,48 @@ CREATE PROCEDURE [PUNTO_ZIP].[sp_user_save_update](
 @p_birthdate datetime,
 @p_enabled bit,
 @p_id_hotel int,
-@p_id_rol varchar(255),
+@p_description_rol varchar(255),
 @p_password varchar(255) = null
 )
 AS
 BEGIN
+	DECLARE @p_id_rol int
+	SET @p_id_rol = (SELECT Id_Rol FROM PUNTO_ZIP.Rol WHERE Descripcion like '%' + @p_description_rol + '%')
 	BEGIN TRANSACTION
 		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Usuario WHERE ID_Usuario = @p_user_name))
 		BEGIN
 			IF (@p_password IS NOT NULL)
-				UPDATE PUNTO_ZIP.Usuario SET Password = @p_password
-				WHERE Id_Usuario = @p_user_name
-			UPDATE PUNTO_ZIP.Usuario SET Habilitado = @p_enabled
-			WHERE Id_Usuario = @p_user_name
+				UPDATE PUNTO_ZIP.Usuario SET Password = @p_password WHERE Id_Usuario = @p_user_name
+			UPDATE PUNTO_ZIP.Usuario SET Habilitado = @p_enabled WHERE Id_Usuario = @p_user_name
 		END
 		ELSE
 		BEGIN
-			INSERT INTO PUNTO_ZIP.Usuario (Id_Usuario, Password, Cantidad_Login, Ultima_Fecha, Habilitado)
-			VALUES (@p_user_name, @p_password, 0, null, @p_enabled)
+			INSERT INTO PUNTO_ZIP.Usuario (Id_Usuario, Password, Cantidad_Login, Ultima_Fecha, Habilitado) VALUES (@p_user_name, @p_password, 0, null, @p_enabled)
 		END
-
-		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Usuario_Rol_Hotel urh
-			WHERE Id_Usuario = @p_user_name
-			AND Id_Hotel = @p_id_hotel ))
+		
+		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Usuario_Rol_Hotel urh WHERE Id_Usuario = @p_user_name AND Id_Hotel = @p_id_hotel AND Id_Rol = @p_id_rol ))
 		BEGIN
-			UPDATE PUNTO_ZIP.Usuario_Rol_Hotel SET Id_Rol = @p_id_rol, Habilitado = @p_enabled
-			WHERE Id_Usuario = @p_user_name
-			AND Id_Hotel = @p_id_hotel
+			UPDATE PUNTO_ZIP.Usuario_Rol_Hotel SET Habilitado = @p_enabled WHERE Id_Usuario = @p_user_name AND Id_Hotel = @p_id_hotel AND Id_Rol = @p_id_rol
 		END
 		ELSE
 		BEGIN
-			INSERT INTO PUNTO_ZIP.Usuario_Rol_Hotel (Id_Usuario, Id_Rol, Id_Hotel, Habilitado)
-				VALUES (@p_user_name, @p_id_rol, @p_id_hotel, @p_enabled)
+			INSERT INTO PUNTO_ZIP.Usuario_Rol_Hotel (Id_Usuario, Id_Rol, Id_Hotel, Habilitado) VALUES (@p_user_name, @p_id_rol, @p_id_hotel, @p_enabled)
 		END
 
 		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Datos_Usuario WHERE Id_Usuario = @p_user_name))
 		BEGIN
-			UPDATE PUNTO_ZIP.Datos_Usuario SET Nombre_Apellido = @p_name_lastName, Mail = @p_mail,
-				Tipo_DNI = @p_id_type_document, Nro_DNI = @p_document_number,
-				Telefono = @p_telephone, Direccion = @p_address, Fecha_Nacimiento = @p_birthdate
-			WHERE Id_Usuario = @p_user_name
+			UPDATE PUNTO_ZIP.Datos_Usuario SET Nombre_Apellido = @p_name_lastName, Mail = @p_mail, Tipo_DNI = @p_id_type_document, Nro_DNI = @p_document_number,
+				Telefono = @p_telephone, Direccion = @p_address, Fecha_Nacimiento = @p_birthdate WHERE Id_Usuario = @p_user_name
 		END
 		ELSE
 		BEGIN
-			INSERT INTO PUNTO_ZIP.Datos_Usuario (Id_Usuario, Nombre_Apellido, Mail, Tipo_DNI, Nro_DNI, Telefono,
-				Direccion, Fecha_Nacimiento)
-			VALUES (@p_user_name, @p_name_lastName, @p_mail, @p_id_type_document, @p_document_number, @p_telephone,
-				@p_address, @p_birthdate)
+			INSERT INTO PUNTO_ZIP.Datos_Usuario (Id_Usuario, Nombre_Apellido, Mail, Tipo_DNI, Nro_DNI, Telefono, Direccion, Fecha_Nacimiento)
+			VALUES (@p_user_name, @p_name_lastName, @p_mail, @p_id_type_document, @p_document_number, @p_telephone, @p_address, @p_birthdate)
 		END
-
 	COMMIT TRANSACTION
 END
 GO
+
 
 CREATE PROCEDURE [PUNTO_ZIP].[sp_rol_search](
 @p_rol_name varchar(255) = null
@@ -3233,7 +3234,8 @@ CREATE FUNCTION PUNTO_ZIP.check_availability(
 @p_floor_id as int,
 @p_room_id as int,
 @p_checkin as datetime,
-@p_stay as int
+@p_stay as int,
+@p_cliente as int
 )
 
 RETURNS INT
@@ -3274,11 +3276,14 @@ BEGIN
 	
 	--CHEQUEO QUE NO HAYA UNA RESERVA PARA LA HABITACION EN ESOS DIAS Y NO HAYA HECHO CHECKIN
 	IF EXISTS(SELECT 1 FROM PUNTO_ZIP.Reserva r
+		INNER JOIN PUNTO_ZIP.Reserva_Cliente rc
+			ON rc.Id_Reserva = r.Id_Reserva
 		INNER JOIN PUNTO_ZIP.Habitacion_Reserva hr
 			ON hr.Id_Reserva = r.Id_Reserva
 		WHERE hr.Id_Hotel = @p_hotel_id
 			AND hr.Habitacion_Piso = @p_floor_id
 			AND hr.Habitacion_Nro = @p_room_id
+			AND rc.Id_Cliente <> @p_cliente
 			AND NOT EXISTS (SELECT 1 FROM PUNTO_ZIP.Estadia e
 				WHERE e.Id_Reserva = r.Id_Reserva)
 			AND (
@@ -3415,7 +3420,7 @@ SELECT TOP 1 @nroHabitacion = h.Nro, @nroPiso = h.Piso, @nroHotel = h.Id_Hotel
 									from PUNTO_ZIP.Tipo_Habitacion thab
 									where @p_tipo_habitacion=thab.Descripcion)
 	AND PUNTO_ZIP.check_availability (h.Id_Hotel ,h.Piso,h.Nro ,
-			@p_checkin,@p_stay) = 1
+			@p_checkin,@p_stay,@p_client_id) = 1
 			
 	BEGIN TRANSACTION
 	IF (@nroHabitacion IS NOT NULL)

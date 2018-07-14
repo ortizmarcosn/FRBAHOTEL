@@ -50,7 +50,7 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             return userData;
         }
 
-        public static void save(UsuarioDatos userData, Int32 hotel, Int32 rol, String password)
+        public static void save(UsuarioDatos userData, Int32 hotel, string rol, String password)
         {
             SqlCommand sp_save_or_update_user = new SqlCommand();
             sp_save_or_update_user.CommandType = CommandType.StoredProcedure;
@@ -72,7 +72,7 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             }
 
             sp_save_or_update_user.Parameters.AddWithValue("@p_id_hotel", hotel);
-            sp_save_or_update_user.Parameters.AddWithValue("@p_id_rol", rol);
+            sp_save_or_update_user.Parameters.AddWithValue("@p_description_rol", rol);
             if (password != null)
                 sp_save_or_update_user.Parameters.AddWithValue("@p_password", Encrypt.Sha256(password));
 

@@ -47,18 +47,19 @@
             this.buttonAccept = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.lblRol = new System.Windows.Forms.Label();
-            this.comboBoxRol = new System.Windows.Forms.ComboBox();
             this.checkBoxEnable = new System.Windows.Forms.CheckBox();
             this.buttonCleanLogin = new System.Windows.Forms.Button();
             this.lblNameLastname = new System.Windows.Forms.Label();
             this.txtNameLastname = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.rolesList = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.Location = new System.Drawing.Point(12, 55);
+            this.lblUsername.Location = new System.Drawing.Point(12, 39);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(62, 18);
             this.lblUsername.TabIndex = 0;
@@ -66,7 +67,7 @@
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(155, 55);
+            this.txtUsername.Location = new System.Drawing.Point(155, 39);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(247, 20);
             this.txtUsername.TabIndex = 1;
@@ -75,7 +76,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 87);
+            this.label1.Location = new System.Drawing.Point(12, 71);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 18);
             this.label1.TabIndex = 2;
@@ -83,7 +84,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(155, 87);
+            this.txtPassword.Location = new System.Drawing.Point(155, 71);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(247, 20);
@@ -93,7 +94,7 @@
             // 
             this.lblDocumentType.AutoSize = true;
             this.lblDocumentType.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDocumentType.Location = new System.Drawing.Point(11, 150);
+            this.lblDocumentType.Location = new System.Drawing.Point(11, 134);
             this.lblDocumentType.Name = "lblDocumentType";
             this.lblDocumentType.Size = new System.Drawing.Size(122, 18);
             this.lblDocumentType.TabIndex = 4;
@@ -102,7 +103,7 @@
             // comboBoxDocumentType
             // 
             this.comboBoxDocumentType.FormattingEnabled = true;
-            this.comboBoxDocumentType.Location = new System.Drawing.Point(154, 150);
+            this.comboBoxDocumentType.Location = new System.Drawing.Point(154, 134);
             this.comboBoxDocumentType.Name = "comboBoxDocumentType";
             this.comboBoxDocumentType.Size = new System.Drawing.Size(247, 21);
             this.comboBoxDocumentType.TabIndex = 5;
@@ -111,7 +112,7 @@
             // 
             this.lblDocumentNumber.AutoSize = true;
             this.lblDocumentNumber.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDocumentNumber.Location = new System.Drawing.Point(11, 186);
+            this.lblDocumentNumber.Location = new System.Drawing.Point(11, 170);
             this.lblDocumentNumber.Name = "lblDocumentNumber";
             this.lblDocumentNumber.Size = new System.Drawing.Size(117, 18);
             this.lblDocumentNumber.TabIndex = 6;
@@ -119,7 +120,7 @@
             // 
             // txtDocumentNumber
             // 
-            this.txtDocumentNumber.Location = new System.Drawing.Point(155, 186);
+            this.txtDocumentNumber.Location = new System.Drawing.Point(155, 170);
             this.txtDocumentNumber.Name = "txtDocumentNumber";
             this.txtDocumentNumber.Size = new System.Drawing.Size(247, 20);
             this.txtDocumentNumber.TabIndex = 7;
@@ -128,7 +129,7 @@
             // 
             this.lblMail.AutoSize = true;
             this.lblMail.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMail.Location = new System.Drawing.Point(11, 220);
+            this.lblMail.Location = new System.Drawing.Point(11, 204);
             this.lblMail.Name = "lblMail";
             this.lblMail.Size = new System.Drawing.Size(37, 18);
             this.lblMail.TabIndex = 8;
@@ -136,7 +137,7 @@
             // 
             // txtMail
             // 
-            this.txtMail.Location = new System.Drawing.Point(155, 220);
+            this.txtMail.Location = new System.Drawing.Point(155, 204);
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(247, 20);
             this.txtMail.TabIndex = 9;
@@ -145,7 +146,7 @@
             // 
             this.lblTelephone.AutoSize = true;
             this.lblTelephone.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTelephone.Location = new System.Drawing.Point(11, 253);
+            this.lblTelephone.Location = new System.Drawing.Point(11, 237);
             this.lblTelephone.Name = "lblTelephone";
             this.lblTelephone.Size = new System.Drawing.Size(66, 18);
             this.lblTelephone.TabIndex = 10;
@@ -153,7 +154,7 @@
             // 
             // txtTelephone
             // 
-            this.txtTelephone.Location = new System.Drawing.Point(154, 253);
+            this.txtTelephone.Location = new System.Drawing.Point(154, 237);
             this.txtTelephone.Name = "txtTelephone";
             this.txtTelephone.Size = new System.Drawing.Size(247, 20);
             this.txtTelephone.TabIndex = 11;
@@ -162,7 +163,7 @@
             // 
             this.lblAddress.AutoSize = true;
             this.lblAddress.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddress.Location = new System.Drawing.Point(11, 286);
+            this.lblAddress.Location = new System.Drawing.Point(11, 270);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(75, 18);
             this.lblAddress.TabIndex = 12;
@@ -170,7 +171,7 @@
             // 
             // txtAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(154, 286);
+            this.txtAddress.Location = new System.Drawing.Point(154, 270);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(247, 20);
             this.txtAddress.TabIndex = 13;
@@ -179,7 +180,7 @@
             // 
             this.lblBirthDate.AutoSize = true;
             this.lblBirthDate.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBirthDate.Location = new System.Drawing.Point(14, 323);
+            this.lblBirthDate.Location = new System.Drawing.Point(12, 306);
             this.lblBirthDate.Name = "lblBirthDate";
             this.lblBirthDate.Size = new System.Drawing.Size(87, 18);
             this.lblBirthDate.TabIndex = 14;
@@ -187,7 +188,7 @@
             // 
             // dtBirthDate
             // 
-            this.dtBirthDate.Location = new System.Drawing.Point(154, 322);
+            this.dtBirthDate.Location = new System.Drawing.Point(154, 306);
             this.dtBirthDate.Name = "dtBirthDate";
             this.dtBirthDate.Size = new System.Drawing.Size(247, 20);
             this.dtBirthDate.TabIndex = 15;
@@ -195,7 +196,7 @@
             // buttonAccept
             // 
             this.buttonAccept.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAccept.Location = new System.Drawing.Point(473, 136);
+            this.buttonAccept.Location = new System.Drawing.Point(473, 191);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(82, 44);
             this.buttonAccept.TabIndex = 16;
@@ -206,7 +207,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(612, 136);
+            this.buttonCancel.Location = new System.Drawing.Point(612, 191);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(88, 44);
             this.buttonCancel.TabIndex = 17;
@@ -218,34 +219,25 @@
             // 
             this.lblRol.AutoSize = true;
             this.lblRol.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRol.Location = new System.Drawing.Point(438, 55);
+            this.lblRol.Location = new System.Drawing.Point(470, 41);
             this.lblRol.Name = "lblRol";
-            this.lblRol.Size = new System.Drawing.Size(31, 18);
+            this.lblRol.Size = new System.Drawing.Size(48, 18);
             this.lblRol.TabIndex = 18;
-            this.lblRol.Text = "Rol";
-            // 
-            // comboBoxRol
-            // 
-            this.comboBoxRol.FormattingEnabled = true;
-            this.comboBoxRol.Location = new System.Drawing.Point(489, 52);
-            this.comboBoxRol.Name = "comboBoxRol";
-            this.comboBoxRol.Size = new System.Drawing.Size(221, 21);
-            this.comboBoxRol.TabIndex = 19;
+            this.lblRol.Text = "Roles";
             // 
             // checkBoxEnable
             // 
             this.checkBoxEnable.AutoSize = true;
-            this.checkBoxEnable.Location = new System.Drawing.Point(528, 84);
+            this.checkBoxEnable.Location = new System.Drawing.Point(154, 338);
             this.checkBoxEnable.Name = "checkBoxEnable";
-            this.checkBoxEnable.Size = new System.Drawing.Size(73, 17);
+            this.checkBoxEnable.Size = new System.Drawing.Size(15, 14);
             this.checkBoxEnable.TabIndex = 24;
-            this.checkBoxEnable.Text = "Habilitado";
             this.checkBoxEnable.UseVisualStyleBackColor = true;
             // 
             // buttonCleanLogin
             // 
             this.buttonCleanLogin.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCleanLogin.Location = new System.Drawing.Point(528, 186);
+            this.buttonCleanLogin.Location = new System.Drawing.Point(528, 241);
             this.buttonCleanLogin.Name = "buttonCleanLogin";
             this.buttonCleanLogin.Size = new System.Drawing.Size(120, 52);
             this.buttonCleanLogin.TabIndex = 25;
@@ -257,7 +249,7 @@
             // 
             this.lblNameLastname.AutoSize = true;
             this.lblNameLastname.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNameLastname.Location = new System.Drawing.Point(11, 120);
+            this.lblNameLastname.Location = new System.Drawing.Point(11, 104);
             this.lblNameLastname.Name = "lblNameLastname";
             this.lblNameLastname.Size = new System.Drawing.Size(126, 18);
             this.lblNameLastname.TabIndex = 28;
@@ -265,10 +257,28 @@
             // 
             // txtNameLastname
             // 
-            this.txtNameLastname.Location = new System.Drawing.Point(154, 120);
+            this.txtNameLastname.Location = new System.Drawing.Point(154, 104);
             this.txtNameLastname.Name = "txtNameLastname";
             this.txtNameLastname.Size = new System.Drawing.Size(247, 20);
             this.txtNameLastname.TabIndex = 29;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 334);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 18);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "Habilitado";
+            // 
+            // rolesList
+            // 
+            this.rolesList.FormattingEnabled = true;
+            this.rolesList.Location = new System.Drawing.Point(473, 71);
+            this.rolesList.Name = "rolesList";
+            this.rolesList.Size = new System.Drawing.Size(227, 94);
+            this.rolesList.TabIndex = 31;
             // 
             // FormABMUsuarioModify
             // 
@@ -276,11 +286,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(727, 360);
+            this.Controls.Add(this.rolesList);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNameLastname);
             this.Controls.Add(this.lblNameLastname);
             this.Controls.Add(this.buttonCleanLogin);
             this.Controls.Add(this.checkBoxEnable);
-            this.Controls.Add(this.comboBoxRol);
             this.Controls.Add(this.lblRol);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAccept);
@@ -331,10 +342,11 @@
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label lblRol;
-        private System.Windows.Forms.ComboBox comboBoxRol;
         private System.Windows.Forms.CheckBox checkBoxEnable;
         private System.Windows.Forms.Button buttonCleanLogin;
         private System.Windows.Forms.Label lblNameLastname;
         private System.Windows.Forms.TextBox txtNameLastname;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckedListBox rolesList;
     }
 }

@@ -29,7 +29,7 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
 
-            Roles.fillComboBox(comboBoxRol);
+            Roles.fillCheckedListBox(rolesList);
             Documentos.fillComboBox(comboBoxDocumentType);
 
             if (edit)
@@ -48,8 +48,14 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
 
                 this.dtBirthDate.Value = userData.birthDate;
 
-                Rol rolUsuario = UsuarioHelper.getRolByUserHotel(user, VarGlobal.usuario.hotel);
-                this.comboBoxRol.SelectedIndex = this.comboBoxRol.FindStringExact(rolUsuario.description);
+                List<string> roles = UsuarioHelper.getRolByUserHotel(user, VarGlobal.usuario.hotel);
+                if (roles.Count > 0) {
+                     for (int i = 0; i <= rolesList.Items.Count - 1; i++)
+                    {
+                        if (roles.Contains(rolesList.GetItemText(rolesList.Items[i])))
+                            rolesList.SetItemChecked(i, true);
+                    }
+                }
             }
         }
 
@@ -76,14 +82,19 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
         private void buttonAccept_Click(object sender, EventArgs e)
         {
             UsuarioDatos userData = this.getDataFromForm();
-            Int32 idRol = 0;
+            string rol = "";
             if (userData != null)
             {
                 if (txtPassword.Text != "" || edit)
-                    if (Validaciones.requiredString(comboBoxRol.SelectedValue.ToString(), "Un rol debe ser seleccionado"))
+                {
+                    if (rolesList.CheckedItems.Count > 0)
                     {
-                        idRol = Convert.ToInt32(comboBoxRol.SelectedValue.ToString());
-                        UsuarioDatosHelper.save(userData, VarGlobal.usuario.hotel, idRol, txtPassword.Text);
+                        UsuarioHelper.disableAll(userData.username, VarGlobal.usuario.hotel);
+                        for (int i = 0; i <= rolesList.CheckedItems.Count - 1; i++)
+                        {
+                            rol = rolesList.GetItemText(rolesList.CheckedItems[i]);
+                            UsuarioDatosHelper.save(userData, VarGlobal.usuario.hotel, rol, txtPassword.Text);
+                        }
                         if (edit)
                         {
                             MessageBox.Show("Modificacion de usuario realizada con exito");
@@ -94,6 +105,11 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
                         }
                         this.closeWindow();
                     }
+                    else 
+                    {
+                        MessageBox.Show("Debe seleciconar algun rol");
+                    }
+                }
             }
         }
 
