@@ -87,6 +87,11 @@ namespace WindowsFormsApplication2.ABM_de_Usuario
             {
                 if (txtPassword.Text != "" || edit)
                 {
+                    if (!edit && UsuarioHelper.existUser(userData.username))
+                    {
+                        MessageBox.Show("El nombre de usuario ingresado ya existe");
+                        return;
+                    }
                     if (rolesList.CheckedItems.Count > 0)
                     {
                         UsuarioHelper.disableAll(userData.username, VarGlobal.usuario.hotel);

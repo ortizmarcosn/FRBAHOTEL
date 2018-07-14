@@ -228,6 +228,8 @@
             // checkBoxEnable
             // 
             this.checkBoxEnable.AutoSize = true;
+            this.checkBoxEnable.Checked = true;
+            this.checkBoxEnable.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnable.Location = new System.Drawing.Point(154, 338);
             this.checkBoxEnable.Name = "checkBoxEnable";
             this.checkBoxEnable.Size = new System.Drawing.Size(15, 14);
