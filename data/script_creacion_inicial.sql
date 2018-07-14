@@ -3186,25 +3186,18 @@ declare reserva cursor for
 
 
 
-		from PUNTO_ZIP.Reserva res,
-			PUNTO_ZIP.Habitacion_Reserva hres,
-			PUNTO_ZIP.Estadia est,
-			PUNTO_ZIP.Regimen reg,
-			PUNTO_ZIP.Estado_Reserva estr,
-			PUNTO_ZIP.Habitacion hab,
-			PUNTO_ZIP.Tipo_Habitacion thab
-			
-			
-		where res.Id_Reserva=hres.Id_Reserva
-		and res.Id_Reserva=@p_id_reserva
-		and est.Id_Reserva=res.Id_Reserva
-		and reg.Id_Regimen=res.Tipo_Regimen
-		and estr.Id_Estado=res.Estado
+		from PUNTO_ZIP.Reserva res 
+		left join PUNTO_ZIP.Habitacion_Reserva hres on res.Id_Reserva=hres.Id_Reserva
+		left join PUNTO_ZIP.Estadia est on est.Id_Reserva=res.Id_Reserva
+		join PUNTO_ZIP.Regimen reg on reg.Id_Regimen=res.Tipo_Regimen
+		join PUNTO_ZIP.Estado_Reserva estr on estr.Id_Estado=res.Estado
+		join PUNTO_ZIP.Habitacion hab on hres.Habitacion_Piso=hab.Piso
+		join PUNTO_ZIP.Tipo_Habitacion thab on hab.Tipo_Habitacion=thab.Id_Tipo_Habitacion
 		and hres.Id_Reserva=res.Id_Reserva
 		and hres.Id_Hotel=hab.Id_Hotel
 		and hres.Habitacion_Nro=hab.Nro
-		and hres.Habitacion_Piso=hab.Piso
-		and hab.Tipo_Habitacion=thab.Id_Tipo_Habitacion)
+
+		where res.Id_Reserva=@p_id_reserva)
 
 open reserva
 
