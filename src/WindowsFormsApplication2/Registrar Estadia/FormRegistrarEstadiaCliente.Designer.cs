@@ -99,7 +99,7 @@
             // buttonClean
             // 
             this.buttonClean.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClean.Location = new System.Drawing.Point(575, 174);
+            this.buttonClean.Location = new System.Drawing.Point(697, 176);
             this.buttonClean.Name = "buttonClean";
             this.buttonClean.Size = new System.Drawing.Size(91, 38);
             this.buttonClean.TabIndex = 5;
@@ -110,11 +110,11 @@
             // buttonSearch
             // 
             this.buttonSearch.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSearch.Location = new System.Drawing.Point(224, 174);
+            this.buttonSearch.Location = new System.Drawing.Point(260, 173);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(111, 38);
+            this.buttonSearch.Size = new System.Drawing.Size(153, 38);
             this.buttonSearch.TabIndex = 6;
-            this.buttonSearch.Text = "Buscar";
+            this.buttonSearch.Text = "Buscar Cliente";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
@@ -158,7 +158,7 @@
             // 
             this.lblNroDocument.AutoSize = true;
             this.lblNroDocument.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNroDocument.Location = new System.Drawing.Point(20, 132);
+            this.lblNroDocument.Location = new System.Drawing.Point(18, 135);
             this.lblNroDocument.Name = "lblNroDocument";
             this.lblNroDocument.Size = new System.Drawing.Size(117, 18);
             this.lblNroDocument.TabIndex = 11;
@@ -174,11 +174,12 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(376, 264);
+            this.buttonAdd.Font = new System.Drawing.Font("Arial", 12F);
+            this.buttonAdd.Location = new System.Drawing.Point(344, 263);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(51, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(111, 43);
             this.buttonAdd.TabIndex = 13;
-            this.buttonAdd.Text = "->";
+            this.buttonAdd.Text = "Agregar";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
@@ -194,7 +195,7 @@
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.Location = new System.Drawing.Point(575, 404);
+            this.buttonSave.Location = new System.Drawing.Point(640, 402);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(148, 40);
             this.buttonSave.TabIndex = 15;
@@ -205,22 +206,22 @@
             // buttonRemove
             // 
             this.buttonRemove.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemove.Location = new System.Drawing.Point(376, 404);
+            this.buttonRemove.Location = new System.Drawing.Point(344, 314);
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(111, 40);
             this.buttonRemove.TabIndex = 16;
-            this.buttonRemove.Text = "Sacar";
+            this.buttonRemove.Text = "Quitar";
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // buttonAddClient
             // 
             this.buttonAddClient.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddClient.Location = new System.Drawing.Point(117, 404);
+            this.buttonAddClient.Location = new System.Drawing.Point(460, 173);
             this.buttonAddClient.Name = "buttonAddClient";
-            this.buttonAddClient.Size = new System.Drawing.Size(147, 40);
+            this.buttonAddClient.Size = new System.Drawing.Size(183, 40);
             this.buttonAddClient.TabIndex = 17;
-            this.buttonAddClient.Text = "Agregar Cliente";
+            this.buttonAddClient.Text = "Agregar Nuevo Cliente";
             this.buttonAddClient.UseVisualStyleBackColor = true;
             this.buttonAddClient.Click += new System.EventHandler(this.buttonAddClient_Click);
             // 
@@ -229,7 +230,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(845, 503);
+            this.ClientSize = new System.Drawing.Size(845, 469);
             this.Controls.Add(this.buttonAddClient);
             this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonSave);

@@ -189,8 +189,8 @@ namespace WindowsFormsApplication2.ABM_de_Habitacion
             sp_habitacion_person_per_room_by_booking_id.Parameters.AddWithValue("@p_habitacion_booking_id", bookingId);
 
             var returnParameterPersonPerRoom = 
-                sp_habitacion_person_per_room_by_booking_id.Parameters.Add(new SqlParameter("@p_count_person", SqlDbType.Bit));
-            returnParameterPersonPerRoom.Direction = ParameterDirection.InputOutput;
+                sp_habitacion_person_per_room_by_booking_id.Parameters.Add(new SqlParameter("@p_count_person", SqlDbType.Int));
+            returnParameterPersonPerRoom.Direction = ParameterDirection.Output;
 
             ProcedureHelper.execute(sp_habitacion_person_per_room_by_booking_id, "return person per room", false);
 
