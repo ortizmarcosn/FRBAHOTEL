@@ -1,7 +1,6 @@
 /****************************************************************/
 --				DROP ESQUEMA, TABLAS Y PROCEDURES
 /****************************************************************/
-
 IF OBJECT_ID('PUNTO_ZIP.sp_login_check_valid_user') IS NOT NULL
 DROP PROCEDURE PUNTO_ZIP.sp_login_check_valid_user
 
@@ -1434,7 +1433,7 @@ BEGIN
 				ON u.Id_Usuario = urh.Id_Usuario
 
 		WHERE
-		((@p_id_rol IS NULL) OR ( urh.Id_Rol = @p_id_rol))
+		((@p_id_rol IS NULL) OR ( urh.Id_Rol = @p_id_rol AND urh.Habilitado = 1))
 		AND  ((@p_user_name IS NULL) OR (u.Id_Usuario like @p_user_name + '%'))
 		AND  ((@p_id_hotel IS NULL) OR (urh.Id_Hotel = @p_id_hotel))
 END
