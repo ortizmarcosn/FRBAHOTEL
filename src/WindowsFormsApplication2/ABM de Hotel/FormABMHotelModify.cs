@@ -145,6 +145,11 @@ namespace WindowsFormsApplication2.ABM_de_Hotel
                 return null;
 
             DateTime creation = dtCreation.Value;
+            if (dtCreation.Value > VarGlobal.FechaHoraSistema)
+            {
+                MessageBox.Show("La fecha de creacion no puede ser mayor a hoy. Hoy es: " + VarGlobal.FechaHoraSistema.Date.ToShortDateString());
+                return null;
+            }
 
             DateHelper.truncate(creation);
             hotelData.creation = creation;
