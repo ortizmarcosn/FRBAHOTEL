@@ -166,7 +166,7 @@ namespace WindowsFormsApplication2.ABM_de_Hotel
             }
             else
             {
-                MessageBox.Show("Creacion de hotel realizada con exito");
+                MessageBox.Show("Creacion de hotel realizada con exito. Modifiquelo para agregar un regimen");
             }
             this.closeWindow();
         }

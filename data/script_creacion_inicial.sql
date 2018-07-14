@@ -1526,8 +1526,6 @@ BEGIN
 	BEGIN TRANSACTION
 		IF ( EXISTS(SELECT 1 FROM PUNTO_ZIP.Usuario WHERE ID_Usuario = @p_user_name))
 		BEGIN
-			IF (@p_password IS NOT NULL)
-				UPDATE PUNTO_ZIP.Usuario SET Password = @p_password WHERE Id_Usuario = @p_user_name
 			UPDATE PUNTO_ZIP.Usuario SET Habilitado = @p_enabled WHERE Id_Usuario = @p_user_name
 		END
 		ELSE
