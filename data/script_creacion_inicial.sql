@@ -3392,7 +3392,8 @@ create procedure [PUNTO_ZIP].[sp_assign_room](
 @p_stay as int,
 @p_tipo_habitacion as varchar(255),
 @p_regimen as varchar (255),
-@p_update as bit
+@p_update as bit,
+@p_reserva_output int = 0 OUTPUT
 )
 
 as
@@ -3460,6 +3461,8 @@ SELECT TOP 1 @nroHabitacion = h.Nro, @nroPiso = h.Piso, @nroHotel = h.Id_Hotel
 	END
 	
 	COMMIT TRANSACTION
+
+	set @p_reserva_output = @idReserva 
 end
 GO
 

@@ -267,10 +267,12 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
             command.Parameters["@p_regimen"].Value = reserva.tipo_regimen;
             command.Parameters.Add(new SqlParameter("@p_update", SqlDbType.Bit));
             command.Parameters["@p_update"].Value = 0;
+            var returnParameter_reserva_id = command.Parameters.Add(new SqlParameter("@p_reserva_output", SqlDbType.Int));
+            returnParameter_reserva_id.Direction = ParameterDirection.Output;
 
             ProcedureHelper.execute(command, "update reserva", false);
 
-            MessageBox.Show("Los cambios fueron guardados");
+            MessageBox.Show("Los cambios fueron guardados. Nro de reserva: " + returnParameter_reserva_id.Value.ToString());
 
         }
       
