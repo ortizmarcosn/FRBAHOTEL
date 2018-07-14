@@ -118,7 +118,7 @@ namespace WindowsFormsApplication2.ABM_de_Hotel
             {
                 if (!System.Text.RegularExpressions.Regex.IsMatch(textBoxCountry.Text, "^[a-zA-Z ]"))
                 {
-                    MessageBox.Show("La ciudad no puede contener numeros");
+                    MessageBox.Show("El pais no puede contener numeros");
                     return null;
                 }
                 hotelData.country = textBoxCountry.Text;
@@ -138,7 +138,7 @@ namespace WindowsFormsApplication2.ABM_de_Hotel
             else
                 return null;
 
-            isValid = Validaciones.requiredString(comboBoxStar.Text.ToString(), "La cantidad de estrellas de documento es necesario");
+            isValid = Validaciones.requiredString(comboBoxStar.Text.ToString(), "La cantidad de estrellas es necesario");
             if (isValid)
                 hotelData.star = Convert.ToInt32(comboBoxStar.SelectedValue.ToString());
             else

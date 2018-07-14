@@ -54,6 +54,18 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                         VarGlobal.usuario.hotel = Convert.ToInt32(cmbHotel.SelectedValue.ToString());
                         ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
                         ReservaHelper.search_tipo_hab(VarGlobal.usuario.hotel, dgvTipoHabitacion);
+
+
+                        if (dgvTipoHabitacion.Rows.Count <= 0)
+                        {
+                            MessageBox.Show("El hotel no tiene habitaciones registradas");
+                            return;
+                        }
+                        if (dgvRegimen.Rows.Count <= 0)
+                        {
+                            MessageBox.Show("El hotel no tiene regimenes registrados");
+                            return;
+                        }
                     }
                 }
                 
@@ -109,8 +121,15 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 }
                 reserva.fecha_inicio = dTDesde.Value;
                 reserva.fecha_fin = dTHasta.Value;
-                reserva.tipo_habitacion = dgvTipoHabitacion.CurrentRow.Cells[0].Value.ToString();
-                reserva.tipo_regimen = dgvRegimen.CurrentRow.Cells[0].Value.ToString();
+                if (dgvTipoHabitacion.Rows.Count > 0)
+                {
+                    reserva.tipo_habitacion = dgvTipoHabitacion.CurrentRow.Cells[0].Value.ToString();
+                }
+                if (dgvRegimen.Rows.Count > 0)
+                {
+                    reserva.tipo_regimen = dgvRegimen.CurrentRow.Cells[0].Value.ToString();
+                }
+                
                 return reserva;
             }
         }
@@ -196,6 +215,17 @@ namespace WindowsFormsApplication2.ABM_de_Reserva
                 VarGlobal.usuario.hotel = Convert.ToInt32(cmbHotel.SelectedValue.ToString());
                 ReservaHelper.search_regimen(VarGlobal.usuario.hotel, dgvRegimen);
                 ReservaHelper.search_tipo_hab(VarGlobal.usuario.hotel, dgvTipoHabitacion);
+
+                if (dgvTipoHabitacion.Rows.Count <= 0)
+                {
+                    MessageBox.Show("El hotel no tiene habitaciones registradas");
+                    return;
+                }
+                if (dgvRegimen.Rows.Count <= 0)
+                {
+                    MessageBox.Show("El hotel no tiene regimenes registrados");
+                    return;
+                }
 
                 //estaTodoOk = false;
             }

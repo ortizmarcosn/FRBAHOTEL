@@ -1954,8 +1954,8 @@ BEGIN
 
 			SET @p_hotel_id = @@IDENTITY
 
-			INSERT INTO PUNTO_ZIP.Usuario_Rol_Hotel (Id_Usuario, Id_Rol, Id_Hotel)
-			VALUES (@p_user_id, @p_user_rol_id, @p_hotel_id)
+			INSERT INTO PUNTO_ZIP.Usuario_Rol_Hotel (Id_Usuario, Id_Rol, Id_Hotel, Habilitado)
+			VALUES (@p_user_id, @p_user_rol_id, @p_hotel_id, 1)
 
 			INSERT INTO PUNTO_ZIP.Hotel_Estrellas(Id_Hotel, Cantidad_Estrellas, recarga)
 			VALUES (@p_hotel_id, @p_hotel_star, 10)
